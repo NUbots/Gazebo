@@ -1,0 +1,73 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <world name="soccer environment">
+  <physics type="ode">
+			<gravity>0 0 -9.81</gravity>
+			<real_time_update_rate>2000</real_time_update_rate>
+			<max_step_size>0.0005</max_step_size>
+			<ode>
+				<solver>
+					<type>quick</type>
+					<iters>50</iters>
+					<sor>1.4</sor>
+				</solver>
+				<constraints>
+ 					<cfm>0.0</cfm>
+					<erp>0.2</erp>
+					<contact_max_correcting_vel>100.0</contact_max_correcting_vel>
+					<contact_surface_layer>0.0</contact_surface_layer>
+				</constraints>
+			</ode>
+		</physics>
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- A ground plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- The field -->
+    <model name="soccer_field">
+      <include>
+        <uri>model://teensize_field</uri>
+      </include>
+    </model>
+
+    <!-- The west goal -->
+    <model name="goal_west">
+      <include>
+        <uri>model://teensize_goal</uri>
+      </include>
+      <pose>-4.525 0 0 0 0 3.141592</pose>
+    </model>
+
+    <!-- The east goal -->
+    <model name="goal_east">
+      <include>
+        <uri>model://teensize_goal</uri>
+      </include>
+      <pose>4.525 0 0 0 0 0</pose>
+    </model> 
+
+    <!-- The ball -->
+    <model name="ball">
+      <include>
+        <uri>model://teensize_ball</uri>
+      </include>
+      <pose>0 0 0.095 0 0 0</pose>
+    </model> 
+
+    <!-- The NUbots' Igus -->
+    <model name="nubots_igus">
+      <include>
+        <uri>model://nubots_igus_hull</uri>
+      </include>
+      <pose>-1 0 0.575 0 0 0</pose>
+      <!-- Attach the plugin to this model -->
+      <plugin name="nubots_igus_control" filename="libnubotsigus_plugin.so"/>
+    </model>
+  </world>
+</sdf>
