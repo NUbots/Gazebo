@@ -10,3 +10,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
 # Build our plugin
 add_library(nubotsigus_plugin SHARED nubotsigus_plugin.cc)
 target_link_libraries(nubotsigus_plugin ${GAZEBO_libraries} ${IGNITION-TRANSPORT_LIBRARIES})
+
+add_library(nubotsworld_plugin SHARED nubotsworld_plugin.cc)
+target_link_libraries(nubotsworld_plugin ${GAZEBO_libraries} ${IGNITION-TRANSPORT_LIBRARIES})
+
+add_library(nubotsball_plugin SHARED nubotsball_plugin.cc)
+target_link_libraries(nubotsball_plugin ${GAZEBO_libraries} ${IGNITION-TRANSPORT_LIBRARIES})
