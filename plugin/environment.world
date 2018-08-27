@@ -1,6 +1,8 @@
 <?xml version="1.0" ?>
 <sdf version="1.5">
-  <world name="soccer environment">
+  <world name="nubots_environment">
+  <!-- Attach a plugin to this world -->
+  <plugin name="nubots_world_control" filename="libnubotsworld_plugin.so"/>
   <physics type="ode">
 			<gravity>0 0 -9.81</gravity>
 			<real_time_update_rate>2000</real_time_update_rate>
@@ -58,6 +60,7 @@
         <uri>model://teensize_ball</uri>
       </include>
       <pose>0 0 0.095 0 0 0</pose>
+      <plugin name="nubots_ball" filename="libnubotsball_plugin.so"/>
     </model> 
 
     <!-- The NUbots' Igus -->
