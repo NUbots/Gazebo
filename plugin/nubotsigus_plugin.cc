@@ -4,7 +4,9 @@
 #include <gazebo/gazebo.hh>
 #include <gazebo/common/common.hh>
 #include <gazebo/physics/physics.hh>
+#include <gazebo/sensors/sensors.hh>
 #include <ignition/transport.hh>
+#include <ignition/math.hh>
 #include <ignition/msgs.hh>
 
 using namespace ignition;
@@ -12,7 +14,6 @@ using namespace transport;
 
 namespace gazebo
 {
-	/// \brief A plugin to control the NUbots' igus robot
 	class NUbotsIgusPlugin : public ModelPlugin
 	{
 	public:
@@ -34,11 +35,13 @@ namespace gazebo
 			}
 
 			// Just output a message for now
-			std::cerr << "\nThe NUBots igus plugin is attached to model [" <<
+			std::cerr << "\nThe NUbots igus plugin is attached to model [" <<
 				_model->GetName() << "]\n";
 
 			// Store the model pointer for convenience
 			this->model = _model;
+
+			this->imuSensor = std::dynamic_pointer_cast<sensors::ImuSensor>(sensors::get_sensor("imu_sensor"));
 
 			// Set up the update event
 			this->updateConnection = event::Events::ConnectWorldUpdateBegin(
@@ -422,7 +425,16 @@ namespace gazebo
 					std::cerr << _publisher << std::endl;
 				});
 
+			// Set up a callback function for the discovery service
+			std::function<void(const ignition::transport::MessagePublisher &_publisher)> onDisconnectionCb(
+				[this](const ignition::transport::MessagePublisher &_publisher) -> void
+				{
+					std::cerr << "Disconnected from a Message Publisher!" << std::endl;
+					std::cerr << _publisher << std::endl;
+				});
+
 			discoveryNode->ConnectionsCb(onDiscoveryCb);
+			discoveryNode->DisconnectionsCb(onDisconnectionCb);
 
 			// Start the discovery service
 			discoveryNode->Start();
@@ -470,12 +482,8 @@ namespace gazebo
 
 		void OnUpdate()
 		{
-			if (!pub.Publish(GetJointStatus()))
+			if (!pub.Publish(GetRobotStatus()))
 				std::cerr << "Error publishing to topic [topicStatus]" << std::endl;
-			// if (pub.HasConnections())
-			// 	std::cout << "Has connections!" << std::endl;
-			// else
-			// 	std::cout << "No connections..." << std::endl;
 		}
 		
 	private:
@@ -497,6 +505,9 @@ namespace gazebo
 
 		/// \brief Pointer to the model
 		physics::ModelPtr model;
+
+		/// \brief Pointer to the imu sensor
+		sensors::ImuSensorPtr imuSensor;
 
 		/// \brief Pointer to the joints
 		std::vector<physics::JointPtr> joints;
@@ -520,12 +531,13 @@ namespace gazebo
 
 		event::ConnectionPtr updateConnection;
 
-		const ignition::msgs::StringMsg GetJointStatus()
+		const ignition::msgs::StringMsg GetRobotStatus()
 		{
 			ignition::msgs::StringMsg jointStatus;
 			std::string string = "";
 			// need present position and speed
 			// cast to float
+
 			// R_SHOULDER_PITCH
 			string += std::to_string((float)this->joints[17]->GetVelocity(0)) + "\n";
 			string += std::to_string((float)(this->joints[17]->Position() + 1.5708)) + "\n";
@@ -585,9 +597,20 @@ namespace gazebo
 			string += std::to_string((float)this->joints[9]->Position()) + "\n";
 			// HEAD_PITCH
 			string += std::to_string((float)this->joints[10]->GetVelocity(0)) + "\n";
-			string += std::to_string((float)this->joints[10]->Position());
+			string += std::to_string((float)this->joints[10]->Position()) + "\n";
 			//std::cerr << "HeadPitch vel: " << (float)this->joints[10]->GetVelocity(0)
 			//	<< ", HeadPitch pos: " << (float)this->joints[10]->Position() << std::endl;
+
+			ignition::math::Vector3d angularVel = this->imuSensor->AngularVelocity();
+			ignition::math::Vector3d linearAcc = this->imuSensor->LinearAcceleration();
+			
+			string += std::to_string(angularVel.X()) + "\n"
+							+ std::to_string(angularVel.Y()) + "\n"
+							+ std::to_string(angularVel.Z()) + "\n"
+							+ std::to_string(linearAcc.X() ) + "\n"
+							+ std::to_string(linearAcc.Y() ) + "\n"
+							+ std::to_string(linearAcc.Z() );
+
 			jointStatus.set_data(string);
 			return jointStatus;
 		}
