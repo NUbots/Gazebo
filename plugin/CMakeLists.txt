@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 # Find Gazebo
 find_package(gazebo REQUIRED)
 FIND_PACKAGE(ignition-transport4 REQUIRED)
-include_directories(${GAZEBO_INCLUDE_DIRS})
+include_directories(${GAZEBO_INCLUDE_DIRS} ${IGNITION-TRANSPORT_INCLUDE_DIRS})
 link_directories(${GAZEBO_LIBRARY_DIRS})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
 
