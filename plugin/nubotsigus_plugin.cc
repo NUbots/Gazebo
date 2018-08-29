@@ -51,29 +51,28 @@ namespace gazebo
 			this->joints = _model->GetJoints();
 
 			// Set up the communcations with NUClear
-			setenv("IGN_PARTITION", "NubotsIgus", 1);
+			//setenv("IGN_PARTITION", "NubotsIgus", 1);
 			//setenv("IGN_IP", "127.0.0.1", 1);
 			static const int g_msgPort = 11319;
 			static std::string pUuid = ignition::transport::Uuid().ToString();
 			static std::string nUuid = ignition::transport::Uuid().ToString();
-			const static std::string topicStatus = "NubotsIgusStatus";
 			const static std::string topicCtrl = "NubotsIgusCtrl";
+			const static std::string topicStatus = "NubotsIgusStatus";
 			static std::string hostAddr = ignition::transport::determineHost();
 			static std::string ctrlAddr = ignition::transport::determineHost();
-			static std::string id1 = "identity2";
 
 			// Set up transport node for joint control
 			// This will be SUBSCRIBED to the Ctrl topic
 			ignition::transport::NodeOptions jointCtrlNodeOpts;
-			jointCtrlNodeOpts.SetPartition("Joint");
-			jointCtrlNodeOpts.SetNameSpace("Igus");
+			jointCtrlNodeOpts.SetPartition("Igus");
+			jointCtrlNodeOpts.SetNameSpace("Nubots");
 			jointCtrl = new ignition::transport::Node(jointCtrlNodeOpts);
 
 			// Set up transport node for joint status
 			// This will be ADVERTISED to the Status topic
 			ignition::transport::NodeOptions jointStatusNodeOpts;
-			jointStatusNodeOpts.SetPartition("Joint");
-			jointStatusNodeOpts.SetNameSpace("Igus");
+			jointStatusNodeOpts.SetPartition("Igus");
+			jointStatusNodeOpts.SetNameSpace("Nubots");
 			jointStatus = new ignition::transport::Node(jointStatusNodeOpts);
 
 			ignition::transport::AdvertiseMessageOptions AdMsgOpts;
