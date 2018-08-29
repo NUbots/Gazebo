@@ -38,7 +38,7 @@ namespace gazebo
 				std::bind(&NUbotsWorldPlugin::OnUpdate, this));
 
 			// Set up the communcations with NUClear
-			setenv("IGN_PARTITION", "NubotsIgus", 1);
+			//setenv("IGN_PARTITION", "NubotsIgus", 1);
 			//setenv("IGN_IP", "127.0.0.1", 1);
 			static const int g_msgPort = 11319;
 			static std::string pUuid = ignition::transport::Uuid().ToString();
@@ -52,14 +52,14 @@ namespace gazebo
 			// This will be SUBSCRIBED to the Ctrl topic
 			ignition::transport::NodeOptions worldCtrlNodeOpts;
 			worldCtrlNodeOpts.SetPartition("World");
-			worldCtrlNodeOpts.SetNameSpace("Igus");
+			worldCtrlNodeOpts.SetNameSpace("Nubots");
 			worldCtrl = new ignition::transport::Node(worldCtrlNodeOpts);
 
 			// Set up transport node for World status
 			// This will be ADVERTISED to the Status topic
 			ignition::transport::NodeOptions worldStatusNodeOpts;
 			worldStatusNodeOpts.SetPartition("World");
-			worldStatusNodeOpts.SetNameSpace("Igus");
+			worldStatusNodeOpts.SetNameSpace("Nubots");
 			worldStatus = new ignition::transport::Node(worldStatusNodeOpts);
 
 			ignition::transport::AdvertiseMessageOptions AdMsgOpts;
@@ -70,7 +70,15 @@ namespace gazebo
 			std::function<void(const ignition::msgs::StringMsg &_msg)> WorldCtrlCb(
 				[this](const ignition::msgs::StringMsg &_msg) -> void
 				{
-					
+					std::stringstream ss(_msg.data());
+					std::string line;
+
+					std::getline(ss, line);
+
+					if (line == "RESET")
+						this->world->Reset();
+					else if (line == "RESETTIME")
+						this->world->ResetTime();
 				}
 			);
 
