@@ -4,7 +4,9 @@
 #include <gazebo/gazebo.hh>
 #include <gazebo/common/common.hh>
 #include <gazebo/physics/physics.hh>
+#include <gazebo/sensors/sensors.hh>
 #include <ignition/transport.hh>
+#include <ignition/math.hh>
 #include <ignition/msgs.hh>
 
 using namespace ignition;
@@ -12,7 +14,6 @@ using namespace transport;
 
 namespace gazebo
 {
-	/// \brief A plugin to control the NUbots' igus robot
 	class NUbotsIgusPlugin : public ModelPlugin
 	{
 	public:
@@ -34,11 +35,13 @@ namespace gazebo
 			}
 
 			// Just output a message for now
-			std::cerr << "\nThe NUBots igus plugin is attached to model [" <<
+			std::cerr << "\nThe NUbots igus plugin is attached to model [" <<
 				_model->GetName() << "]\n";
 
 			// Store the model pointer for convenience
 			this->model = _model;
+
+			this->imuSensor = std::dynamic_pointer_cast<sensors::ImuSensor>(sensors::get_sensor("imu_sensor"));
 
 			// Set up the update event
 			this->updateConnection = event::Events::ConnectWorldUpdateBegin(
@@ -48,29 +51,28 @@ namespace gazebo
 			this->joints = _model->GetJoints();
 
 			// Set up the communcations with NUClear
-			setenv("IGN_PARTITION", "NubotsIgus", 1);
+			//setenv("IGN_PARTITION", "NubotsIgus", 1);
 			//setenv("IGN_IP", "127.0.0.1", 1);
 			static const int g_msgPort = 11319;
 			static std::string pUuid = ignition::transport::Uuid().ToString();
 			static std::string nUuid = ignition::transport::Uuid().ToString();
-			const static std::string topicStatus = "NubotsIgusStatus";
 			const static std::string topicCtrl = "NubotsIgusCtrl";
+			const static std::string topicStatus = "NubotsIgusStatus";
 			static std::string hostAddr = ignition::transport::determineHost();
 			static std::string ctrlAddr = ignition::transport::determineHost();
-			static std::string id1 = "identity2";
 
 			// Set up transport node for joint control
 			// This will be SUBSCRIBED to the Ctrl topic
 			ignition::transport::NodeOptions jointCtrlNodeOpts;
-			jointCtrlNodeOpts.SetPartition("Joint");
-			jointCtrlNodeOpts.SetNameSpace("Igus");
+			jointCtrlNodeOpts.SetPartition("Igus");
+			jointCtrlNodeOpts.SetNameSpace("Nubots");
 			jointCtrl = new ignition::transport::Node(jointCtrlNodeOpts);
 
 			// Set up transport node for joint status
 			// This will be ADVERTISED to the Status topic
 			ignition::transport::NodeOptions jointStatusNodeOpts;
-			jointStatusNodeOpts.SetPartition("Joint");
-			jointStatusNodeOpts.SetNameSpace("Igus");
+			jointStatusNodeOpts.SetPartition("Igus");
+			jointStatusNodeOpts.SetNameSpace("Nubots");
 			jointStatus = new ignition::transport::Node(jointStatusNodeOpts);
 
 			ignition::transport::AdvertiseMessageOptions AdMsgOpts;
@@ -85,10 +87,10 @@ namespace gazebo
 					std::stringstream ss(_msg.data());
 					std::string line;
 					int commandPresent;
-					float target, gain;
+					float target, gain, timeTar;
 
 					std::cerr << ss.str() << "\n%%%%%%%%%%%%%%%%%%%%%" << std::endl;
-					std::cerr << _msg.data() << std::endl;
+					//std::cerr << _msg.data() << std::endl;
 					
 					std::getline(ss, line);
 					commandPresent = std::stoi(line);
@@ -98,10 +100,13 @@ namespace gazebo
 						target = std::stof(line);
 						std::getline(ss, line);
 						gain = std::stof(line);
-						this->JointCommand(17, (double)(target - 1.5708), (double)gain);
+						std::getline(ss, line);
+						timeTar = std::stof(line);
+						this->JointCommand(17, (double)(target - 1.5708), (double)gain, (double)timeTar);
 					}
 					else 
 					{
+						std::getline(ss, line);
 						std::getline(ss, line);
 						std::getline(ss, line);
 					}
@@ -114,10 +119,13 @@ namespace gazebo
 						target = std::stof(line);
 						std::getline(ss, line);
 						gain = std::stof(line);
-						this->JointCommand(6, (double)(target - 1.5708), (double)gain);
+						std::getline(ss, line);
+						timeTar = std::stof(line);
+						this->JointCommand(6, (double)(target - 1.5708), (double)gain, (double)timeTar);
 					}
 					else 
 					{
+						std::getline(ss, line);
 						std::getline(ss, line);
 						std::getline(ss, line);
 					}
@@ -130,10 +138,13 @@ namespace gazebo
 						target = std::stof(line);
 						std::getline(ss, line);
 						gain = std::stof(line);
-						this->JointCommand(18, (double)target, (double)gain);
+						std::getline(ss, line);
+						timeTar = std::stof(line);
+						this->JointCommand(18, (double)target, (double)gain, (double)timeTar);
 					}
 					else 
 					{
+						std::getline(ss, line);
 						std::getline(ss, line);
 						std::getline(ss, line);
 					}
@@ -146,10 +157,13 @@ namespace gazebo
 						target = std::stof(line);
 						std::getline(ss, line);
 						gain = std::stof(line);
-						this->JointCommand(7, (double)target, (double)gain);
+						std::getline(ss, line);
+						timeTar = std::stof(line);
+						this->JointCommand(7, (double)target, (double)gain, (double)timeTar);
 					}
 					else 
 					{
+						std::getline(ss, line);
 						std::getline(ss, line);
 						std::getline(ss, line);
 					}
@@ -162,10 +176,13 @@ namespace gazebo
 						target = std::stof(line);
 						std::getline(ss, line);
 						gain = std::stof(line);
-						this->JointCommand(19, (double)target, (double)gain);
+						std::getline(ss, line);
+						timeTar = std::stof(line);
+						this->JointCommand(19, (double)target, (double)gain, (double)timeTar);
 					}
 					else 
 					{
+						std::getline(ss, line);
 						std::getline(ss, line);
 						std::getline(ss, line);
 					}
@@ -178,10 +195,13 @@ namespace gazebo
 						target = std::stof(line);
 						std::getline(ss, line);
 						gain = std::stof(line);
-						this->JointCommand(8, (double)target, (double)gain);
+						std::getline(ss, line);
+						timeTar = std::stof(line);
+						this->JointCommand(8, (double)target, (double)gain, (double)timeTar);
 					}
 					else 
 					{
+						std::getline(ss, line);
 						std::getline(ss, line);
 						std::getline(ss, line);
 					}
@@ -194,10 +214,13 @@ namespace gazebo
 						target = std::stof(line);
 						std::getline(ss, line);
 						gain = std::stof(line);
-						this->JointCommand(11, (double)target, (double)gain);
+						std::getline(ss, line);
+						timeTar = std::stof(line);
+						this->JointCommand(11, (double)target, (double)gain, (double)timeTar);
 					}
 					else 
 					{
+						std::getline(ss, line);
 						std::getline(ss, line);
 						std::getline(ss, line);
 					}
@@ -210,10 +233,13 @@ namespace gazebo
 						target = std::stof(line);
 						std::getline(ss, line);
 						gain = std::stof(line);
-						this->JointCommand(0, (double)target, (double)gain);
+						std::getline(ss, line);
+						timeTar = std::stof(line);
+						this->JointCommand(0, (double)target, (double)gain, (double)timeTar);
 					}
 					else 
 					{
+						std::getline(ss, line);
 						std::getline(ss, line);
 						std::getline(ss, line);
 					}
@@ -226,10 +252,13 @@ namespace gazebo
 						target = std::stof(line);
 						std::getline(ss, line);
 						gain = std::stof(line);
-						this->JointCommand(12, (double)target, (double)gain);
+						std::getline(ss, line);
+						timeTar = std::stof(line);
+						this->JointCommand(12, (double)target, (double)gain, (double)timeTar);
 					}
 					else 
 					{
+						std::getline(ss, line);
 						std::getline(ss, line);
 						std::getline(ss, line);
 					}
@@ -242,10 +271,13 @@ namespace gazebo
 						target = std::stof(line);
 						std::getline(ss, line);
 						gain = std::stof(line);
-						this->JointCommand(1, (double)target, (double)gain);
+						std::getline(ss, line);
+						timeTar = std::stof(line);
+						this->JointCommand(1, (double)target, (double)gain, (double)timeTar);
 					}
 					else 
 					{
+						std::getline(ss, line);
 						std::getline(ss, line);
 						std::getline(ss, line);
 					}
@@ -258,10 +290,13 @@ namespace gazebo
 						target = std::stof(line);
 						std::getline(ss, line);
 						gain = std::stof(line);
-						this->JointCommand(13, (double)target, (double)gain);
+						std::getline(ss, line);
+						timeTar = std::stof(line);
+						this->JointCommand(13, (double)target, (double)gain, (double)timeTar);
 					}
 					else 
 					{
+						std::getline(ss, line);
 						std::getline(ss, line);
 						std::getline(ss, line);
 					}
@@ -274,10 +309,13 @@ namespace gazebo
 						target = std::stof(line);
 						std::getline(ss, line);
 						gain = std::stof(line);
-						this->JointCommand(2, (double)target, (double)gain);
+						std::getline(ss, line);
+						timeTar = std::stof(line);
+						this->JointCommand(2, (double)target, (double)gain, (double)timeTar);
 					}
 					else 
 					{
+						std::getline(ss, line);
 						std::getline(ss, line);
 						std::getline(ss, line);
 					}
@@ -290,10 +328,13 @@ namespace gazebo
 						target = std::stof(line);
 						std::getline(ss, line);
 						gain = std::stof(line);
-						this->JointCommand(14, (double)target, (double)gain);
+						std::getline(ss, line);
+						timeTar = std::stof(line);
+						this->JointCommand(14, (double)target, (double)gain, (double)timeTar);
 					}
 					else 
 					{
+						std::getline(ss, line);
 						std::getline(ss, line);
 						std::getline(ss, line);
 					}
@@ -306,10 +347,13 @@ namespace gazebo
 						target = std::stof(line);
 						std::getline(ss, line);
 						gain = std::stof(line);
-						this->JointCommand(3, (double)target, (double)gain);
+						std::getline(ss, line);
+						timeTar = std::stof(line);
+						this->JointCommand(3, (double)target, (double)gain, (double)timeTar);
 					}
 					else 
 					{
+						std::getline(ss, line);
 						std::getline(ss, line);
 						std::getline(ss, line);
 					}
@@ -322,13 +366,16 @@ namespace gazebo
 						target = std::stof(line);
 						std::getline(ss, line);
 						gain = std::stof(line);
-						this->JointCommand(15, (double)target, (double)gain);
+						std::getline(ss, line);
+						timeTar = std::stof(line);
+						this->JointCommand(15, (double)target, (double)gain, (double)timeTar);
 						//std::cerr << "R_ANKLE_PITCH tar: " << target << ", gain: " << gain << std::endl;
 					}
 					else 
 					{
 						std::getline(ss, line);
 						std::getline(ss, line);
+						std::getline(ss, line);
 					}
 
 					std::getline(ss, line);
@@ -339,12 +386,15 @@ namespace gazebo
 						target = std::stof(line);
 						std::getline(ss, line);
 						gain = std::stof(line);
-						this->JointCommand(4, (double)target, (double)gain);
+						std::getline(ss, line);
+						timeTar = std::stof(line);
+						this->JointCommand(4, (double)target, (double)gain, (double)timeTar);
 					}
 					else 
 					{
 						std::getline(ss, line);
 						std::getline(ss, line);
+						std::getline(ss, line);
 					}
 
 					std::getline(ss, line);
@@ -355,28 +405,15 @@ namespace gazebo
 						target = std::stof(line);
 						std::getline(ss, line);
 						gain = std::stof(line);
-						this->JointCommand(16, (double)target, (double)gain);
+						std::getline(ss, line);
+						timeTar = std::stof(line);
+						this->JointCommand(16, (double)target, (double)gain, (double)timeTar);
 						//std::cerr << "R_ANKLE_ROLL tar: " << target << ", gain: " << gain << std::endl;
 					}
 					else 
 					{
 						std::getline(ss, line);
 						std::getline(ss, line);
-					}
-
-					std::getline(ss, line);
-					commandPresent = std::stoi(line);
-					if (commandPresent == 1)
-					{
-						std::getline(ss, line);
-						target = std::stof(line);
-						std::getline(ss, line);
-						gain = std::stof(line);
-						this->JointCommand(5, (double)target, (double)gain);
-					}
-					else 
-					{
-						std::getline(ss, line);
 						std::getline(ss, line);
 					}
 
@@ -388,10 +425,13 @@ namespace gazebo
 						target = std::stof(line);
 						std::getline(ss, line);
 						gain = std::stof(line);
-						this->JointCommand(9, (double)target, (double)gain);
+						std::getline(ss, line);
+						timeTar = std::stof(line);
+						this->JointCommand(5, (double)target, (double)gain, (double)timeTar);
 					}
 					else 
 					{
+						std::getline(ss, line);
 						std::getline(ss, line);
 						std::getline(ss, line);
 					}
@@ -404,10 +444,32 @@ namespace gazebo
 						target = std::stof(line);
 						std::getline(ss, line);
 						gain = std::stof(line);
-						this->JointCommand(10, (double)target, (double)gain);
+						std::getline(ss, line);
+						timeTar = std::stof(line);
+						this->JointCommand(9, (double)target, (double)gain, (double)timeTar);
 					}
 					else 
 					{
+						std::getline(ss, line);
+						std::getline(ss, line);
+						std::getline(ss, line);
+					}
+
+					std::getline(ss, line);
+					commandPresent = std::stoi(line);
+					if (commandPresent == 1)
+					{
+						std::getline(ss, line);
+						target = std::stof(line);
+						std::getline(ss, line);
+						gain = std::stof(line);
+						std::getline(ss, line);
+						timeTar = std::stof(line);
+						this->JointCommand(10, (double)target, (double)gain, (double)timeTar);
+					}
+					else 
+					{
+						std::getline(ss, line);
 						std::getline(ss, line);
 						std::getline(ss, line);
 					}
@@ -422,7 +484,16 @@ namespace gazebo
 					std::cerr << _publisher << std::endl;
 				});
 
+			// Set up a callback function for the discovery service
+			std::function<void(const ignition::transport::MessagePublisher &_publisher)> onDisconnectionCb(
+				[this](const ignition::transport::MessagePublisher &_publisher) -> void
+				{
+					std::cerr << "Disconnected from a Message Publisher!" << std::endl;
+					std::cerr << _publisher << std::endl;
+				});
+
 			discoveryNode->ConnectionsCb(onDiscoveryCb);
+			discoveryNode->DisconnectionsCb(onDisconnectionCb);
 
 			// Start the discovery service
 			discoveryNode->Start();
@@ -442,7 +513,7 @@ namespace gazebo
 			pub = jointStatus->Advertise<ignition::msgs::StringMsg>(topicStatus, opts);
 
 			// Setup a P-controller, with a gain of 4.
-			this->pid = common::PID(30.0, 0.0, 0.0);
+			this->pid = common::PID(40.0, 0.0, 0.0);
 
 			// Apply the P-controller to the joint.
 			for (int i = 0; i < this->joints.size(); i++)
@@ -450,32 +521,39 @@ namespace gazebo
 				this->model->GetJointController()->SetPositionPID(
 					this->joints[i]->GetScopedName(), this->pid);
 
-				if (i == 6)
+				if (i == 4) // left ankle pitch
 				{
 					this->model->GetJointController()->SetPositionTarget(
-						this->joints[i]->GetScopedName(), -1.5708);
+						this->joints[i]->GetScopedName(), -0.2);
+						this->joints[i]->SetPosition(0, -0.2);
 				}
-				else if (i == 17)
+				else if (i == 15) // right ankle pitch
 				{
 					this->model->GetJointController()->SetPositionTarget(
-						this->joints[i]->GetScopedName(), -1.5708);
+						this->joints[i]->GetScopedName(), -0.2);
+						this->joints[i]->SetPosition(0, -0.2);
 				}
 				else
 				{
 					this->model->GetJointController()->SetPositionTarget(
 						this->joints[i]->GetScopedName(), 0.0);
+
+					//this->joints[i]->SetEffortLimit(0, 40.0);
 				}
+				
+				//this->joints[i]->SetStopDissipation(0, 10.0);
+				this->joints[i]->SetStiffness(0, 1.0);
+				//this->joints[i]->SetStopStiffness (0, );
+				//this->joints[i]->SetStiffnessDamping(0, 4.0, 0.125, 0.0);
+				//this->joints[i]->Set
+				this->joints[i]->SetEffortLimit(0, 20.0);
 			}
 		}
 
 		void OnUpdate()
 		{
-			if (!pub.Publish(GetJointStatus()))
+			if (!pub.Publish(GetRobotStatus()))
 				std::cerr << "Error publishing to topic [topicStatus]" << std::endl;
-			// if (pub.HasConnections())
-			// 	std::cout << "Has connections!" << std::endl;
-			// else
-			// 	std::cout << "No connections..." << std::endl;
 		}
 		
 	private:
@@ -483,26 +561,58 @@ namespace gazebo
 		/// \param[in] _id
 		/// \param[in] _tarPos
 		/// \param[in] _gain
-		void JointCommand(const int &_id, const double &_tarPos, const double &_gain)
+		void JointCommand(const int &_id, const double &_tarPos, const double &_gain, const double &_tarTime)
 		{
-			this->pid = common::PID(_gain);
+			this->pid = common::PID(_gain * 4.0);
 			// Set the joint's gain by applying the
 			// P-controller to the joints for positions.
-			this->model->GetJointController()->SetPositionPID(
-				this->joints[_id]->GetScopedName(), this->pid);
+			if (_id == 5 || _id == 16) {
+				this->model->GetJointController()->SetPositionPID(
+					this->joints[_id]->GetScopedName(), common::PID(_gain));	
+			}
+			else {
+				this->model->GetJointController()->SetPositionPID(
+					this->joints[_id]->GetScopedName(), this->pid);
+			}
 			// Set the joint's target position.
 			this->model->GetJointController()->SetPositionTarget(
 				this->joints[_id]->GetScopedName(), _tarPos);
+
+			/*if (std::abs(_tarTime) > 0.01)
+			{
+				this->model->GetJointController()->SetVelocityPID(
+					this->joints[_id]->GetScopedName(), common::PID(1.0));
+				this->model->GetJointController()->SetVelocityTarget(
+					this->joints[_id]->GetScopedName(), _tarTime);
+			}*/
+			if (_tarTime > 0.0)
+				this->joints[_id]->SetVelocityLimit(0, _tarTime);
+			else 
+				this->joints[_id]->SetVelocityLimit(0, 3.75);
+
+			if (_id == 5 || _id == 16) { // ankle roll
+				this->joints[_id]->SetVelocityLimit(0, 0.25);
+			}
+			//this->joints[_id]->SetStiffnessDamping(0, 2.0, 0.8, _tarPos);
+				
+			std::cerr << "ID: " << _id << ", vel: " << _tarTime << std::endl;
+			//this->model->GetJointController()->Update();
+			
 		}
 
 		/// \brief Pointer to the model
 		physics::ModelPtr model;
+
+		/// \brief Pointer to the imu sensor
+		sensors::ImuSensorPtr imuSensor;
 
 		/// \brief Pointer to the joints
 		std::vector<physics::JointPtr> joints;
 
 		/// \brief A PID controller for the joints
 		common::PID pid;
+
+		//double gainFactor = 1.0;
 
 		/// \brief Nodes used for controlling the joints
 		ignition::transport::Node* jointCtrl;
@@ -520,12 +630,13 @@ namespace gazebo
 
 		event::ConnectionPtr updateConnection;
 
-		const ignition::msgs::StringMsg GetJointStatus()
+		const ignition::msgs::StringMsg GetRobotStatus()
 		{
 			ignition::msgs::StringMsg jointStatus;
 			std::string string = "";
 			// need present position and speed
 			// cast to float
+
 			// R_SHOULDER_PITCH
 			string += std::to_string((float)this->joints[17]->GetVelocity(0)) + "\n";
 			string += std::to_string((float)(this->joints[17]->Position() + 1.5708)) + "\n";
@@ -585,9 +696,32 @@ namespace gazebo
 			string += std::to_string((float)this->joints[9]->Position()) + "\n";
 			// HEAD_PITCH
 			string += std::to_string((float)this->joints[10]->GetVelocity(0)) + "\n";
-			string += std::to_string((float)this->joints[10]->Position());
+			string += std::to_string((float)this->joints[10]->Position()) + "\n";
 			//std::cerr << "HeadPitch vel: " << (float)this->joints[10]->GetVelocity(0)
 			//	<< ", HeadPitch pos: " << (float)this->joints[10]->Position() << std::endl;
+
+			ignition::math::Vector3d angularVel = this->imuSensor->AngularVelocity();
+			ignition::math::Vector3d linearAcc = this->imuSensor->LinearAcceleration();
+			
+			string += std::to_string(angularVel.X()) + "\n"
+							+ std::to_string(angularVel.Y()) + "\n"
+							+ std::to_string(angularVel.Z()) + "\n"
+							+ std::to_string(linearAcc.X() ) + "\n"
+							+ std::to_string(linearAcc.Y() ) + "\n"
+							+ std::to_string(linearAcc.Z() ) + "\n";
+
+			double x,y,z;
+			ignition::math::Pose3d pose;
+			pose = this->model->WorldPose();
+			ignition::math::Vector3d pos = pose.Pos();
+			x = pos.X(); // x coordinate
+			y = pos.Y(); // y coordinate
+			z = pos.Z(); // z coordinate
+			
+			string += std::to_string((float)x) + "\n" +
+								std::to_string((float)y) + "\n" +
+								std::to_string((float)z);
+
 			jointStatus.set_data(string);
 			return jointStatus;
 		}

@@ -1,6 +1,8 @@
 <?xml version="1.0" ?>
 <sdf version="1.5">
-  <world name="soccer environment">
+  <world name="nubots_world">
+  <!-- Attach a plugin to this world -->
+  <plugin name="nubots_world" filename="libnubotsworld_plugin.so"/>
   <physics type="ode">
 			<gravity>0 0 -9.81</gravity>
 			<real_time_update_rate>2000</real_time_update_rate>
@@ -53,11 +55,12 @@
     </model> 
 
     <!-- The ball -->
-    <model name="ball">
+    <model name="nubots_ball">
       <include>
         <uri>model://teensize_ball</uri>
       </include>
-      <pose>0 0 0.095 0 0 0</pose>
+      <pose>0 0 0.03 0 0 0</pose>
+      <plugin name="nubots_ball" filename="libnubotsball_plugin.so"/>
     </model> 
 
     <!-- The NUbots' Igus -->
@@ -65,9 +68,9 @@
       <include>
         <uri>model://nubots_igus_hull</uri>
       </include>
-      <pose>-1 0 0.575 0 0 0</pose>
+      <pose>-0.125 0.125 0.575 0 0.2 0</pose>
       <!-- Attach the plugin to this model -->
-      <plugin name="nubots_igus_control" filename="libnubotsigus_plugin.so"/>
+      <plugin name="nubots_igus" filename="libnubotsigus_plugin.so"/>
     </model>
   </world>
 </sdf>

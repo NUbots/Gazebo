@@ -29,8 +29,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.50</mu>
-              <mu2>0.50</mu2>
+              <mu>0.75</mu>
+              <mu2>0.75</mu2>
             </ode>
           </friction>
         </surface>
@@ -53,6 +53,53 @@
       <gravity>1</gravity>
       <velocity_decay/>
       <self_collide>0</self_collide>
+      <sensor name='imu_sensor' type='imu'>
+        <pose>0 0 0 0 0 -0</pose>
+        <always_on>1</always_on>
+        <update_rate>1000.0</update_rate>
+          <imu>
+          <angular_velocity>
+            <x>
+              <noise type='gaussian'>
+                <mean>0.0</mean>
+                <stddev>0.0</stddev>
+              </noise>
+            </x>
+            <y>
+              <noise type='gaussian'>
+                <mean>0.0</mean>
+                <stddev>0.0</stddev>
+              </noise>
+            </y>
+            <z>
+              <noise type='gaussian'>
+                <mean>0.0</mean>
+                <stddev>0.0</stddev>
+              </noise>
+            </z>
+          </angular_velocity>
+          <linear_acceleration>
+            <x>
+              <noise type='gaussian'>
+                <mean>0.0</mean>
+                <stddev>0.0</stddev>
+              </noise>
+            </x>
+            <y>
+              <noise type='gaussian'>
+                <mean>0.0</mean>
+                <stddev>0.0</stddev>
+              </noise>
+            </y>
+            <z>
+              <noise type='gaussian'>
+                <mean>0.0</mean>
+                <stddev>0.0</stddev>
+              </noise>
+            </z>
+          </linear_acceleration>
+        </imu>
+      </sensor>
     </link>
     <link name='left_hip_yaw_link'>
       <pose frame=''>-0.02025 0.055 -0.08 0 -0 0</pose>
@@ -82,8 +129,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.50</mu>
-              <mu2>0.50</mu2>
+              <mu>0.75</mu>
+              <mu2>0.75</mu2>
             </ode>
           </friction>
         </surface>
@@ -113,16 +160,14 @@
       <axis>
         <xyz>0 0 1</xyz>
         <limit>
-          <lower>-1.5708</lower>
-          <upper>1.5708</upper>
-          <velocity>2</velocity>
-          <effort>10</effort>
+          <velocity>5.236</velocity>
+           
         </limit>
         <dynamics>
-            <friction>0.25</friction>
+            <friction>0.5</friction>
             <damping>1</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
+          <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
@@ -155,8 +200,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.50</mu>
-              <mu2>0.50</mu2>
+              <mu>0.75</mu>
+              <mu2>0.75</mu2>
             </ode>
           </friction>
         </surface>
@@ -186,16 +231,14 @@
       <axis>
         <xyz>1 0 0</xyz>
         <limit>
-          <lower>-1.5708</lower>
-          <upper>1.5708</upper>
-          <velocity>2</velocity>
-          <effort>10</effort>
+          <velocity>5.236</velocity>
+           
         </limit>
         <dynamics>
-            <friction>0.25</friction>
+            <friction>0.5</friction>
             <damping>1</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
+          <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
@@ -228,8 +271,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.50</mu>
-              <mu2>0.50</mu2>
+              <mu>0.75</mu>
+              <mu2>0.75</mu2>
             </ode>
           </friction>
         </surface>
@@ -259,16 +302,14 @@
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
-          <lower>-3.0</lower>
-          <upper>1.5708</upper>
-          <velocity>2</velocity>
-          <effort>10</effort>
+          <velocity>5.236</velocity>
+           
         </limit>
         <dynamics>
-            <friction>0.25</friction>
+            <friction>0.5</friction>
             <damping>1</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
+          <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
@@ -301,8 +342,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.50</mu>
-              <mu2>0.50</mu2>
+              <mu>0.75</mu>
+              <mu2>0.75</mu2>
             </ode>
           </friction>
         </surface>
@@ -332,16 +373,14 @@
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
-          <lower>-0.25</lower>
-          <upper>3.14</upper>
-          <velocity>2</velocity>
-          <effort>10</effort>
+          <velocity>5.236</velocity>
+           
         </limit>
         <dynamics>
-            <friction>0.25</friction>
+            <friction>0.5</friction>
             <damping>1</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
+          <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
@@ -374,8 +413,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.50</mu>
-              <mu2>0.50</mu2>
+              <mu>0.75</mu>
+              <mu2>0.75</mu2>
             </ode>
           </friction>
         </surface>
@@ -405,16 +444,14 @@
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
-          <lower>-2</lower>
-          <upper>2</upper>
-          <velocity>2</velocity>
-          <effort>10</effort>
+          <velocity>5.236</velocity>
+           
         </limit>
         <dynamics>
-            <friction>0.25</friction>
+            <friction>0.5</friction>
             <damping>1</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
+          <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
@@ -452,8 +489,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.50</mu>
-              <mu2>0.50</mu2>
+              <mu>INF</mu>
+              <mu2>INF</mu2>
               <fdir1>1 0 0</fdir1>
             </ode>
           </friction>
@@ -484,16 +521,14 @@
       <axis>
         <xyz>1 0 0</xyz>
         <limit>
-          <lower>-1.5708</lower>
-          <upper>1.5708</upper>
-          <velocity>2</velocity>
-          <effort>10</effort>
+          <velocity>5.236</velocity>
+           
         </limit>
         <dynamics>
-            <friction>0.25</friction>
+            <friction>0.5</friction>
             <damping>1</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
+          <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
@@ -526,8 +561,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.50</mu>
-              <mu2>0.50</mu2>
+              <mu>0.75</mu>
+              <mu2>0.75</mu2>
             </ode>
           </friction>
         </surface>
@@ -557,16 +592,14 @@
       <axis>
         <xyz>-0 1 -0</xyz>
         <limit>
-          <lower>-3.14</lower>
-          <upper>3.14</upper>
-          <velocity>2</velocity>
-          <effort>10</effort>
+          <velocity>5.236</velocity>
+           
         </limit>
         <dynamics>
-            <friction>0.25</friction>
+            <friction>0.5</friction>
             <damping>1</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
+          <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
@@ -599,8 +632,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.50</mu>
-              <mu2>0.50</mu2>
+              <mu>0.75</mu>
+              <mu2>0.75</mu2>
             </ode>
           </friction>
         </surface>
@@ -630,16 +663,14 @@
       <axis>
         <xyz>1 0 0</xyz>
         <limit>
-          <lower>-1.5708</lower>
-          <upper>1.5708</upper>
-          <velocity>2</velocity>
-          <effort>10</effort>
+          <velocity>5.236</velocity>
+           
         </limit>
         <dynamics>
-            <friction>0.25</friction>
+            <friction>0.5</friction>
             <damping>1</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
+          <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
@@ -672,8 +703,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.50</mu>
-              <mu2>0.50</mu2>
+              <mu>0.75</mu>
+              <mu2>0.75</mu2>
             </ode>
           </friction>
         </surface>
@@ -703,16 +734,14 @@
       <axis>
         <xyz>-0 1 -0</xyz>
         <limit>
-          <lower>-2.4</lower>
-          <upper>0.25</upper>
-          <velocity>2</velocity>
-          <effort>10</effort>
+          <velocity>5.236</velocity>
+           
         </limit>
         <dynamics>
-            <friction>0.25</friction>
+            <friction>0.5</friction>
             <damping>1</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
+          <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
@@ -745,8 +774,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.50</mu>
-              <mu2>0.50</mu2>
+              <mu>0.75</mu>
+              <mu2>0.75</mu2>
             </ode>
           </friction>
         </surface>
@@ -776,16 +805,14 @@
       <axis>
         <xyz>0 0 1</xyz>
         <limit>
-          <lower>-3.14</lower>
-          <upper>3.14</upper>
-          <velocity>2</velocity>
-          <effort>10</effort>
+          <velocity>5.236</velocity>
+           
         </limit>
         <dynamics>
-          <friction>0.25</friction>
+          <friction>0.5</friction>
           <damping>1</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
+          <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
@@ -829,16 +856,14 @@
       <axis>
         <xyz>0 1 -0</xyz>
         <limit>
-          <lower>-3.14</lower>
-          <upper>3.14</upper>
-          <velocity>2</velocity>
-          <effort>10</effort>
+          <velocity>5.236</velocity>
+           
         </limit>
         <dynamics>
-            <friction>0.25</friction>
+            <friction>0.5</friction>
             <damping>1</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
+          <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
@@ -871,8 +896,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.50</mu>
-              <mu2>0.50</mu2>
+              <mu>0.75</mu>
+              <mu2>0.75</mu2>
             </ode>
           </friction>
         </surface>
@@ -902,16 +927,14 @@
       <axis>
         <xyz>0 0 1</xyz>
         <limit>
-          <lower>-1.5708</lower>
-          <upper>1.5708</upper>
-          <velocity>2</velocity>
-          <effort>10</effort>
+          <velocity>5.236</velocity>
+           
         </limit>
         <dynamics>
-            <friction>0.25</friction>
+            <friction>0.5</friction>
             <damping>1</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
+          <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
@@ -944,8 +967,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.50</mu>
-              <mu2>0.50</mu2>
+              <mu>0.75</mu>
+              <mu2>0.75</mu2>
             </ode>
           </friction>
         </surface>
@@ -977,16 +1000,14 @@
       <axis>
         <xyz>1 0 0</xyz>
         <limit>
-          <lower>-1.5708</lower>
-          <upper>1.5708</upper>
-          <velocity>2</velocity>
-          <effort>10</effort>
+          <velocity>5.236</velocity>
+           
         </limit>
         <dynamics>
-            <friction>0.25</friction>
+            <friction>0.5</friction>
             <damping>1</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
+          <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
@@ -1019,8 +1040,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.50</mu>
-              <mu2>0.50</mu2>
+              <mu>0.75</mu>
+              <mu2>0.75</mu2>
             </ode>
           </friction>
         </surface>
@@ -1050,16 +1071,14 @@
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
-          <lower>-3.0</lower>
-          <upper>1.5708</upper>
-          <velocity>2</velocity>
-          <effort>10</effort>
+          <velocity>5.236</velocity>
+           
         </limit>
         <dynamics>
-            <friction>0.25</friction>
+            <friction>0.5</friction>
             <damping>1</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
+          <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
@@ -1092,8 +1111,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.50</mu>
-              <mu2>0.50</mu2>
+              <mu>0.75</mu>
+              <mu2>0.75</mu2>
             </ode>
           </friction>
         </surface>
@@ -1123,16 +1142,14 @@
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
-          <lower>-0.25</lower>
-          <upper>3.14</upper>
-          <velocity>2</velocity>
-          <effort>10</effort>
+          <velocity>5.236</velocity>
+           
         </limit>
         <dynamics>
-            <friction>0.25</friction>
+            <friction>0.5</friction>
             <damping>1</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
+          <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
@@ -1165,8 +1182,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.50</mu>
-              <mu2>0.50</mu2>
+              <mu>0.75</mu>
+              <mu2>0.75</mu2>
             </ode>
           </friction>
         </surface>
@@ -1196,16 +1213,14 @@
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
-          <lower>-2</lower>
-          <upper>2</upper>
-          <velocity>2</velocity>
-          <effort>10</effort>
+          <velocity>5.236</velocity>
+           
         </limit>
         <dynamics>
-            <friction>0.25</friction>
+            <friction>0.5</friction>
             <damping>1</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
+          <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
@@ -1243,8 +1258,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.50</mu>
-              <mu2>0.50</mu2>
+              <mu>INF</mu>
+              <mu2>INF</mu2>
               <fdir1>1 0 0</fdir1>
             </ode>
           </friction>
@@ -1275,16 +1290,14 @@
       <axis>
         <xyz>1 0 0</xyz>
         <limit>
-          <lower>-1.5708</lower>
-          <upper>1.5708</upper>
-          <velocity>2</velocity>
-          <effort>10</effort>
+          <velocity>5.236</velocity>
+           
         </limit>
         <dynamics>
-            <friction>0.25</friction>
+            <friction>0.5</friction>
             <damping>1</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
+          <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
@@ -1317,8 +1330,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.50</mu>
-              <mu2>0.50</mu2>
+              <mu>0.75</mu>
+              <mu2>0.75</mu2>
             </ode>
           </friction>
         </surface>
@@ -1348,16 +1361,14 @@
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
-          <lower>-3.14</lower>
-          <upper>3.14</upper>
-          <velocity>2</velocity>
-          <effort>10</effort>
+          <velocity>5.236</velocity>
+           
         </limit>
         <dynamics>
-            <friction>0.25</friction>
+            <friction>0.5</friction>
             <damping>1</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
+          <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
@@ -1390,8 +1401,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.50</mu>
-              <mu2>0.50</mu2>
+              <mu>0.75</mu>
+              <mu2>0.75</mu2>
             </ode>
           </friction>
         </surface>
@@ -1421,16 +1432,14 @@
       <axis>
         <xyz>1 0 -0</xyz>
         <limit>
-          <lower>-1.5708</lower>
-          <upper>1.5708</upper>
-          <velocity>2</velocity>
-          <effort>10</effort>
+          <velocity>5.236</velocity>
+           
         </limit>
         <dynamics>
-            <friction>0.25</friction>
+            <friction>0.5</friction>
             <damping>1</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
+          <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
@@ -1463,8 +1472,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.50</mu>
-              <mu2>0.50</mu2>
+              <mu>0.75</mu>
+              <mu2>0.75</mu2>
             </ode>
           </friction>
         </surface>
@@ -1494,16 +1503,14 @@
       <axis>
         <xyz>-0 1 -0</xyz>
         <limit>
-          <lower>-2.4</lower>
-          <upper>0.25</upper>
-          <velocity>2</velocity>
-          <effort>10</effort>
+          <velocity>5.236</velocity>
+           
         </limit>
         <dynamics>
-            <friction>0.25</friction>
+            <friction>0.5</friction>
             <damping>1</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
+          <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>

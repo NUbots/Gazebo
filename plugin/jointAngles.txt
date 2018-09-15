@@ -1,3 +1,0 @@
-Angle: must be in range -PI to PI --> <event> <name>joint_angle</name> <type>joint</type> <model>revoluter</model> <joint>my_joint</joint> <range> ...
-
-gazebosim.org/tutorials?tut=joint_events
