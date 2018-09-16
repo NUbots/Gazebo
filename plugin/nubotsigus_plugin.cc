@@ -521,28 +521,15 @@ namespace gazebo
 				this->model->GetJointController()->SetPositionPID(
 					this->joints[i]->GetScopedName(), this->pid);
 
-				if (i == 4) // left ankle pitch
-				{
-					this->model->GetJointController()->SetPositionTarget(
-						this->joints[i]->GetScopedName(), -0.2);
-						this->joints[i]->SetPosition(0, -0.2);
-				}
-				else if (i == 15) // right ankle pitch
-				{
-					this->model->GetJointController()->SetPositionTarget(
-						this->joints[i]->GetScopedName(), -0.2);
-						this->joints[i]->SetPosition(0, -0.2);
-				}
-				else
-				{
-					this->model->GetJointController()->SetPositionTarget(
-						this->joints[i]->GetScopedName(), 0.0);
+				// This will set the initial positions of the robot
 
-					//this->joints[i]->SetEffortLimit(0, 40.0);
-				}
+				this->model->GetJointController()->SetPositionTarget(
+					this->joints[i]->GetScopedName(), initialPositions[i]);
+				
+				this->joints[i]->SetPosition(0, initialPositions[i]);
 				
 				//this->joints[i]->SetStopDissipation(0, 10.0);
-				this->joints[i]->SetStiffness(0, 1.0);
+				this->joints[i]->SetStiffness(0, 1.125);
 				//this->joints[i]->SetStopStiffness (0, );
 				//this->joints[i]->SetStiffnessDamping(0, 4.0, 0.125, 0.0);
 				//this->joints[i]->Set
@@ -568,7 +555,7 @@ namespace gazebo
 			// P-controller to the joints for positions.
 			if (_id == 5 || _id == 16) {
 				this->model->GetJointController()->SetPositionPID(
-					this->joints[_id]->GetScopedName(), common::PID(_gain));	
+					this->joints[_id]->GetScopedName(), common::PID(_gain * 0.525));	
 			}
 			else {
 				this->model->GetJointController()->SetPositionPID(
@@ -591,7 +578,8 @@ namespace gazebo
 				this->joints[_id]->SetVelocityLimit(0, 3.75);
 
 			if (_id == 5 || _id == 16) { // ankle roll
-				this->joints[_id]->SetVelocityLimit(0, 0.25);
+				//this->joints[_id]->SetVelocityLimit(0, 0.012);
+				this->joints[_id]->SetEffortLimit(0, 20);
 			}
 			//this->joints[_id]->SetStiffnessDamping(0, 2.0, 0.8, _tarPos);
 				
@@ -725,6 +713,30 @@ namespace gazebo
 			jointStatus.set_data(string);
 			return jointStatus;
 		}
+
+		const double initialPositions[20] = {
+			0.02924,
+			0.063,
+			-0.207,
+			0.25614,
+			-0.24,
+			-0.07,
+			0.4,
+			0.123,
+			-2.443,
+			0.0,
+			0.0,
+			-0.02924,
+			-0.063,
+			-0.207,
+			0.25614,
+			-0.24,
+			0.07,
+			0.4,
+			-0.123,
+			-2.443
+		}; 
+		
 	};
 
 	// Tell Gazebo about this plugin, so that Gazebo can call Load on this plugin
