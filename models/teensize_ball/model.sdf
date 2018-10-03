@@ -6,7 +6,7 @@
     <link name="ball">
       <velocity_decay>
         <linear>0</linear>
-        <angular>0.0008</angular>
+        <angular>0.0016</angular>
       </velocity_decay>
       <inertial>
         <mass>0.260</mass>

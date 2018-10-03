@@ -29,8 +29,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.75</mu>
-              <mu2>0.75</mu2>
+              <mu>0.98</mu>
+              <mu2>0.98</mu2>
             </ode>
           </friction>
         </surface>
@@ -45,7 +45,7 @@
         </geometry>
         <material>
           <script>
-            <name>Gazebo/Grey</name>
+            <name>Gazebo/Orange</name>
             <uri>file://media/materials/scripts/gazebo.material</uri>
           </script>
         </material>
@@ -129,8 +129,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.75</mu>
-              <mu2>0.75</mu2>
+              <mu>0.98</mu>
+              <mu2>0.98</mu2>
             </ode>
           </friction>
         </surface>
@@ -145,7 +145,7 @@
         </geometry>
         <material>
           <script>
-            <name>Gazebo/Grey</name>
+            <name>Gazebo/Orange</name>
             <uri>file://media/materials/scripts/gazebo.material</uri>
           </script>
         </material>
@@ -200,8 +200,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.75</mu>
-              <mu2>0.75</mu2>
+              <mu>0.98</mu>
+              <mu2>0.98</mu2>
             </ode>
           </friction>
         </surface>
@@ -271,8 +271,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.75</mu>
-              <mu2>0.75</mu2>
+              <mu>0.98</mu>
+              <mu2>0.98</mu2>
             </ode>
           </friction>
         </surface>
@@ -287,7 +287,7 @@
         </geometry>
         <material>
           <script>
-            <name>Gazebo/Grey</name>
+            <name>Gazebo/Orange</name>
             <uri>file://media/materials/scripts/gazebo.material</uri>
           </script>
         </material>
@@ -342,8 +342,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.75</mu>
-              <mu2>0.75</mu2>
+              <mu>0.98</mu>
+              <mu2>0.98</mu2>
             </ode>
           </friction>
         </surface>
@@ -358,7 +358,7 @@
         </geometry>
         <material>
           <script>
-            <name>Gazebo/Grey</name>
+            <name>Gazebo/Orange</name>
             <uri>file://media/materials/scripts/gazebo.material</uri>
           </script>
         </material>
@@ -413,8 +413,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.75</mu>
-              <mu2>0.75</mu2>
+              <mu>0.98</mu>
+              <mu2>0.98</mu2>
             </ode>
           </friction>
         </surface>
@@ -475,18 +475,10 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/left_foot_link.stl</uri>
+            <uri>model://nubots_igus_hull/mesh/left_foot_link_studded.stl</uri>
           </mesh>
         </geometry>
         <surface>
-          <contact>
-            <ode>
-              <kp>1e+06</kp>
-              <kd>100</kd>
-              <max_vel>1</max_vel>
-              <min_depth>0</min_depth>
-            </ode>
-          </contact>
           <friction>
             <ode>
               <mu>INF</mu>
@@ -501,12 +493,12 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/left_foot_link.stl</uri>
+            <uri>model://nubots_igus_hull/mesh/left_foot_link_studded.stl</uri>
           </mesh>
         </geometry>
         <material>
           <script>
-            <name>Gazebo/Grey</name>
+            <name>Gazebo/Orange</name>
             <uri>file://media/materials/scripts/gazebo.material</uri>
           </script>
         </material>
@@ -561,8 +553,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.75</mu>
-              <mu2>0.75</mu2>
+              <mu>0.98</mu>
+              <mu2>0.98</mu2>
             </ode>
           </friction>
         </surface>
@@ -632,8 +624,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.75</mu>
-              <mu2>0.75</mu2>
+              <mu>0.98</mu>
+              <mu2>0.98</mu2>
             </ode>
           </friction>
         </surface>
@@ -648,7 +640,7 @@
         </geometry>
         <material>
           <script>
-            <name>Gazebo/Grey</name>
+            <name>Gazebo/Orange</name>
             <uri>file://media/materials/scripts/gazebo.material</uri>
           </script>
         </material>
@@ -703,8 +695,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.75</mu>
-              <mu2>0.75</mu2>
+              <mu>0.98</mu>
+              <mu2>0.98</mu2>
             </ode>
           </friction>
         </surface>
@@ -719,7 +711,7 @@
         </geometry>
         <material>
           <script>
-            <name>Gazebo/Grey</name>
+            <name>Gazebo/Orange</name>
             <uri>file://media/materials/scripts/gazebo.material</uri>
           </script>
         </material>
@@ -774,8 +766,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.75</mu>
-              <mu2>0.75</mu2>
+              <mu>0.98</mu>
+              <mu2>0.98</mu2>
             </ode>
           </friction>
         </surface>
@@ -896,8 +888,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.75</mu>
-              <mu2>0.75</mu2>
+              <mu>0.98</mu>
+              <mu2>0.98</mu2>
             </ode>
           </friction>
         </surface>
@@ -912,7 +904,7 @@
         </geometry>
         <material>
           <script>
-            <name>Gazebo/Grey</name>
+            <name>Gazebo/Orange</name>
             <uri>file://media/materials/scripts/gazebo.material</uri>
           </script>
         </material>
@@ -967,8 +959,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.75</mu>
-              <mu2>0.75</mu2>
+              <mu>0.98</mu>
+              <mu2>0.98</mu2>
             </ode>
           </friction>
         </surface>
@@ -1040,8 +1032,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.75</mu>
-              <mu2>0.75</mu2>
+              <mu>0.98</mu>
+              <mu2>0.98</mu2>
             </ode>
           </friction>
         </surface>
@@ -1056,7 +1048,7 @@
         </geometry>
         <material>
           <script>
-            <name>Gazebo/Grey</name>
+            <name>Gazebo/Orange</name>
             <uri>file://media/materials/scripts/gazebo.material</uri>
           </script>
         </material>
@@ -1111,8 +1103,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.75</mu>
-              <mu2>0.75</mu2>
+              <mu>0.98</mu>
+              <mu2>0.98</mu2>
             </ode>
           </friction>
         </surface>
@@ -1127,7 +1119,7 @@
         </geometry>
         <material>
           <script>
-            <name>Gazebo/Grey</name>
+            <name>Gazebo/Orange</name>
             <uri>file://media/materials/scripts/gazebo.material</uri>
           </script>
         </material>
@@ -1182,8 +1174,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.75</mu>
-              <mu2>0.75</mu2>
+              <mu>0.98</mu>
+              <mu2>0.98</mu2>
             </ode>
           </friction>
         </surface>
@@ -1244,18 +1236,10 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/right_foot_link.stl</uri>
+            <uri>model://nubots_igus_hull/mesh/right_foot_link_studded.stl</uri>
           </mesh>
         </geometry>
         <surface>
-          <contact>
-            <ode>
-              <kp>1e+06</kp>
-              <kd>100</kd>
-              <max_vel>1</max_vel>
-              <min_depth>0</min_depth>
-            </ode>
-          </contact>
           <friction>
             <ode>
               <mu>INF</mu>
@@ -1270,12 +1254,12 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/right_foot_link.stl</uri>
+            <uri>model://nubots_igus_hull/mesh/right_foot_link_studded.stl</uri>
           </mesh>
         </geometry>
         <material>
           <script>
-            <name>Gazebo/Grey</name>
+            <name>Gazebo/Orange</name>
             <uri>file://media/materials/scripts/gazebo.material</uri>
           </script>
         </material>
@@ -1330,8 +1314,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.75</mu>
-              <mu2>0.75</mu2>
+              <mu>0.98</mu>
+              <mu2>0.98</mu2>
             </ode>
           </friction>
         </surface>
@@ -1401,8 +1385,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.75</mu>
-              <mu2>0.75</mu2>
+              <mu>0.98</mu>
+              <mu2>0.98</mu2>
             </ode>
           </friction>
         </surface>
@@ -1417,7 +1401,7 @@
         </geometry>
         <material>
           <script>
-            <name>Gazebo/Grey</name>
+            <name>Gazebo/Orange</name>
             <uri>file://media/materials/scripts/gazebo.material</uri>
           </script>
         </material>
@@ -1472,8 +1456,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.75</mu>
-              <mu2>0.75</mu2>
+              <mu>0.98</mu>
+              <mu2>0.98</mu2>
             </ode>
           </friction>
         </surface>
@@ -1488,7 +1472,7 @@
         </geometry>
         <material>
           <script>
-            <name>Gazebo/Grey</name>
+            <name>Gazebo/Orange</name>
             <uri>file://media/materials/scripts/gazebo.material</uri>
           </script>
         </material>
