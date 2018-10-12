@@ -17,15 +17,15 @@
           <contact>
             <ode>
               <kp>600</kp>
-              <kd>100</kd>
+              <kd>40</kd>
               <max_vel>0.5</max_vel>
               <min_depth>0.0175</min_depth>
             </ode>
           </contact>
           <friction>
             <ode>
-              <mu>0.98</mu>
-              <mu2>0.98</mu2>
+              <mu>2</mu>
+              <mu2>2</mu2>
               <fdir1>1 0 0</fdir1>
             </ode>
           </friction>
