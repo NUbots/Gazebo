@@ -8,7 +8,8 @@
 #include <ignition/transport.hh>
 #include <ignition/math.hh>
 #include <ignition/msgs.hh>
-#include <nubots_common.hh>
+
+#include "nubots_common.h"
 
 using namespace ignition;
 using namespace transport;
@@ -535,7 +536,9 @@ namespace gazebo
 				//this->joints[i]->Set
 				//this->joints[i]->SetStiffnessDamping(0, 4.0, 0.125, 0.0);
 				//this->joints[i]->Set
-				this->joints[i]->SetEffortLimit(0, 15.0);
+				this->joints[i]->SetEffortLimit(0, 20.0);
+
+				this->joints[i]->SetStiffnessDamping(0, 3.25, 0.25, this->joints[i]->Position());
 			}
 		}
 
@@ -583,7 +586,7 @@ namespace gazebo
 				//this->joints[_id]->SetVelocityLimit(0, 0.012);
 				//this->joints[_id]->SetEffortLimit(0, 40);
 			}
-			//this->joints[_id]->SetStiffnessDamping(0, 2.0, 0.8, _tarPos);
+			this->joints[_id]->SetStiffnessDamping(0, 3.25, 0.25, this->joints[_id]->Position());
 				
 			std::cerr << "ID: " << _id << ", vel: " << _tarTime << std::endl;
 			//this->model->GetJointController()->Update();

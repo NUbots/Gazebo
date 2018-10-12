@@ -6,7 +6,8 @@
 #include <gazebo/physics/physics.hh>
 #include <ignition/transport.hh>
 #include <ignition/msgs.hh>
-#include <nubots_common.hh>
+
+#include "nubots_common.h"
 
 using namespace ignition;
 using namespace transport;
