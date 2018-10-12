@@ -4,7 +4,7 @@
 
 #include<string>
 namespace gazebo{
-	static const std::string nubots_sim_name = "simulation1"
+	static const std::string nubots_sim_name = "simulation1";
 	static const std::string nubots_ign_namespace = "nubots";
 }
 
