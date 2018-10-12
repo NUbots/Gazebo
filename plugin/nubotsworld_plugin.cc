@@ -123,7 +123,7 @@ namespace gazebo
 		void OnUpdate()
 		{
 			ignition::msgs::StringMsg worldStatus;
-			worldStatus.set_data(std::to_string(this->world->SimTime().Double()) + "\n"
+			worldStatus.set_data(nubots_sim_name + "\n" + std::to_string(this->world->SimTime().Double()) + "\n"
 				+ std::to_string(this->world->RealTime().Double()));
 			if (!worldPub.Publish(worldStatus))
 				std::cerr << "Error publishing to world status topic" << std::endl;

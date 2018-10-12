@@ -121,6 +121,8 @@ namespace gazebo
 		{
 			ignition::msgs::StringMsg ballStatus;
 			std::string string = "";
+			string += nubots_sim_name + "\n";
+			
 			double x,y,z;
 			ignition::math::Pose3d pose;
 			pose = this->model->WorldPose();

@@ -627,6 +627,7 @@ namespace gazebo
 			// need present position and speed
 			// cast to float
 
+			string += nubots_sim_name + "\n";
 			// R_SHOULDER_PITCH
 			string += std::to_string((float)this->joints[17]->GetVelocity(0)) + "\n";
 			string += std::to_string((float)(this->joints[17]->Position() + 1.5708)) + "\n";
