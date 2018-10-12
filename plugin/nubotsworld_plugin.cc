@@ -6,6 +6,7 @@
 #include <gazebo/physics/physics.hh>
 #include <ignition/transport.hh>
 #include <ignition/msgs.hh>
+#include <nubots_common.hh>
 
 using namespace ignition;
 using namespace transport;
@@ -52,14 +53,14 @@ namespace gazebo
 			// This will be SUBSCRIBED to the Ctrl topic
 			ignition::transport::NodeOptions worldCtrlNodeOpts;
 			worldCtrlNodeOpts.SetPartition("World");
-			worldCtrlNodeOpts.SetNameSpace("Nubots");
+			worldCtrlNodeOpts.SetNameSpace(nubots_ign_namespace);
 			worldCtrl = new ignition::transport::Node(worldCtrlNodeOpts);
 
 			// Set up transport node for World status
 			// This will be ADVERTISED to the Status topic
 			ignition::transport::NodeOptions worldStatusNodeOpts;
 			worldStatusNodeOpts.SetPartition("World");
-			worldStatusNodeOpts.SetNameSpace("Nubots");
+			worldStatusNodeOpts.SetNameSpace(nubots_ign_namespace);
 			worldStatus = new ignition::transport::Node(worldStatusNodeOpts);
 
 			ignition::transport::AdvertiseMessageOptions AdMsgOpts;

@@ -8,6 +8,7 @@
 #include <ignition/transport.hh>
 #include <ignition/math.hh>
 #include <ignition/msgs.hh>
+#include <nubots_common.hh>
 
 using namespace ignition;
 using namespace transport;
@@ -65,14 +66,14 @@ namespace gazebo
 			// This will be SUBSCRIBED to the Ctrl topic
 			ignition::transport::NodeOptions jointCtrlNodeOpts;
 			jointCtrlNodeOpts.SetPartition("Igus");
-			jointCtrlNodeOpts.SetNameSpace("Nubots");
+			jointCtrlNodeOpts.SetNameSpace(nubots_ign_namespace);
 			jointCtrl = new ignition::transport::Node(jointCtrlNodeOpts);
 
 			// Set up transport node for joint status
 			// This will be ADVERTISED to the Status topic
 			ignition::transport::NodeOptions jointStatusNodeOpts;
 			jointStatusNodeOpts.SetPartition("Igus");
-			jointStatusNodeOpts.SetNameSpace("Nubots");
+			jointStatusNodeOpts.SetNameSpace(nubots_ign_namespace);
 			jointStatus = new ignition::transport::Node(jointStatusNodeOpts);
 
 			ignition::transport::AdvertiseMessageOptions AdMsgOpts;

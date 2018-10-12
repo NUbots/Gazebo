@@ -8,6 +8,7 @@
 #include <ignition/transport.hh>
 #include <ignition/math.hh>
 #include <ignition/msgs.hh>
+#include <nubots_common.hh>
 
 using namespace ignition;
 using namespace transport;
@@ -53,7 +54,7 @@ namespace gazebo
 			// This will be ADVERTISED to the Status topic
 			ignition::transport::NodeOptions ballStatusNodeOpts;
 			ballStatusNodeOpts.SetPartition("Ball");
-			ballStatusNodeOpts.SetNameSpace("Nubots");
+			ballStatusNodeOpts.SetNameSpace(nubots_ign_namespace);
 			ballStatus = new ignition::transport::Node(ballStatusNodeOpts);
 
 			ignition::transport::AdvertiseMessageOptions AdMsgOpts;
