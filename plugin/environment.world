@@ -2,7 +2,7 @@
 <sdf version="1.5">
   <world name="nubots_world">
   <!-- Attach a plugin to this world -->
-  <plugin name="nubots_world" filename="libnubotsworld_plugin.so"/>
+  <plugin name="nubots_world" filename="libworld_plugin.so"/>
   <gui>
     <camera name="user_camera">
       <pose>-2.5 -1 0.75 0 0.1 0.3</pose>
@@ -27,6 +27,7 @@
 				</constraints>
 			</ode>
 		</physics>
+
     <!-- A global light source -->
     <include>
       <uri>model://sun</uri>
@@ -67,7 +68,7 @@
         <uri>model://teensize_ball</uri>
       </include>
       <pose>0 0 0.15 0 0 0</pose>
-      <plugin name="nubots_ball" filename="libnubotsball_plugin.so"/>
+      <plugin name="nubots_ball" filename="libball_plugin.so"/>
     </model>
 
     <!-- The NUbots' Igus -->
@@ -77,7 +78,7 @@
       </include>
       <pose>-0.15 0.125 0.6225 0 0.125 0</pose>
       <!-- Attach the plugin to this model -->
-      <plugin name="nubots_igus" filename="libnubotsigus_plugin.so"/>
+      <plugin name="nubots_igus" filename="libigus_plugin.so"/>
     </model>
   </world>
 </sdf>

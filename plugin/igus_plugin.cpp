@@ -2,73 +2,85 @@
 #include <gazebo/gazebo.hh>
 #include <gazebo/physics/physics.hh>
 #include <gazebo/sensors/sensors.hh>
-#include <ignition/math.hh>
-#include <ignition/msgs.hh>
-#include <ignition/transport.hh>
+
+#include "message/input/RawSensors.pb.h"
+#include "message/motion/ServoTarget.pb.h"
+#include "nuclear_network.h"
 
 namespace gazebo {
 class NUbotsIgusPlugin : public ModelPlugin {
-public:
-    /// \brief Constructor
-    NUbotsIgusPlugin() {}
+private:
+    const double initial_positions[20] = {0.02924, 0.063,  -0.207, 0.25614, -0.24,    -0.07,  0.4,
+                                          0.123,   -2.443, 0.0,    0.0,     -0.02924, -0.063, -0.207,
+                                          0.25614, -0.24,  0.07,   0.4,     -0.123,   -2.443};
 
-    /// \brief The load function is called by Gazebo when the plugin is
-    /// inserted into simulation
-    /// \param[in] _model A pointer to the model that this plugin is
-    /// attached to
-    /// \param[in] _sdf A pointer to the plugin's SDF element
+    R_SHOULDER_PITCH = 17;
+    L_SHOULDER_PITCH = 6;
+    R_SHOULDER_ROLL  = 18;
+    L_SHOULDER_ROLL  = 7;
+    R_ELBOW          = 19;
+    L_ELBOW          = 8;
+    R_HIP_YAW        = 11;
+    L_HIP_YAW        = 0;
+    R_HIP_ROLL       = 12;
+    L_HIP_ROLL       = 1;
+    R_HIP_PITCH      = 13;
+    L_HIP_PITCH      = 2;
+    R_KNEE           = 14;
+    L_KNEE           = 3;
+    R_ANKLE_PITCH    = 15;
+    L_ANKLE_PITCH    = 4;
+    R_ANKLE_ROLL     = 16;
+    L_ANKLE_ROLL     = 5;
+    HEAD_YAW         = 9;
+    HEAD_PITCH       = 10;
+
+    const double servo_id_to_joint[20] = {};
+    const double joint_to_servo_id[20] = {};
+
+public:
+    // Inherit constructors
+    using ModelPlugin::ModelPlugin;
+
+    template <typename T>
+    using Network = NUClear::dsl::word::Network<T>;
+
+    /**
+     * The load function is called by Gazebo when the plugin is inserted into simulation
+     * @param _model A pointer to the model that this plugin is attached to
+     * @param _sdf   A pointer to the plugin's SDF element
+     */
     void Load(physics::ModelPtr _model, sdf::ElementPtr _sdf) {
 
         // Safety check to see if the SDF file is attached correctly
         if (_model->GetJointCount() == 0) {
-            std::cerr << "Invalid joint count, NUbots Igus plugin not loaded" << std::endl;
+            gzerr << "Invalid joint count, NUbots Igus plugin not loaded" << std::endl;
             return;
         }
 
         // Just output a message for now
-        std::cerr << "\nThe NUbots igus plugin is attached to model [" << _model->GetName() << "]\n";
+        gzerr << "Attaching an iGus plugin to model [" << _model->GetName() << "]" << std::endl;
 
         // Store the model pointer for convenience
         this->model = _model;
 
-        this->imuSensor = std::dynamic_pointer_cast<sensors::ImuSensor>(sensors::get_sensor("imu_sensor"));
-
-        // Set up the update event
-        this->updateConnection = event::Events::ConnectWorldUpdateBegin(std::bind(&NUbotsIgusPlugin::OnUpdate, this));
+        this->imu_sensor = std::dynamic_pointer_cast<sensors::ImuSensor>(sensors::get_sensor("imu_sensor"));
 
         // Get the joint pointers
         this->joints = _model->GetJoints();
 
-        // Set up the communcations with NUClear
-        // setenv("IGN_PARTITION", "NubotsIgus", 1);
-        // setenv("IGN_IP", "127.0.0.1", 1);
-        static const int g_msgPort           = 11319;
-        static std::string pUuid             = ignition::transport::Uuid().ToString();
-        static std::string nUuid             = ignition::transport::Uuid().ToString();
-        const static std::string topicCtrl   = "NubotsIgusCtrl";
-        const static std::string topicStatus = "NubotsIgusStatus";
-        static std::string hostAddr          = ignition::transport::determineHost();
-        static std::string ctrlAddr          = ignition::transport::determineHost();
+        // Set up the update event
+        this->update_connection =
+            event::Events::ConnectWorldUpdateBegin(std::bind(&NUbotsIgusPlugin::update_robot, this));
 
-        // Set up transport node for joint control
-        // This will be SUBSCRIBED to the Ctrl topic
-        ignition::transport::NodeOptions jointCtrlNodeOpts;
-        jointCtrlNodeOpts.SetPartition("Igus");
-        jointCtrlNodeOpts.SetNameSpace("nubots");
-        jointCtrl = new ignition::transport::Node(jointCtrlNodeOpts);
-
-        // Set up transport node for joint status
-        // This will be ADVERTISED to the Status topic
-        ignition::transport::NodeOptions jointStatusNodeOpts;
-        jointStatusNodeOpts.SetPartition("Igus");
-        jointStatusNodeOpts.SetNameSpace("nubots");
-        jointStatus = new ignition::transport::Node(jointStatusNodeOpts);
-
-        ignition::transport::AdvertiseMessageOptions AdMsgOpts;
-        AdMsgOpts.SetMsgsPerSec(90u);
-        discoveryNode = new ignition::transport::MsgDiscovery(pUuid, g_msgPort);
-        msgPublisher  = new ignition::transport::MessagePublisher(
-            topicStatus, hostAddr, ctrlAddr, pUuid, nUuid, "ADVERTISE", AdMsgOpts);
+        get_reactor().on<Network<message::motion::ServoTargets>>().then(
+            [this](const message::motion::ServoTargets& targets) {
+                // Store the incoming commands in the queue for the next simulation frame
+                std::lock_guard<std::mutex> lock(command_mutex);
+                for (const auto& c : targets.targets()) {
+                    command_queue.push_back(c);
+                }
+            });
 
         std::function<void(const ignition::msgs::StringMsg& _msg)> JointCtrlCb(
             [this](const ignition::msgs::StringMsg& _msg) -> void {
@@ -423,39 +435,6 @@ public:
                 }
             });
 
-        // Set up a callback function for the discovery service
-        std::function<void(const ignition::transport::MessagePublisher& _publisher)> onDiscoveryCb(
-            [this](const ignition::transport::MessagePublisher& _publisher) -> void {
-                std::cerr << "Discovered a Message Publisher!" << std::endl;
-                std::cerr << _publisher << std::endl;
-            });
-
-        // Set up a callback function for the discovery service
-        std::function<void(const ignition::transport::MessagePublisher& _publisher)> onDisconnectionCb(
-            [this](const ignition::transport::MessagePublisher& _publisher) -> void {
-                std::cerr << "Disconnected from a Message Publisher!" << std::endl;
-                std::cerr << _publisher << std::endl;
-            });
-
-        discoveryNode->ConnectionsCb(onDiscoveryCb);
-        discoveryNode->DisconnectionsCb(onDisconnectionCb);
-
-        // Start the discovery service
-        discoveryNode->Start();
-
-        if (!discoveryNode->Advertise(*msgPublisher))
-            std::cerr << "Failed to advertise the discovery node!" << std::endl;
-
-        if (!discoveryNode->Discover(topicCtrl)) std::cout << "discovery failed..." << std::endl;
-
-        if (!jointCtrl->Subscribe<ignition::msgs::StringMsg>(topicCtrl, JointCtrlCb))
-            std::cerr << "Error subscribing to joint commands messages at [" << topicCtrl << "]" << std::endl;
-
-        ignition::transport::AdvertiseMessageOptions opts;
-        opts.SetMsgsPerSec(90u);
-        // ADVERTISE the status node
-        pub = jointStatus->Advertise<ignition::msgs::StringMsg>(topicStatus, opts);
-
         // Setup a P-controller, with a gain of 4.
         this->pid = common::PID(40.0, 0.0, 0.0);
 
@@ -464,10 +443,10 @@ public:
             this->model->GetJointController()->SetPositionPID(this->joints[i]->GetScopedName(), this->pid);
 
             // This will set the initial positions of the robot
+            this->model->GetJointController()->SetPositionTarget(this->joints[i]->GetScopedName(),
+                                                                 initial_positions[i]);
 
-            this->model->GetJointController()->SetPositionTarget(this->joints[i]->GetScopedName(), initialPositions[i]);
-
-            this->joints[i]->SetPosition(0, initialPositions[i]);
+            this->joints[i]->SetPosition(0, initial_positions[i]);
 
             this->joints[i]->SetStopDissipation(0, 0.0);
             this->joints[i]->SetStiffness(0, 3.25);
@@ -481,17 +460,10 @@ public:
         }
     }
 
-    void OnUpdate() {
-        if (!pub.Publish(GetRobotStatus())) std::cerr << "Error publishing to topic [topicStatus]" << std::endl;
-    }
-
 private:
-    /// \brief Set the command values for a joint
-    /// \param[in] _id
-    /// \param[in] _tarPos
-    /// \param[in] _gain
-    void JointCommand(const int& _id, const double& _tarPos, const double& _gain, const double& _tarTime) {
-        this->pid = common::PID(_gain * 4.0);
+    void apply_joint_command(const message::motion::ServoTarget& target) {
+
+        this->pid = common::PID(target.gain() * 4.0);
         // Set the joint's gain by applying the
         // P-controller to the joints for positions.
         if (_id == 5 || _id == 16) {
@@ -526,129 +498,140 @@ private:
         // this->model->GetJointController()->Update();
     }
 
-    /// \brief Pointer to the model
-    physics::ModelPtr model;
+    void update_robot() {
 
-    /// \brief Pointer to the imu sensor
-    sensors::ImuSensorPtr imuSensor;
+        // Run all our commands in the command queue and then clear it
+        {
+            std::lock_guard<std::mutex> lock(command_mutex);
+            for (const auto& c : command_queue) {
+                apply_join_command(c);
+            }
+            command_queue.resize(0);
+        }
 
-    /// \brief Pointer to the joints
-    std::vector<physics::JointPtr> joints;
+        auto now = std::chrono::steady_clock::now();
+        if (now - last_update > std::chrono::milliseconds(10)) {
+            last_update += std::chrono::milliseconds(10);
 
-    /// \brief A PID controller for the joints
-    common::PID pid;
+            auto msg = std::make_unique<message::input::RawSensors>();
+            for (int i = 0; i < 20; ++i) {
+                joints[i]->GetVelocity(0);
+                joints[i]->Position();
+            }
+        }
+        // ignition::msgs::StringMsg jointStatus;
+        // std::string string = "";
+        // // need present position and speed
+        // // cast to float
 
-    // double gainFactor = 1.0;
+        // string += "simulation1\n";
+        // // R_SHOULDER_PITCH
+        // string += std::to_string((float) this->joints[17]->GetVelocity(0)) + "\n";
+        // string += std::to_string((float) (this->joints[17]->Position() + 1.5708)) + "\n";
+        // // L_SHOULDER_PITCH
+        // string += std::to_string((float) this->joints[6]->GetVelocity(0)) + "\n";
+        // string += std::to_string((float) (this->joints[6]->Position() + 1.5708)) + "\n";
+        // // R_SHOULDER_ROLL
+        // string += std::to_string((float) this->joints[18]->GetVelocity(0)) + "\n";
+        // string += std::to_string((float) this->joints[18]->Position()) + "\n";
+        // // L_SHOULDER_ROLL
+        // string += std::to_string((float) this->joints[7]->GetVelocity(0)) + "\n";
+        // string += std::to_string((float) this->joints[7]->Position()) + "\n";
+        // // R_ELBOW
+        // string += std::to_string((float) this->joints[19]->GetVelocity(0)) + "\n";
+        // string += std::to_string((float) this->joints[19]->Position()) + "\n";
+        // // L_ELBOW
+        // string += std::to_string((float) this->joints[8]->GetVelocity(0)) + "\n";
+        // string += std::to_string((float) this->joints[8]->Position()) + "\n";
+        // // R_HIP_YAW
+        // string += std::to_string((float) this->joints[11]->GetVelocity(0)) + "\n";
+        // string += std::to_string((float) this->joints[11]->Position()) + "\n";
+        // // L_HIP_YAW
+        // string += std::to_string((float) this->joints[0]->GetVelocity(0)) + "\n";
+        // string += std::to_string((float) this->joints[0]->Position()) + "\n";
+        // // R_HIP_ROLL
+        // string += std::to_string((float) this->joints[12]->GetVelocity(0)) + "\n";
+        // string += std::to_string((float) this->joints[12]->Position()) + "\n";
+        // // L_HIP_ROLL
+        // string += std::to_string((float) this->joints[1]->GetVelocity(0)) + "\n";
+        // string += std::to_string((float) this->joints[1]->Position()) + "\n";
+        // // R_HIP_PITCH
+        // string += std::to_string((float) this->joints[13]->GetVelocity(0)) + "\n";
+        // string += std::to_string((float) this->joints[13]->Position()) + "\n";
+        // // L_HIP_PITCH
+        // string += std::to_string((float) this->joints[2]->GetVelocity(0)) + "\n";
+        // string += std::to_string((float) this->joints[2]->Position()) + "\n";
+        // // R_KNEE
+        // string += std::to_string((float) this->joints[14]->GetVelocity(0)) + "\n";
+        // string += std::to_string((float) this->joints[14]->Position()) + "\n";
+        // // L_KNEE
+        // string += std::to_string((float) this->joints[3]->GetVelocity(0)) + "\n";
+        // string += std::to_string((float) this->joints[3]->Position()) + "\n";
+        // // R_ANKLE_PITCH
+        // string += std::to_string((float) this->joints[15]->GetVelocity(0)) + "\n";
+        // string += std::to_string((float) this->joints[15]->Position()) + "\n";
+        // // L_ANKLE_PITCH
+        // string += std::to_string((float) this->joints[4]->GetVelocity(0)) + "\n";
+        // string += std::to_string((float) this->joints[4]->Position()) + "\n";
+        // // R_ANKLE_ROLL
+        // string += std::to_string((float) this->joints[16]->GetVelocity(0)) + "\n";
+        // string += std::to_string((float) this->joints[16]->Position()) + "\n";
+        // // L_ANKLE_ROLL
+        // string += std::to_string((float) this->joints[5]->GetVelocity(0)) + "\n";
+        // string += std::to_string((float) this->joints[5]->Position()) + "\n";
+        // // HEAD_YAW
+        // string += std::to_string((float) this->joints[9]->GetVelocity(0)) + "\n";
+        // string += std::to_string((float) this->joints[9]->Position()) + "\n";
+        // // HEAD_PITCH
+        // string += std::to_string((float) this->joints[10]->GetVelocity(0)) + "\n";
+        // string += std::to_string((float) this->joints[10]->Position()) + "\n";
+        // // std::cerr << "HeadPitch vel: " << (float)this->joints[10]->GetVelocity(0)
+        // //	<< ", HeadPitch pos: " << (float)this->joints[10]->Position() << std::endl;
 
-    /// \brief Nodes used for controlling the joints
-    ignition::transport::Node* jointCtrl;
+        // ignition::math::Vector3d angularVel = this->imuSensor->AngularVelocity();
+        // ignition::math::Vector3d linearAcc  = this->imuSensor->LinearAcceleration();
 
-    /// \brief Nodes used for sending joint information
-    ignition::transport::Node* jointStatus;
+        // string += std::to_string(angularVel.X()) + "\n" + std::to_string(angularVel.Y()) + "\n"
+        //           + std::to_string(angularVel.Z()) + "\n" + std::to_string(linearAcc.X()) + "\n"
+        //           + std::to_string(linearAcc.Y()) + "\n" + std::to_string(linearAcc.Z()) + "\n";
 
-    /// \brief Publisher used for sending joint information
-    ignition::transport::Node::Publisher pub;
+        // double x, y, z;
+        // ignition::math::Pose3d pose;
+        // pose                         = this->model->WorldPose();
+        // ignition::math::Vector3d pos = pose.Pos();
+        // x                            = pos.X();  // x coordinate
+        // y                            = pos.Y();  // y coordinate
+        // z                            = pos.Z();  // z coordinate
 
-    /// \brief A subscriber to a named topic.
-    ignition::transport::MsgDiscovery* discoveryNode;
+        // string += std::to_string((float) x) + "\n" + std::to_string((float) y) + "\n" + std::to_string((float) z);
 
-    ignition::transport::MessagePublisher* msgPublisher;
+        // jointStatus.set_data(string);
+        // return jointStatus;
 
-    event::ConnectionPtr updateConnection;
-
-    const ignition::msgs::StringMsg GetRobotStatus() {
-        ignition::msgs::StringMsg jointStatus;
-        std::string string = "";
-        // need present position and speed
-        // cast to float
-
-        string += "simulation1\n";
-        // R_SHOULDER_PITCH
-        string += std::to_string((float) this->joints[17]->GetVelocity(0)) + "\n";
-        string += std::to_string((float) (this->joints[17]->Position() + 1.5708)) + "\n";
-        // L_SHOULDER_PITCH
-        string += std::to_string((float) this->joints[6]->GetVelocity(0)) + "\n";
-        string += std::to_string((float) (this->joints[6]->Position() + 1.5708)) + "\n";
-        // R_SHOULDER_ROLL
-        string += std::to_string((float) this->joints[18]->GetVelocity(0)) + "\n";
-        string += std::to_string((float) this->joints[18]->Position()) + "\n";
-        // L_SHOULDER_ROLL
-        string += std::to_string((float) this->joints[7]->GetVelocity(0)) + "\n";
-        string += std::to_string((float) this->joints[7]->Position()) + "\n";
-        // R_ELBOW
-        string += std::to_string((float) this->joints[19]->GetVelocity(0)) + "\n";
-        string += std::to_string((float) this->joints[19]->Position()) + "\n";
-        // L_ELBOW
-        string += std::to_string((float) this->joints[8]->GetVelocity(0)) + "\n";
-        string += std::to_string((float) this->joints[8]->Position()) + "\n";
-        // R_HIP_YAW
-        string += std::to_string((float) this->joints[11]->GetVelocity(0)) + "\n";
-        string += std::to_string((float) this->joints[11]->Position()) + "\n";
-        // L_HIP_YAW
-        string += std::to_string((float) this->joints[0]->GetVelocity(0)) + "\n";
-        string += std::to_string((float) this->joints[0]->Position()) + "\n";
-        // R_HIP_ROLL
-        string += std::to_string((float) this->joints[12]->GetVelocity(0)) + "\n";
-        string += std::to_string((float) this->joints[12]->Position()) + "\n";
-        // L_HIP_ROLL
-        string += std::to_string((float) this->joints[1]->GetVelocity(0)) + "\n";
-        string += std::to_string((float) this->joints[1]->Position()) + "\n";
-        // R_HIP_PITCH
-        string += std::to_string((float) this->joints[13]->GetVelocity(0)) + "\n";
-        string += std::to_string((float) this->joints[13]->Position()) + "\n";
-        // L_HIP_PITCH
-        string += std::to_string((float) this->joints[2]->GetVelocity(0)) + "\n";
-        string += std::to_string((float) this->joints[2]->Position()) + "\n";
-        // R_KNEE
-        string += std::to_string((float) this->joints[14]->GetVelocity(0)) + "\n";
-        string += std::to_string((float) this->joints[14]->Position()) + "\n";
-        // L_KNEE
-        string += std::to_string((float) this->joints[3]->GetVelocity(0)) + "\n";
-        string += std::to_string((float) this->joints[3]->Position()) + "\n";
-        // R_ANKLE_PITCH
-        string += std::to_string((float) this->joints[15]->GetVelocity(0)) + "\n";
-        string += std::to_string((float) this->joints[15]->Position()) + "\n";
-        // L_ANKLE_PITCH
-        string += std::to_string((float) this->joints[4]->GetVelocity(0)) + "\n";
-        string += std::to_string((float) this->joints[4]->Position()) + "\n";
-        // R_ANKLE_ROLL
-        string += std::to_string((float) this->joints[16]->GetVelocity(0)) + "\n";
-        string += std::to_string((float) this->joints[16]->Position()) + "\n";
-        // L_ANKLE_ROLL
-        string += std::to_string((float) this->joints[5]->GetVelocity(0)) + "\n";
-        string += std::to_string((float) this->joints[5]->Position()) + "\n";
-        // HEAD_YAW
-        string += std::to_string((float) this->joints[9]->GetVelocity(0)) + "\n";
-        string += std::to_string((float) this->joints[9]->Position()) + "\n";
-        // HEAD_PITCH
-        string += std::to_string((float) this->joints[10]->GetVelocity(0)) + "\n";
-        string += std::to_string((float) this->joints[10]->Position()) + "\n";
-        // std::cerr << "HeadPitch vel: " << (float)this->joints[10]->GetVelocity(0)
-        //	<< ", HeadPitch pos: " << (float)this->joints[10]->Position() << std::endl;
-
-        ignition::math::Vector3d angularVel = this->imuSensor->AngularVelocity();
-        ignition::math::Vector3d linearAcc  = this->imuSensor->LinearAcceleration();
-
-        string += std::to_string(angularVel.X()) + "\n" + std::to_string(angularVel.Y()) + "\n"
-                  + std::to_string(angularVel.Z()) + "\n" + std::to_string(linearAcc.X()) + "\n"
-                  + std::to_string(linearAcc.Y()) + "\n" + std::to_string(linearAcc.Z()) + "\n";
-
-        double x, y, z;
-        ignition::math::Pose3d pose;
-        pose                         = this->model->WorldPose();
-        ignition::math::Vector3d pos = pose.Pos();
-        x                            = pos.X();  // x coordinate
-        y                            = pos.Y();  // y coordinate
-        z                            = pos.Z();  // z coordinate
-
-        string += std::to_string((float) x) + "\n" + std::to_string((float) y) + "\n" + std::to_string((float) z);
-
-        jointStatus.set_data(string);
-        return jointStatus;
+        // if (!pub.Publish(GetRobotStatus())) std::cerr << "Error publishing to topic [topicStatus]" << std::endl;
     }
 
-    const double initialPositions[20] = {0.02924,  0.063,  -0.207, 0.25614, -0.24, -0.07, 0.4, 0.123,  -2.443, 0.0, 0.0,
-                                         -0.02924, -0.063, -0.207, 0.25614, -0.24, 0.07,  0.4, -0.123, -2.443};
+    // Pointer to the model
+    physics::ModelPtr model;
+
+    // Pointer to the imu sensor
+    sensors::ImuSensorPtr imu_sensor;
+
+    // Pointer to the joints
+    std::vector<physics::JointPtr> joints;
+
+    // A command queue to store the incoming servo targets before applying them to the hardware
+    std::mutex command_mutex;
+    std::vector<message::motion::ServoTarget> command_queue;
+
+    // A PID controller for the joints
+    common::PID pid;
+
+    // Holds the callback from gazebo
+    event::ConnectionPtr update_connection;
+
+    // The last time we sent a packet so we can rate limit to about 100hz
+    std::chrono::steady_clock::time_point last_update;
 };
 
 // Tell Gazebo about this plugin, so that Gazebo can call Load on this plugin

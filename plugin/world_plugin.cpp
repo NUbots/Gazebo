@@ -1,134 +1,101 @@
 #include <gazebo/common/common.hh>
 #include <gazebo/gazebo.hh>
 #include <gazebo/physics/physics.hh>
-#include <ignition/msgs.hh>
-#include <ignition/transport.hh>
+
+#include "message/input/gazebo/Command.pb.h"
+#include "message/input/gazebo/Simulation.pb.h"
+#include "nuclear_network.h"
 
 namespace gazebo {
 class NUbotsWorldPlugin : public WorldPlugin {
 public:
-    /// \brief Constructor
-    NUbotsWorldPlugin() {}
+    // Inherit constructors
+    using WorldPlugin::WorldPlugin;
 
-    /// \brief The load function is called by Gazebo when the plugin is
-    /// inserted into simulation
-    /// \param[in] _world A pointer to the world that this plugin is
-    /// attached to
-    /// \param[in] _sdf A pointer to the plugin's SDF element
+    template <typename T>
+    using Network = NUClear::dsl::word::Network<T>;
+
+    // Make sure to unbind the reaction handle on destruction
+    virtual ~NUbotsWorldPlugin() {
+        handle.unbind();
+    }
+
+    /**
+     * The load function is called by Gazebo when the plugin is inserted into simulation
+     * @param _model A pointer to the model that this plugin is attached to
+     * @param _sdf   A pointer to the plugin's SDF element
+     */
     void Load(physics::WorldPtr _world, sdf::ElementPtr _sdf) {
 
+        // Last update is when we load
+        last_update = std::chrono::steady_clock::now() - std::chrono::milliseconds(10);
+
         // Just output a message for now
-        std::cerr << "\nThe NUbots world plugin is attached to world [" << _world->Name() << "]\n";
+        gzdbg << "The NUbots world plugin is attached to world [" << _world->Name() << "]" << std::endl;
 
         // Store the model pointer for convenience
         this->world = _world;
 
-        // Set up the update event
-        this->updateConnection = event::Events::ConnectWorldUpdateBegin(std::bind(&NUbotsWorldPlugin::OnUpdate, this));
+        // When we get an update event, publish the ball position and velocity
+        update_connection = event::Events::ConnectWorldUpdateBegin(std::bind(&NUbotsWorldPlugin::update_world, this));
 
-        // Set up the communcations with NUClear
-        // setenv("IGN_PARTITION", "NubotsIgus", 1);
-        // setenv("IGN_IP", "127.0.0.1", 1);
-        static const int g_msgPort                = 11319;
-        static std::string pUuid                  = ignition::transport::Uuid().ToString();
-        static std::string nUuid                  = ignition::transport::Uuid().ToString();
-        const static std::string topicWorldCtrl   = "NubotsWorldCtrl";
-        const static std::string topicWorldStatus = "NubotsWorldStatus";
-        static std::string hostAddr               = ignition::transport::determineHost();
-        static std::string ctrlAddr               = ignition::transport::determineHost();
-
-        // Set up transport node for world control
-        // This will be SUBSCRIBED to the Ctrl topic
-        ignition::transport::NodeOptions worldCtrlNodeOpts;
-        worldCtrlNodeOpts.SetPartition("World");
-        worldCtrlNodeOpts.SetNameSpace("nubots");
-        worldCtrl = new ignition::transport::Node(worldCtrlNodeOpts);
-
-        // Set up transport node for World status
-        // This will be ADVERTISED to the Status topic
-        ignition::transport::NodeOptions worldStatusNodeOpts;
-        worldStatusNodeOpts.SetPartition("World");
-        worldStatusNodeOpts.SetNameSpace("nubots");
-        worldStatus = new ignition::transport::Node(worldStatusNodeOpts);
-
-        ignition::transport::AdvertiseMessageOptions AdMsgOpts;
-        discoveryNode = new ignition::transport::MsgDiscovery(pUuid, g_msgPort);
-        msgPublisher  = new ignition::transport::MessagePublisher(
-            topicWorldStatus, hostAddr, ctrlAddr, pUuid, nUuid, "ADVERTISE", AdMsgOpts);
-
-        std::function<void(const ignition::msgs::StringMsg& _msg)> WorldCtrlCb(
-            [this](const ignition::msgs::StringMsg& _msg) -> void {
-                std::stringstream ss(_msg.data());
-                std::string line;
-
-                std::getline(ss, line);
-
-                if (line == "RESET")
-                    this->world->Reset();
-                else if (line == "RESETTIME")
-                    this->world->ResetTime();
+        handle = get_reactor().on<Network<message::input::gazebo::Command>>().then(
+            [this](const message::input::gazebo::Command& c) {
+                // Store this command ready for the next update as we don't want to mess with gazebos threading
+                std::lock_guard<std::mutex> lock(command_mutex);
+                command_queue.push_back(c);
             });
-
-        // Set up a callback function for the discovery service
-        std::function<void(const ignition::transport::MessagePublisher& _publisher)> onDiscoveryCb(
-            [this](const ignition::transport::MessagePublisher& _publisher) -> void {
-                std::cerr << "Discovered a Message Publisher!" << std::endl;
-                std::cerr << _publisher << std::endl;
-            });
-
-        // Set up a callback function for the discovery service
-        std::function<void(const ignition::transport::MessagePublisher& _publisher)> onDisconnectionCb(
-            [this](const ignition::transport::MessagePublisher& _publisher) -> void {
-                std::cerr << "Disconnected from a Message Publisher!" << std::endl;
-                std::cerr << _publisher << std::endl;
-            });
-
-        discoveryNode->ConnectionsCb(onDiscoveryCb);
-        discoveryNode->DisconnectionsCb(onDisconnectionCb);
-
-        // Start the discovery service
-        discoveryNode->Start();
-
-        if (!discoveryNode->Advertise(*msgPublisher))
-            std::cerr << "Failed to advertise the discovery node!" << std::endl;
-
-        if (!discoveryNode->Discover(topicWorldCtrl)) std::cout << "discovery failed..." << std::endl;
-
-        if (!worldCtrl->Subscribe<ignition::msgs::StringMsg>(topicWorldCtrl, WorldCtrlCb))
-            std::cerr << "Error subscribing to joint commands messages at [" << topicWorldCtrl << "]" << std::endl;
-
-        ignition::transport::AdvertiseMessageOptions opts;
-        opts.SetMsgsPerSec(100u);
-        // ADVERTISE the status node
-        worldPub = worldStatus->Advertise<ignition::msgs::StringMsg>(topicWorldStatus, opts);
     }
 
-    void OnUpdate() {
-        ignition::msgs::StringMsg worldStatus;
-        worldStatus.set_data("simulation1\n" + std::to_string(this->world->SimTime().Double()) + "\n"
-                             + std::to_string(this->world->RealTime().Double()));
-        if (!worldPub.Publish(worldStatus)) std::cerr << "Error publishing to world status topic" << std::endl;
-    }
 
 private:
-    /// \brief Pointer to the world
+    void update_world() {
+        // Run all our commands in the command queue and then clear it
+        {
+            std::lock_guard<std::mutex> lock(command_mutex);
+            for (const auto& c : command_queue) {
+                command(c);
+            }
+            command_queue.resize(0);
+        }
+
+        // Only send packets at 100Hz
+        auto now = std::chrono::steady_clock::now();
+        if (now - last_update > std::chrono::milliseconds(10)) {
+            last_update += std::chrono::milliseconds(10);
+            // Make our message
+            auto msg = std::make_unique<message::input::gazebo::Simulation>();
+            msg->set_sim_time(this->world->SimTime().Double());
+            msg->set_real_time(this->world->RealTime().Double());
+
+            // Emit the message to everyone (broadcast) using the NUClear network as an unreliable packet
+            get_reactor().emit<NUClear::dsl::word::emit::Network>(msg);
+        }
+    }
+
+    void command(const message::input::gazebo::Command& cmd) {
+        switch (cmd.type()) {
+            case message::input::gazebo::Command::Type::Command_Type_RESET: world->Reset(); break;
+            case message::input::gazebo::Command::Type::Command_Type_RESET_TIME: world->ResetTime(); break;
+            default: break;
+        }
+    }
+
+    // Pointer to the world state object
     physics::WorldPtr world;
 
-    /// \brief Nodes used for controlling the world
-    ignition::transport::Node* worldCtrl;
+    // Holds the callback from gazebo
+    event::ConnectionPtr update_connection;
 
-    /// \brief Nodes used for sending world information
-    ignition::transport::Node* worldStatus;
+    // The last time we sent a packet so we can rate limit to about 100hz
+    std::chrono::steady_clock::time_point last_update;
 
-    /// \brief Publisher used for sending joint information
-    ignition::transport::Node::Publisher worldPub;
+    // A reaction handle so we can unbind when we are destructed
+    NUClear::threading::ReactionHandle handle;
 
-    /// \brief A subscriber to a named topic.
-    ignition::transport::MsgDiscovery* discoveryNode;
-
-    ignition::transport::MessagePublisher* msgPublisher;
-
-    event::ConnectionPtr updateConnection;
+    // A queue of commands to be executed on the next simulation frame
+    std::mutex command_mutex;
+    std::vector<message::input::gazebo::Command> command_queue;
 };
 
 // Register this plugin with the simulator
