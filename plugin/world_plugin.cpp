@@ -41,18 +41,18 @@ public:
         // This will be SUBSCRIBED to the Ctrl topic
         ignition::transport::NodeOptions worldCtrlNodeOpts;
         worldCtrlNodeOpts.SetPartition("World");
-        worldCtrlNodeOpts.SetNameSpace(nubots_ign_namespace);
+        worldCtrlNodeOpts.SetNameSpace("nubots");
         worldCtrl = new ignition::transport::Node(worldCtrlNodeOpts);
 
         // Set up transport node for World status
         // This will be ADVERTISED to the Status topic
         ignition::transport::NodeOptions worldStatusNodeOpts;
         worldStatusNodeOpts.SetPartition("World");
-        worldStatusNodeOpts.SetNameSpace(nubots_ign_namespace);
+        worldStatusNodeOpts.SetNameSpace("nubots");
         worldStatus = new ignition::transport::Node(worldStatusNodeOpts);
 
         ignition::transport::AdvertiseMessageOptions AdMsgOpts;
-        discoveryNode = new MsgDiscovery(pUuid, g_msgPort);
+        discoveryNode = new ignition::transport::MsgDiscovery(pUuid, g_msgPort);
         msgPublisher  = new ignition::transport::MessagePublisher(
             topicWorldStatus, hostAddr, ctrlAddr, pUuid, nUuid, "ADVERTISE", AdMsgOpts);
 
@@ -105,7 +105,7 @@ public:
 
     void OnUpdate() {
         ignition::msgs::StringMsg worldStatus;
-        worldStatus.set_data(nubots_sim_name + "\n" + std::to_string(this->world->SimTime().Double()) + "\n"
+        worldStatus.set_data("simulation1\n" + std::to_string(this->world->SimTime().Double()) + "\n"
                              + std::to_string(this->world->RealTime().Double()));
         if (!worldPub.Publish(worldStatus)) std::cerr << "Error publishing to world status topic" << std::endl;
     }

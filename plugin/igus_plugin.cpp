@@ -6,8 +6,6 @@
 #include <ignition/msgs.hh>
 #include <ignition/transport.hh>
 
-#include "nubots_common.h"
-
 namespace gazebo {
 class NUbotsIgusPlugin : public ModelPlugin {
 public:
@@ -20,6 +18,7 @@ public:
     /// attached to
     /// \param[in] _sdf A pointer to the plugin's SDF element
     void Load(physics::ModelPtr _model, sdf::ElementPtr _sdf) {
+
         // Safety check to see if the SDF file is attached correctly
         if (_model->GetJointCount() == 0) {
             std::cerr << "Invalid joint count, NUbots Igus plugin not loaded" << std::endl;
@@ -55,19 +54,19 @@ public:
         // This will be SUBSCRIBED to the Ctrl topic
         ignition::transport::NodeOptions jointCtrlNodeOpts;
         jointCtrlNodeOpts.SetPartition("Igus");
-        jointCtrlNodeOpts.SetNameSpace(nubots_ign_namespace);
+        jointCtrlNodeOpts.SetNameSpace("nubots");
         jointCtrl = new ignition::transport::Node(jointCtrlNodeOpts);
 
         // Set up transport node for joint status
         // This will be ADVERTISED to the Status topic
         ignition::transport::NodeOptions jointStatusNodeOpts;
         jointStatusNodeOpts.SetPartition("Igus");
-        jointStatusNodeOpts.SetNameSpace(nubots_ign_namespace);
+        jointStatusNodeOpts.SetNameSpace("nubots");
         jointStatus = new ignition::transport::Node(jointStatusNodeOpts);
 
         ignition::transport::AdvertiseMessageOptions AdMsgOpts;
         AdMsgOpts.SetMsgsPerSec(90u);
-        discoveryNode = new MsgDiscovery(pUuid, g_msgPort);
+        discoveryNode = new ignition::transport::MsgDiscovery(pUuid, g_msgPort);
         msgPublisher  = new ignition::transport::MessagePublisher(
             topicStatus, hostAddr, ctrlAddr, pUuid, nUuid, "ADVERTISE", AdMsgOpts);
 
@@ -563,7 +562,7 @@ private:
         // need present position and speed
         // cast to float
 
-        string += nubots_sim_name + "\n";
+        string += "simulation1\n";
         // R_SHOULDER_PITCH
         string += std::to_string((float) this->joints[17]->GetVelocity(0)) + "\n";
         string += std::to_string((float) (this->joints[17]->Position() + 1.5708)) + "\n";

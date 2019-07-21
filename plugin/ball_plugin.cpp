@@ -6,19 +6,16 @@
 #include <ignition/msgs.hh>
 #include <ignition/transport.hh>
 
-#include "nubots_common.h"
-
 namespace gazebo {
 class NUbotsBallPlugin : public ModelPlugin {
 public:
-    /// \brief Constructor
     NUbotsBallPlugin() {}
 
-    /// \brief The load function is called by Gazebo when the plugin is
-    /// inserted into simulation
-    /// \param[in] _model A pointer to the model that this plugin is
-    /// attached to
-    /// \param[in] _sdf A pointer to the plugin's SDF element
+    /**
+     * The load function is called by Gazebo when the plugin is inserted into simulation
+     * @param _model A pointer to the model that this plugin is attached to
+     * @param _sdf   A pointer to the plugin's SDF element
+     */
     void Load(physics::ModelPtr _model, sdf::ElementPtr _sdf) {
 
         // Just output a message for now
@@ -44,12 +41,12 @@ public:
         // This will be ADVERTISED to the Status topic
         ignition::transport::NodeOptions ballStatusNodeOpts;
         ballStatusNodeOpts.SetPartition("Ball");
-        ballStatusNodeOpts.SetNameSpace(nubots_ign_namespace);
+        ballStatusNodeOpts.SetNameSpace("nubots");
         ballStatus = new ignition::transport::Node(ballStatusNodeOpts);
 
         ignition::transport::AdvertiseMessageOptions AdMsgOpts;
         AdMsgOpts.SetMsgsPerSec(90u);
-        discoveryNode = new MsgDiscovery(pUuid, g_msgPort);
+        discoveryNode = new ignition::transport::MsgDiscovery(pUuid, g_msgPort);
         msgPublisher  = new ignition::transport::MessagePublisher(
             topicStatus, hostAddr, ctrlAddr, pUuid, nUuid, "ADVERTISE", AdMsgOpts);
 
@@ -87,26 +84,10 @@ public:
     }
 
 private:
-    /// \brief Pointer to the model
-    physics::ModelPtr model;
-
-    /// \brief Nodes used for sending ball information
-    ignition::transport::Node* ballStatus;
-
-    /// \brief Publisher used for sending ball information
-    ignition::transport::Node::Publisher pub;
-
-    /// \brief A subscriber to a named topic.
-    ignition::transport::MsgDiscovery* discoveryNode;
-
-    ignition::transport::MessagePublisher* msgPublisher;
-
-    event::ConnectionPtr updateConnection;
-
     const ignition::msgs::StringMsg GetBallStatus() {
         ignition::msgs::StringMsg ballStatus;
         std::string string = "";
-        string += nubots_sim_name + "\n";
+        string += "simulation1\n";
 
         double x, y, z;
         ignition::math::Pose3d pose;
@@ -130,6 +111,22 @@ private:
         ballStatus.set_data(string);
         return ballStatus;
     }
+
+    /// \brief Pointer to the model
+    physics::ModelPtr model;
+
+    /// \brief Nodes used for sending ball information
+    ignition::transport::Node* ballStatus;
+
+    /// \brief Publisher used for sending ball information
+    ignition::transport::Node::Publisher pub;
+
+    /// \brief A subscriber to a named topic.
+    ignition::transport::MsgDiscovery* discoveryNode;
+
+    ignition::transport::MessagePublisher* msgPublisher;
+
+    event::ConnectionPtr updateConnection;
 };
 
 // Tell Gazebo about this plugin, so that Gazebo can call Load on this plugin
