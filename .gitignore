@@ -1,2 +1,2 @@
-plugin/build/*
-.vscode/*
+/build
+.vscode
