@@ -40,6 +40,11 @@ FOREACH(proto ${protobufs})
     )
 ENDFOREACH(proto)
 
+IF(NOT MSVC)
+    # Compilation must be done with c++14 for NUClear to work
+    ADD_COMPILE_OPTIONS(-std=c++14 -fPIC)
+ENDIF()
+
 ADD_LIBRARY(message OBJECT ${msg_src})
 TARGET_COMPILE_FEATURES(message PUBLIC cxx_std_11)
 TARGET_INCLUDE_DIRECTORIES(message PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/shared ${PROTOBUF_INCLUDE_DIRS})
