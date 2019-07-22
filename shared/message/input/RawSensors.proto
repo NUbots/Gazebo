@@ -106,29 +106,6 @@
          float  temperature     = 13;
      };
 
-     message Servos {
-         Servo rShoulderPitch = 1;
-         Servo lShoulderPitch = 2;
-         Servo rShoulderRoll  = 3;
-         Servo lShoulderRoll  = 4;
-         Servo rElbow         = 5;
-         Servo lElbow         = 6;
-         Servo rHipYaw        = 7;
-         Servo lHipYaw        = 8;
-         Servo rHipRoll       = 9;
-         Servo lHipRoll       = 10;
-         Servo rHipPitch      = 11;
-         Servo lHipPitch      = 12;
-         Servo rKnee          = 13;
-         Servo lKnee          = 14;
-         Servo rAnklePitch    = 15;
-         Servo lAnklePitch    = 16;
-         Servo rAnkleRoll     = 17;
-         Servo lAnkleRoll     = 18;
-         Servo headPan        = 19;
-         Servo headTilt       = 20;
-     }
-
      google.protobuf.Timestamp timestamp       = 1;
      uint32                    cm730ErrorFlags = 2;
      LEDPanel                  ledPanel        = 3;
@@ -139,5 +116,5 @@
      Accelerometer             accelerometer   = 8;
      Gyroscope                 gyroscope       = 9;
      FSRs                      fsr             = 10;
-     Servos                    servo           = 11;
+     repeated Servo            servos          = 11;
  }
