@@ -21,7 +21,7 @@ public:
     void Load(physics::ModelPtr _model, sdf::ElementPtr _sdf) {
 
         // Output a debug line
-        gzdbg << "Attaching ball plugin to model [" << _model->GetName() << "]" << std::endl;
+        gzdbg << "Attaching a ball plugin to model [" << _model->GetName() << "]" << std::endl;
 
         // Store the model pointer for convenience
         model = _model;
@@ -52,7 +52,7 @@ private:
             msg->mutable_vbww()->set_z(v.Z());
 
             // Emit the message using the NUClear network as an unreliable packet
-            get_reactor().emit<NUClear::dsl::word::emit::Network>(msg);
+            // get_reactor().emit<NUClear::dsl::word::emit::Network>(msg);
         }
     }
 

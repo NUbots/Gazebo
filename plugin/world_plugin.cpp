@@ -31,7 +31,7 @@ public:
         last_update = std::chrono::steady_clock::now() - std::chrono::milliseconds(10);
 
         // Just output a message for now
-        gzdbg << "The NUbots world plugin is attached to world [" << _world->Name() << "]" << std::endl;
+        gzdbg << "Attaching a NUbots world plugin to [" << _world->Name() << "]" << std::endl;
 
         // Store the model pointer for convenience
         this->world = _world;

@@ -137,7 +137,7 @@ public:
         }
 
         // Just output a message for now
-        gzerr << "Attaching an iGus plugin to model [" << model->GetName() << "]" << std::endl;
+        gzdbg << "Attaching an iGus plugin to model [" << model->GetName() << "]" << std::endl;
 
         // Store the model pointer for convenience
         model = model;
