@@ -102,7 +102,11 @@ FOREACH(plugin ${plugins})
     TARGET_LINK_DIRECTORIES(${plugin_name} PRIVATE ${GAZEBO_LIBRARY_DIRS})
     TARGET_LINK_LIBRARIES(${plugin_name} PRIVATE message nuclear_network ${GAZEBO_LIBRARIES})
     LIST(APPEND plugin_targets ${plugin_name})
-    SET_TARGET_PROPERTIES(${plugin_name} PROPERTIES INSTALL_RPATH "@loader_path")
+    IF(UNIX AND APPLE)
+        SET_TARGET_PROPERTIES(${plugin_name} PROPERTIES INSTALL_RPATH "@loader_path")
+    ELSEIF(UNIX AND NOT APPLE)
+      SET_TARGET_PROPERTIES(${plugin_name} PROPERTIES INSTALL_RPATH "$ORIGIN")
+    ENDIF()
 ENDFOREACH(plugin)
 
 # Install plugin libraries to Gazebo plugin directory
