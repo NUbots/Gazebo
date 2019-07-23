@@ -18,7 +18,7 @@
  */
  syntax = "proto3";
 
- package message.input;
+ package message.platform.darwin;
 
  import "google/protobuf/timestamp.proto";
 
@@ -27,7 +27,7 @@
   *
   * @author Trent Houliston
   */
- message RawSensors {
+ message DarwinSensors {
      // bitmask values
      enum Error {
          OK            = 0;  // not really a flag but the lack of any other flag

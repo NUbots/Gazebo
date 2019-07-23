@@ -20,7 +20,7 @@ public:
 
             auto net_config              = std::make_unique<NUClear::message::NetworkConfiguration>();
             net_config->name             = "gazebo";
-            net_config->announce_address = "239.226.152.162";
+            net_config->announce_address = "192.168.255.255";
             net_config->announce_port    = 7447;
             emit<Scope::DIRECT>(net_config);
         });
