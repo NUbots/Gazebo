@@ -250,9 +250,9 @@ private:
 
             auto msg = std::make_unique<message::input::RawSensors>();
             for (uint32_t i = 0; i < 20; ++i) {
-                msg->mutable_servos(i)->set_presentposition(joints[servo_id_to_joint[i]]->Position()
-                                                            + joint_offsets[servo_id_to_joint[i]]);
-                msg->mutable_servos(i)->set_presentspeed(joints[servo_id_to_joint[i]]->GetVelocity(0));
+                auto s = msg->add_servos();
+                s->set_presentposition(joints[servo_id_to_joint[i]]->Position() + joint_offsets[servo_id_to_joint[i]]);
+                s->set_presentspeed(joints[servo_id_to_joint[i]]->GetVelocity(0));
             }
 
             ignition::math::Vector3d gyroscope     = imu_sensor->AngularVelocity();
