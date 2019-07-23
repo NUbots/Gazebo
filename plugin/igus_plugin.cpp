@@ -6,7 +6,7 @@
 #include <gazebo/sensors/sensors.hh>
 #include <nuclear>
 
-#include "message/input/RawSensors.pb.h"
+#include "message/platform/darwin/DarwinSensors.pb.h"
 #include "message/motion/ServoTarget.pb.h"
 #include "nuclear_network.h"
 
@@ -246,7 +246,7 @@ private:
         if (now - last_update > std::chrono::milliseconds(10)) {
             last_update += std::chrono::milliseconds(10);
 
-            auto msg = std::make_unique<message::input::RawSensors>();
+            auto msg = std::make_unique<message::platform::darwin::DarwinSensors>();
             for (uint32_t i = 0; i < 20; ++i) {
                 auto s = msg->add_servos();
                 s->set_presentposition(joints[servo_id_to_joint[i]]->Position() + joint_offsets[servo_id_to_joint[i]]);
