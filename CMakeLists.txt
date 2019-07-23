@@ -84,11 +84,12 @@ TARGET_LINK_LIBRARIES(message PUBLIC ${PROTOBUF_LIBRARIES})
 FIND_PACKAGE(NUClear REQUIRED)
 FIND_PACKAGE(gazebo REQUIRED)
 
-ADD_LIBRARY(nuclear_network OBJECT plugin/nuclear_network.cpp)
+ADD_LIBRARY(nuclear_network SHARED plugin/nuclear_network.cpp)
 SET_PROPERTY(TARGET nuclear_network PROPERTY POSITION_INDEPENDENT_CODE ON)
 TARGET_INCLUDE_DIRECTORIES(nuclear_network PUBLIC ${NUClear_INCLUDE_DIRS})
 TARGET_LINK_LIBRARIES(nuclear_network PUBLIC ${NUClear_LIBRARIES})
 TARGET_INCLUDE_DIRECTORIES(nuclear_network PRIVATE ${GAZEBO_INCLUDE_DIRS})
+TARGET_LINK_LIBRARIES(nuclear_network PUBLIC ${GAZEBO_LIBRARIES})
 TARGET_LINK_DIRECTORIES(nuclear_network PRIVATE ${GAZEBO_LIBRARY_DIRS})
 
 # Build our plugins
@@ -101,10 +102,11 @@ FOREACH(plugin ${plugins})
     TARGET_LINK_DIRECTORIES(${plugin_name} PRIVATE ${GAZEBO_LIBRARY_DIRS})
     TARGET_LINK_LIBRARIES(${plugin_name} PRIVATE message nuclear_network ${GAZEBO_LIBRARIES})
     LIST(APPEND plugin_targets ${plugin_name})
+    SET_TARGET_PROPERTIES(${plugin_name} PROPERTIES INSTALL_RPATH "@loader_path")
 ENDFOREACH(plugin)
 
 # Install plugin libraries to Gazebo plugin directory
-INSTALL(TARGETS ${plugin_targets} LIBRARY DESTINATION ${GAZEBO_PLUGIN_PATH})
+INSTALL(TARGETS ${plugin_targets} nuclear_network LIBRARY DESTINATION ${GAZEBO_PLUGIN_PATH})
 
 # Get a list of all model files to install and install them
 FILE(GLOB_RECURSE MODEL_FILES "models/**")

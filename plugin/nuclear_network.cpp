@@ -7,6 +7,7 @@ class NetworkReactor;
 std::unique_ptr<NUClear::PowerPlant> powerplant = nullptr;
 NetworkReactor* reactor                         = nullptr;
 std::unique_ptr<std::thread> exec               = nullptr;
+std::mutex init_mutex;
 
 class NetworkReactor : public NUClear::Reactor {
 public:
@@ -73,11 +74,15 @@ public:
 NUClear::Reactor& get_reactor() {
     // If we don't have a reactor yet, make one
     if (!powerplant) {
-        powerplant = std::make_unique<NUClear::PowerPlant>();
-        powerplant->install<NetworkReactor>();
+        std::lock_guard<std::mutex> lock(init_mutex);
+        // Double check that we weren't duped by lock contention!
+        if (!powerplant) {
+            powerplant = std::make_unique<NUClear::PowerPlant>();
+            powerplant->install<NetworkReactor>();
 
-        // Start up the NUClear in another thread
-        exec = std::make_unique<std::thread>([] { powerplant->start(); });
+            // Start up the NUClear in another thread
+            exec = std::make_unique<std::thread>([] { powerplant->start(); });
+        }
     }
     return *reactor;
 }
