@@ -91,5 +91,6 @@ FOREACH(model_file ${MODEL_FILES})
         "${CMAKE_CURRENT_SOURCE_DIR}/models"
         ${model_file}
     )
+    GET_FILENAME_COMPONENT(path ${path} DIRECTORY)
     INSTALL(FILES ${model_file} DESTINATION "${GAZEBO_MODEL_PATH}/${path}")
 ENDFOREACH()
