@@ -228,8 +228,6 @@ private:
         }
 
         joints[target.id()]->SetStiffnessDamping(0, 3.25, 0.25, joints[target.id()]->Position());
-
-        std::cerr << "ID: " << target.id() << ", vel: " << velocity << std::endl;
         // model->GetJointController()->Update();
     }
 
