@@ -52,7 +52,7 @@ private:
             msg->mutable_vbww()->set_z(v.Z());
 
             // Emit the message using the NUClear network as an unreliable packet
-            // get_reactor().emit<NUClear::dsl::word::emit::Network>(msg);
+            get_reactor().emit<NUClear::dsl::word::emit::Network>(msg);
         }
     }
 
