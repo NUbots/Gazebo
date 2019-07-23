@@ -142,7 +142,9 @@ public:
         // Store the model pointer for convenience
         model = model;
 
-        imu_sensor = std::dynamic_pointer_cast<sensors::ImuSensor>(sensors::get_sensor("imu_sensor"));
+        // Get the imu for this model
+        this->imu_sensor =
+            std::dynamic_pointer_cast<sensors::ImuSensor>(sensors::get_sensor(_model->GetName() + "::imu_sensor"));
 
         // Get the joint pointers
         joints = model->GetJoints();
