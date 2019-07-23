@@ -27,7 +27,7 @@ FOREACH(proto ${protobufs})
         COMMAND
             ${PROTOBUF_PROTOC_EXECUTABLE}
             ARGS
-            --cpp_out=${CMAKE_CURRENT_BINARY_DIR}/shared
+            --cpp_out=lite:${CMAKE_CURRENT_BINARY_DIR}/shared
             -I${CMAKE_CURRENT_SOURCE_DIR}/shared
             "${CMAKE_CURRENT_SOURCE_DIR}/shared/${dir}/${file_we}.proto"
         COMMENT "Compiling protocol buffer ${proto}"
