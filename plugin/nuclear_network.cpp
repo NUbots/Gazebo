@@ -14,17 +14,6 @@ public:
     NetworkReactor(std::unique_ptr<NUClear::Environment> environment) : Reactor(std::move(environment)) {
         ::reactor = this;
 
-        // Print out when the NUClear is starting up
-        on<Startup>().then([this] {
-            gzmsg << "NUClear is starting up" << std::endl;
-
-            auto net_config              = std::make_unique<NUClear::message::NetworkConfiguration>();
-            net_config->name             = "gazebo";
-            net_config->announce_address = "239.226.152.162";
-            net_config->announce_port    = 7447;
-            emit<Scope::DIRECT>(net_config);
-        });
-
         on<Trigger<NUClear::message::NetworkJoin>>().then([this](const NUClear::message::NetworkJoin& event) {
             char c[255];
             std::memset(c, 0, sizeof(c));

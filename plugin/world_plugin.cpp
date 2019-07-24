@@ -33,6 +33,13 @@ public:
         // Just output a message for now
         gzdbg << "Attaching a NUbots world plugin to [" << _world->Name() << "]" << std::endl;
 
+        // Configure the NUClear network
+        auto net_config              = std::make_unique<NUClear::message::NetworkConfiguration>();
+        net_config->name             = _sdf->Get<std::string>("nuclearnet_name", "gazebo").first;
+        net_config->announce_address = _sdf->Get<std::string>("nuclearnet_address", "239.226.152.162").first;
+        net_config->announce_port    = _sdf->Get<int>("nuclearnet_port", 7447).first;
+        get_reactor().emit<NUClear::dsl::word::emit::Direct>(net_config);
+
         // Store the model pointer for convenience
         this->world = _world;
 

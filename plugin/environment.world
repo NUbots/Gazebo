@@ -2,7 +2,11 @@
 <sdf version="1.5">
   <world name="nubots_world">
   <!-- Attach a plugin to this world -->
-  <plugin name="nubots_world" filename="libworld_plugin.so"/>
+  <plugin name="nubots_world" filename="libworld_plugin.so">
+    <nuclearnet_name>gazebo</nuclearnet_name>
+    <nuclearnet_address>239.226.152.162</nuclearnet_address>
+    <nuclearnet_port>7447</nuclearnet_port>
+  </plugin>
   <gui>
     <camera name="user_camera">
       <pose>-2.5 -1 0.75 0 0.1 0.3</pose>
