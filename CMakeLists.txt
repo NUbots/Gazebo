@@ -1,14 +1,9 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.10 FATAL_ERROR)
 
 # Set a default build type if none was specified
-SET(default_build_type "Release")
-IF(EXISTS "${CMAKE_SOURCE_DIR}/.git")
-    SET(default_build_type "Debug")
-ENDIF()
-
 IF(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
-    MESSAGE(STATUS "Setting build type to '${default_build_type}' as none was specified.")
-    SET(CMAKE_BUILD_TYPE ${default_build_type} CACHE STRING "Choose the type of build." FORCE)
+    MESSAGE(STATUS "Setting build type to 'Release' as none was specified.")
+    SET(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build." FORCE)
     # Set the possible values of build type for cmake-gui
     SET_PROPERTY(
         CACHE CMAKE_BUILD_TYPE
@@ -23,10 +18,8 @@ ENDIF()
 
 PROJECT(NUbotsGazebo VERSION 1.0.0)
 
-# Find Gazebo and Ignition Transport
-FIND_PACKAGE(Protobuf REQUIRED)
-
 # Build the custom protobuf messages Build our builtin protobuf classes
+FIND_PACKAGE(Protobuf REQUIRED)
 FILE(GLOB_RECURSE protobufs "shared/**.proto")
 FOREACH(proto ${protobufs})
     # Get the file without the extension and the directory
@@ -61,22 +54,16 @@ FOREACH(proto ${protobufs})
     )
 ENDFOREACH(proto)
 
-IF(NOT MSVC)
-    # Compilation must be done with c++14 for NUClear to work
-    ADD_COMPILE_OPTIONS(-std=c++14 -fPIC)
-ENDIF()
-
-# GNU Compiler
-IF(CMAKE_CXX_COMPILER_ID MATCHES GNU)
-    # Enable colours on g++ 4.9 or greater
-    IF(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 4.9 OR CMAKE_CXX_COMPILER_VERSION VERSION_EQUAL 4.9)
-        ADD_COMPILE_OPTIONS(-fdiagnostics-color=always)
-    ENDIF()
+# Force enable diagnostic colours for clang and gcc
+IF(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
+    ADD_COMPILE_OPTIONS(-fdiagnostics-color=always)
+ELSEIF(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
+    ADD_COMPILE_OPTIONS(-fcolor-diagnostics)
 ENDIF()
 
 ADD_LIBRARY(message OBJECT ${msg_src})
 SET_PROPERTY(TARGET message PROPERTY POSITION_INDEPENDENT_CODE ON)
-TARGET_COMPILE_FEATURES(message PUBLIC cxx_std_11)
+TARGET_COMPILE_FEATURES(message PUBLIC cxx_std_14)
 TARGET_INCLUDE_DIRECTORIES(message PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/shared ${PROTOBUF_INCLUDE_DIRS})
 TARGET_LINK_LIBRARIES(message PUBLIC ${PROTOBUF_LIBRARIES})
 
@@ -105,7 +92,7 @@ FOREACH(plugin ${plugins})
     IF(UNIX AND APPLE)
         SET_TARGET_PROPERTIES(${plugin_name} PROPERTIES INSTALL_RPATH "@loader_path")
     ELSEIF(UNIX AND NOT APPLE)
-      SET_TARGET_PROPERTIES(${plugin_name} PROPERTIES INSTALL_RPATH "$ORIGIN")
+        SET_TARGET_PROPERTIES(${plugin_name} PROPERTIES INSTALL_RPATH "$ORIGIN")
     ENDIF()
 ENDFOREACH(plugin)
 

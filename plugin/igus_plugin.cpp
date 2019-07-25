@@ -6,8 +6,8 @@
 #include <gazebo/sensors/sensors.hh>
 #include <nuclear>
 
-#include "message/motion/ServoTarget.pb.h"
-#include "message/platform/darwin/DarwinSensors.pb.h"
+#include "message/platform/gazebo/RawSensors.pb.h"
+#include "message/platform/gazebo/ServoTargets.pb.h"
 #include "nuclear_clock.h"
 #include "nuclear_network.h"
 
@@ -147,7 +147,7 @@ public:
         gzdbg << "Attaching an iGus plugin to model [" << model->GetName() << "]" << std::endl;
 
         // Store the model pointer for convenience
-        model = model;
+        this->model = model;
 
         // Get the imu for this model
         this->imu_sensor = std::dynamic_pointer_cast<sensors::ImuSensor>(
@@ -159,16 +159,20 @@ public:
         // Set up the update event
         update_connection = event::Events::ConnectWorldUpdateBegin(std::bind(&NUbotsIgusPlugin::update_robot, this));
 
-        get_reactor().on<Network<message::motion::ServoTargets>>().then(
-            [this](const message::motion::ServoTargets& targets) {
-                // Store the incoming commands in the queue for the next simulation frame
-                std::lock_guard<std::mutex> lock(command_mutex);
-                for (const auto& c : targets.targets()) {
-                    // Convert ServoID to JointID
-                    message::motion::ServoTarget joint_target(c);
-                    joint_target.set_id(servo_id_to_joint[c.id()]);
-                    joint_target.set_position(c.position() - joint_offsets[c.id()]);
-                    command_queue.push_back(joint_target);
+        get_reactor().on<Network<message::platform::gazebo::ServoTargets>>().then(
+            [this](const message::platform::gazebo::ServoTargets& msg) {
+                // Check that the commands we are getting are for this model instance
+                if (msg.model() == this->model->GetName()) {
+                    // Store the incoming commands in the queue for the next simulation frame
+                    std::lock_guard<std::mutex> lock(command_mutex);
+                    for (const auto& c : msg.targets().targets()) {
+                        // Convert ServoID to JointID
+                        // TODO use msg.time() to calculate velocities
+                        message::motion::ServoTarget joint_target(c);
+                        joint_target.set_id(servo_id_to_joint[c.id()]);
+                        joint_target.set_position(c.position() - joint_offsets[c.id()]);
+                        command_queue.push_back(joint_target);
+                    }
                 }
             });
 
@@ -253,17 +257,19 @@ private:
         if (now - last_update > update_rate) {
             last_update += update_rate;
 
-            auto msg = std::make_unique<message::platform::darwin::DarwinSensors>();
+            auto msg = std::make_unique<message::platform::gazebo::RawSensors>();
+            msg->set_model(model->GetName());
+            auto sensors = msg->mutable_sensors();
             for (uint32_t i = 0; i < 20; ++i) {
-                auto s = msg->add_servos();
+                auto s = sensors->add_servos();
                 s->set_presentposition(joints[servo_id_to_joint[i]]->Position() + joint_offsets[servo_id_to_joint[i]]);
                 s->set_presentspeed(joints[servo_id_to_joint[i]]->GetVelocity(0));
             }
 
             ignition::math::Vector3d gyroscope     = imu_sensor->AngularVelocity();
             ignition::math::Vector3d accelerometer = imu_sensor->LinearAcceleration();
-            auto gyro                              = msg->mutable_gyroscope();
-            auto acc                               = msg->mutable_accelerometer();
+            auto gyro                              = sensors->mutable_gyroscope();
+            auto acc                               = sensors->mutable_accelerometer();
             gyro->set_x(gyroscope.X());
             gyro->set_y(gyroscope.Y());
             gyro->set_z(gyroscope.Z());

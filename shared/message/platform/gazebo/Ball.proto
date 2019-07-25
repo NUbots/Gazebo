@@ -16,15 +16,15 @@
  *
  * Copyright 2019 NUbots <nubots@nubots.net>
  */
- syntax = "proto3";
+syntax = "proto3";
 
- package message.input.gazebo;
+package message.platform.gazebo;
 
- message Command {
-     enum Type {
-         RESET = 0;
-         RESET_TIME = 1;
-     }
+import "Vector.proto";
 
-     Type type = 1;
- }
+message Ball {
+    // Vector from world origin to ball in world space
+    vec3 rBWw = 1;
+    // Velocity vector for the ball in world space
+    vec3 vBw = 2;
+}
