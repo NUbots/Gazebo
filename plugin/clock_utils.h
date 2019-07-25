@@ -4,6 +4,7 @@
 #include <chrono>
 #include <cmath>
 
+// Convert a frequency into a duration
 template <typename period>
 struct Per;
 
@@ -15,6 +16,9 @@ struct Per<std::chrono::duration<Unit, std::ratio<num, den>>> : public std::chro
               * (double(std::chrono::steady_clock::period::den) / double(std::chrono::steady_clock::period::num)))) {}
 };
 
+// Cast a timepoint (type T) to a std::chrono::steady_clock::time_point
+// T must have two member functions "int seconds()" and "int nanos()" which return the number of seconds and
+// nanoseconds in the time_point
 template <typename T>
 inline std::chrono::steady_clock::time_point time_point_cast(const T& time_point) {
     // Get our seconds and nanos in c++ land
