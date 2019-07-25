@@ -121,6 +121,13 @@ public:
     // Inherit constructors
     using ModelPlugin::ModelPlugin;
 
+    virtual ~NUbotsIgusPlugin() {
+        // Unbind handles on destruction
+        for (auto& h : handles) {
+            h.unbind();
+        }
+    }
+
     template <typename T>
     using Network = NUClear::dsl::word::Network<T>;
 
@@ -159,7 +166,7 @@ public:
         // Set up the update event
         update_connection = event::Events::ConnectWorldUpdateBegin(std::bind(&NUbotsIgusPlugin::update_robot, this));
 
-        get_reactor().on<Network<message::platform::gazebo::ServoTargets>>().then(
+        handles.push_back(get_reactor().on<Network<message::platform::gazebo::ServoTargets>>().then(
             [this](const message::platform::gazebo::ServoTargets& msg) {
                 // Check that the commands we are getting are for this model instance
                 if (msg.model() == this->model->GetName()) {
@@ -174,7 +181,7 @@ public:
                         command_queue.push_back(joint_target);
                     }
                 }
-            });
+            }));
 
         // Setup a P-controller, with a gain of 4.
         pid = common::PID(40.0, 0.0, 0.0);
@@ -311,6 +318,9 @@ private:
 
     // Rate at which to send update messages over the network
     std::chrono::steady_clock::duration update_rate;
+
+    // Reaction handles we have made so we can unbind when we are destructed
+    std::vector<NUClear::threading::ReactionHandle> handles;
 };
 
 // Tell Gazebo about this plugin, so that Gazebo can call Load on this plugin

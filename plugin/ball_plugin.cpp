@@ -15,6 +15,14 @@ public:
     // Inherit constructors
     using ModelPlugin::ModelPlugin;
 
+    // Make sure to unbind the reaction handle on destruction
+    virtual ~NUbotsBallPlugin() {
+        // Unbind handles on destruction
+        for (auto& h : handles) {
+            h.unbind();
+        }
+    }
+
     /**
      * The load function is called by Gazebo when the plugin is inserted into simulation
      * @param _model A pointer to the model that this plugin is attached to
@@ -66,6 +74,9 @@ private:
 
     // Rate at which to send update messages over the network
     std::chrono::steady_clock::duration update_rate;
+
+    // Reaction handles we have made so we can unbind when we are destructed
+    std::vector<NUClear::threading::ReactionHandle> handles;
 };
 
 // Tell Gazebo about this plugin, so that Gazebo can call Load on this plugin

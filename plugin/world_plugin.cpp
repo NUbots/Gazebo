@@ -19,7 +19,10 @@ public:
 
     // Make sure to unbind the reaction handle on destruction
     virtual ~NUbotsWorldPlugin() {
-        handle.unbind();
+        // Unbind handles on destruction
+        for (auto& h : handles) {
+            h.unbind();
+        }
     }
 
     /**
@@ -51,12 +54,12 @@ public:
         // When we get an update event, publish the ball position and velocity
         update_connection = event::Events::ConnectWorldUpdateBegin(std::bind(&NUbotsWorldPlugin::update_world, this));
 
-        handle = get_reactor().on<Network<message::platform::gazebo::Command>>().then(
+        handles.push_back(get_reactor().on<Network<message::platform::gazebo::Command>>().then(
             [this](const message::platform::gazebo::Command& c) {
                 // Store this command ready for the next update as we don't want to mess with gazebos threading
                 std::lock_guard<std::mutex> lock(command_mutex);
                 command_queue.push_back(c);
-            });
+            }));
     }
 
 
@@ -106,8 +109,8 @@ private:
     // Rate at which to send update messages over the network
     std::chrono::steady_clock::duration update_rate;
 
-    // A reaction handle so we can unbind when we are destructed
-    NUClear::threading::ReactionHandle handle;
+    // Reaction handles we have made so we can unbind when we are destructed
+    std::vector<NUClear::threading::ReactionHandle> handles;
 
     // A queue of commands to be executed on the next simulation frame
     std::mutex command_mutex;
