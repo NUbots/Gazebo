@@ -2,6 +2,7 @@
 #define GAZEBO_CLOCK_UTILS_H
 
 #include <chrono>
+#include <cmath>
 
 template <typename period>
 struct Per;
