@@ -1,9 +1,11 @@
+#include <chrono>
 #include <gazebo/common/common.hh>
 #include <gazebo/gazebo.hh>
 #include <gazebo/physics/physics.hh>
 
 #include "message/input/gazebo/Command.pb.h"
 #include "message/input/gazebo/Simulation.pb.h"
+#include "nuclear_clock.h"
 #include "nuclear_network.h"
 
 namespace gazebo {
@@ -29,6 +31,9 @@ public:
 
         // Last update is when we load
         last_update = std::chrono::steady_clock::now() - std::chrono::milliseconds(10);
+
+        // Configure the update rate
+        update_rate = Per<std::chrono::seconds>(_sdf->Get<uint32_t>("update_rate", 100).first);
 
         // Just output a message for now
         gzdbg << "Attaching a NUbots world plugin to [" << _world->Name() << "]" << std::endl;
@@ -66,10 +71,11 @@ private:
             command_queue.resize(0);
         }
 
-        // Only send packets at 100Hz
+        // Only send packets at the configured rate
         auto now = std::chrono::steady_clock::now();
-        if (now - last_update > std::chrono::milliseconds(10)) {
-            last_update += std::chrono::milliseconds(10);
+        if (now - last_update > update_rate) {
+            last_update += update_rate;
+
             // Make our message
             auto msg = std::make_unique<message::input::gazebo::Simulation>();
             msg->set_sim_time(this->world->SimTime().Double());
@@ -94,8 +100,11 @@ private:
     // Holds the callback from gazebo
     event::ConnectionPtr update_connection;
 
-    // The last time we sent a packet so we can rate limit to about 100hz
+    // The last time we sent a packet so we can rate limit
     std::chrono::steady_clock::time_point last_update;
+
+    // Rate at which to send update messages over the network
+    NUClear::clock::duration update_rate;
 
     // A reaction handle so we can unbind when we are destructed
     NUClear::threading::ReactionHandle handle;

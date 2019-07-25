@@ -6,8 +6,9 @@
 #include <gazebo/sensors/sensors.hh>
 #include <nuclear>
 
-#include "message/platform/darwin/DarwinSensors.pb.h"
 #include "message/motion/ServoTarget.pb.h"
+#include "message/platform/darwin/DarwinSensors.pb.h"
+#include "nuclear_clock.h"
 #include "nuclear_network.h"
 
 namespace gazebo {
@@ -130,6 +131,12 @@ public:
      */
     void Load(physics::ModelPtr model, sdf::ElementPtr sdf) {
 
+        // Last update is when we load
+        last_update = std::chrono::steady_clock::now();
+
+        // Configure the update rate
+        update_rate = Per<std::chrono::seconds>(sdf->Get<uint32_t>("update_rate", 100).first);
+
         // Safety check to see if the SDF file is attached correctly
         if (model->GetJointCount() == 0) {
             gzerr << "Invalid joint count, NUbots Igus plugin not loaded" << std::endl;
@@ -243,8 +250,8 @@ private:
         }
 
         auto now = std::chrono::steady_clock::now();
-        if (now - last_update > std::chrono::milliseconds(10)) {
-            last_update += std::chrono::milliseconds(10);
+        if (now - last_update > update_rate) {
+            last_update += update_rate;
 
             auto msg = std::make_unique<message::platform::darwin::DarwinSensors>();
             for (uint32_t i = 0; i < 20; ++i) {
@@ -298,8 +305,11 @@ private:
     // Holds the callback from gazebo
     event::ConnectionPtr update_connection;
 
-    // The last time we sent a packet so we can rate limit to about 100hz
+    // The last time we sent a packet so we can rate limit
     std::chrono::steady_clock::time_point last_update;
+
+    // Rate at which to send update messages over the network
+    NUClear::clock::duration update_rate;
 };
 
 // Tell Gazebo about this plugin, so that Gazebo can call Load on this plugin

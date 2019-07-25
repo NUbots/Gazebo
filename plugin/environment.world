@@ -6,6 +6,7 @@
     <nuclearnet_name>gazebo</nuclearnet_name>
     <nuclearnet_address>239.226.152.162</nuclearnet_address>
     <nuclearnet_port>7447</nuclearnet_port>
+    <update_rate>100</update_rate>
   </plugin>
   <gui>
     <camera name="user_camera">
@@ -72,7 +73,9 @@
         <uri>model://teensize_ball</uri>
       </include>
       <pose>0 0 0.15 0 0 0</pose>
-      <plugin name="nubots_ball" filename="libball_plugin.so"/>
+      <plugin name="nubots_ball" filename="libball_plugin.so">
+        <update_rate>100</update_rate>
+      </plugin>
     </model>
 
     <!-- The NUbots' Igus -->
@@ -82,7 +85,9 @@
       </include>
       <pose>-0.15 0.125 0.6225 0 0.125 0</pose>
       <!-- Attach the plugin to this model -->
-      <plugin name="nubots_igus" filename="libigus_plugin.so"/>
+      <plugin name="nubots_igus" filename="libigus_plugin.so">
+        <update_rate>100</update_rate>
+      </plugin>
     </model>
   </world>
 </sdf>
