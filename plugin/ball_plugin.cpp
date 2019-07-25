@@ -37,7 +37,7 @@ public:
         model = _model;
 
         // Configure the update rate
-        update_rate = 1.0 / sdf->Get<double>("update_rate", 100).first;
+        update_rate = 1.0 / _sdf->Get<double>("update_rate", 100).first;
 
         // Last update is when we load minus an update
         last_update = model->GetWorld()->SimTime().Double() - update_rate;
