@@ -18,10 +18,8 @@ ENDIF()
 
 PROJECT(NUbotsGazebo VERSION 1.0.0)
 
-# Find Gazebo and Ignition Transport
-FIND_PACKAGE(Protobuf REQUIRED)
-
 # Build the custom protobuf messages Build our builtin protobuf classes
+FIND_PACKAGE(Protobuf REQUIRED)
 FILE(GLOB_RECURSE protobufs "shared/**.proto")
 FOREACH(proto ${protobufs})
     # Get the file without the extension and the directory
