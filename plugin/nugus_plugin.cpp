@@ -154,6 +154,15 @@ public:
             return;
         }
 
+        // Configure joint parameters
+        joint_stiffness             = sdf->Get<double>("joint_stiffness", 0.0).first;
+        joint_damping               = sdf->Get<double>("joint_damping", 0.0).first;
+        joint_stop_dissipation      = sdf->Get<double>("joint_stop_dissipation", 0.0).first;
+        joint_effort_limit          = sdf->Get<double>("joint_effort_limit", 0.0).first;
+        joint_velocity_limit        = sdf->Get<double>("joint_velocity_limit", 3.75).first;
+        joint_pid_factor            = sdf->Get<double>("joint_pid_factor", 4.0).first;
+        joint_ankle_roll_pid_factor = sdf->Get<double>("joint_ankle_roll_pid_factor", 0.7).first;
+
         // Just output a message for now
         gzdbg << "Attaching an NUgus plugin to model [" << model->GetName() << "]" << std::endl;
 
@@ -209,15 +218,11 @@ public:
             model->GetJointController()->SetPositionTarget(joints[i]->GetScopedName(), initial_positions[i]);
             joints[i]->SetPosition(0, initial_positions[i]);
 
-            joints[i]->SetStopDissipation(0, 0.0);
-            joints[i]->SetStiffness(0, 3.25);
-            // joints[i]->SetStopStiffness (0, 0.125);
-            // joints[i]->Set
-            // joints[i]->SetStiffnessDamping(0, 4.0, 0.125, 0.0);
-            // joints[i]->Set
-            joints[i]->SetEffortLimit(0, 20.0);
-
-            joints[i]->SetStiffnessDamping(0, 3.25, 0.25, joints[i]->Position());
+            // Set joint parameters
+            joints[i]->SetStopDissipation(0, joint_stop_dissipation);
+            joints[i]->SetEffortLimit(0, joint_effort_limit);
+            joints[i]->SetStiffnessDamping(0, joint_stiffness, joint_damping, joints[i]->Position());
+            joints[i]->SetVelocityLimit(0, joint_velocity_limit);
         }
     }
 
@@ -225,8 +230,10 @@ private:
     void apply_joint_command(const message::motion::ServoTarget& target) {
         // Set the joint's gain by applying the
         // P-controller to the joints for positions.
-        double gain =
-            target.gain() * (target.id() == JointID::R_ANKLE_ROLL || target.id() == JointID::L_ANKLE_ROLL ? 0.7 : 4.0);
+        double gain = target.gain()
+                      * (target.id() == JointID::R_ANKLE_ROLL || target.id() == JointID::L_ANKLE_ROLL
+                             ? joint_ankle_roll_pid_factor
+                             : joint_pid_factor);
 
         // Only update the controller if the gain changed
         model->GetJointController()->SetPositionPID(joints[target.id()]->GetScopedName(), common::PID(gain));
@@ -236,7 +243,7 @@ private:
         // Calculate the joint's velocity
         double current_position = model->GetJointController()->GetPositions()[joints[target.id()]->GetScopedName()];
         double position_difference =
-            M_PI - std::fabs(std::fmod(std::fabs(current_position - target.position()), 2 * M_PI) - M_PI);
+            M_PI - std::fabs(std::fmod(std::fabs(current_position - target.position()), 2.0 * M_PI) - M_PI);
         double velocity =
             position_difference
             / (static_cast<double>(duration.count()) / static_cast<double>(std::chrono::steady_clock::period::den));
@@ -248,11 +255,10 @@ private:
             joints[target.id()]->SetVelocityLimit(0, velocity);
         }
         else {
-            joints[target.id()]->SetVelocityLimit(0, 3.75);
+            joints[target.id()]->SetVelocityLimit(0, joint_velocity_limit);
         }
 
-        joints[target.id()]->SetStiffnessDamping(0, 3.25, 0.25, joints[target.id()]->Position());
-        // model->GetJointController()->Update();
+        joints[target.id()]->SetStiffnessDamping(0, joint_stiffness, joint_damping, joints[target.id()]->Position());
     }
 
     void update_robot() {
@@ -263,7 +269,12 @@ private:
             for (const auto& c : command_queue) {
                 apply_joint_command(c);
             }
-            command_queue.resize(0);
+
+            // Must be called every time update step to apply forces
+            if (!command_queue.empty()) {
+                model->GetJointController()->Update();
+                command_queue.resize(0);
+            }
         }
 
         // Get the current simulation time
@@ -350,6 +361,15 @@ private:
 
     // Pointer to the joints
     std::vector<physics::JointPtr> joints;
+
+    // Joint parameters
+    double joint_stiffness;
+    double joint_damping;
+    double joint_stop_dissipation;
+    double joint_effort_limit;
+    double joint_velocity_limit;
+    double joint_pid_factor;
+    double joint_ankle_roll_pid_factor;
 
     // A command queue to store the incoming servo targets before applying them to the hardware
     std::mutex command_mutex;

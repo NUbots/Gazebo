@@ -87,6 +87,20 @@
       <!-- Attach the plugin to this model -->
       <plugin name="nubots_nugus" filename="libnubots_nugus_plugin.so">
         <update_rate>100</update_rate>
+        <!-- Joint spring stiffness coefficient -->
+        <joint_stiffness>3.25</joint_stiffness>
+        <!-- Joint spring damping coefficient -->
+        <joint_damping>0.25</joint_damping>
+        <!-- Joint stop dissipation -->
+        <joint_stop_dissipation>0.0</joint_stop_dissipation>
+        <!-- Joint effort limit -->
+        <joint_effort_limit>20.0</joint_effort_limit>
+        <!-- Joint velocity limit -->
+        <joint_effort_limit>3.75</joint_effort_limit>
+        <!-- Joint PID factor for all joints except ankle roll -->
+        <joint_pid_factor>4.0</joint_pid_factor>
+        <!-- Joint PID factor for ankle roll joints -->
+        <joint_ankle_roll_pid_factor>0.7</joint_ankle_roll_pid_factor>
       </plugin>
     </model>
   </world>
