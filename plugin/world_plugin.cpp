@@ -3,9 +3,9 @@
 #include <gazebo/gazebo.hh>
 #include <gazebo/physics/physics.hh>
 
+#include "clock_utils.h"
 #include "message/platform/gazebo/Command.pb.h"
 #include "message/platform/gazebo/Simulation.pb.h"
-#include "nuclear_clock.h"
 #include "nuclear_network.h"
 
 namespace gazebo {
@@ -104,7 +104,7 @@ private:
     std::chrono::steady_clock::time_point last_update;
 
     // Rate at which to send update messages over the network
-    NUClear::clock::duration update_rate;
+    std::chrono::steady_clock::duration update_rate;
 
     // A reaction handle so we can unbind when we are destructed
     NUClear::threading::ReactionHandle handle;

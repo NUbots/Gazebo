@@ -6,9 +6,9 @@
 #include <gazebo/sensors/sensors.hh>
 #include <nuclear>
 
+#include "clock_utils.h"
 #include "message/platform/gazebo/RawSensors.pb.h"
 #include "message/platform/gazebo/ServoTargets.pb.h"
-#include "nuclear_clock.h"
 #include "nuclear_network.h"
 
 namespace gazebo {
@@ -213,20 +213,15 @@ private:
                                                         common::PID(target.gain() * 4.0));
         }
 
-        // Get our seconds and nanos in c++ land
-        auto seconds = std::chrono::seconds(target.time().seconds());
-        auto nanos   = std::chrono::nanoseconds(target.time().nanos());
-
-        // Make a timestamp out of the summation of them
-        NUClear::clock::time_point t      = std::chrono::time_point<NUClear::clock>(seconds + nanos);
-        NUClear::clock::duration duration = t - NUClear::clock::now();
+        auto duration = time_point_cast(target.time()) - std::chrono::steady_clock::now();
 
         // Calculate the joint's velocity
         double current_position = model->GetJointController()->GetPositions()[joints[target.id()]->GetScopedName()];
         double position_difference =
             M_PI - std::fabs(std::fmod(std::fabs(current_position - target.position()), 2 * M_PI) - M_PI);
-        double velocity = position_difference
-                          / (static_cast<double>(duration.count()) / static_cast<double>(NUClear::clock::period::den));
+        double velocity =
+            position_difference
+            / (static_cast<double>(duration.count()) / static_cast<double>(std::chrono::steady_clock::period::den));
 
         // Set the joint's target position.
         model->GetJointController()->SetPositionTarget(joints[target.id()]->GetScopedName(), target.position());
@@ -315,7 +310,7 @@ private:
     std::chrono::steady_clock::time_point last_update;
 
     // Rate at which to send update messages over the network
-    NUClear::clock::duration update_rate;
+    std::chrono::steady_clock::duration update_rate;
 };
 
 // Tell Gazebo about this plugin, so that Gazebo can call Load on this plugin

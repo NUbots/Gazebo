@@ -4,8 +4,8 @@
 #include <gazebo/physics/physics.hh>
 #include <gazebo/sensors/sensors.hh>
 
+#include "clock_utils.h"
 #include "message/platform/gazebo/Ball.pb.h"
-#include "nuclear_clock.h"
 #include "nuclear_network.h"
 
 namespace gazebo {
@@ -65,7 +65,7 @@ private:
     std::chrono::steady_clock::time_point last_update;
 
     // Rate at which to send update messages over the network
-    NUClear::clock::duration update_rate;
+    std::chrono::steady_clock::duration update_rate;
 };
 
 // Tell Gazebo about this plugin, so that Gazebo can call Load on this plugin
