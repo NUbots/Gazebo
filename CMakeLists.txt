@@ -54,12 +54,11 @@ FOREACH(proto ${protobufs})
     )
 ENDFOREACH(proto)
 
-# GNU Compiler
-IF(CMAKE_CXX_COMPILER_ID MATCHES GNU)
-    # Enable colours on g++ 4.9 or greater
-    IF(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 4.9 OR CMAKE_CXX_COMPILER_VERSION VERSION_EQUAL 4.9)
-        ADD_COMPILE_OPTIONS(-fdiagnostics-color=always)
-    ENDIF()
+# Force enable diagnostic colours for clang and gcc
+IF(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
+    ADD_COMPILE_OPTIONS(-fdiagnostics-color=always)
+ELSEIF(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
+    ADD_COMPILE_OPTIONS(-fcolor-diagnostics)
 ENDIF()
 
 ADD_LIBRARY(message OBJECT ${msg_src})
