@@ -32,11 +32,11 @@ public:
      */
     void Load(physics::WorldPtr _world, sdf::ElementPtr _sdf) {
 
-        // Last update is when we load
-        last_update = std::chrono::steady_clock::now() - std::chrono::milliseconds(10);
-
         // Configure the update rate
         update_rate = Per<std::chrono::seconds>(_sdf->Get<uint32_t>("update_rate", 100).first);
+
+        // Last update is when we load
+        last_update = std::chrono::steady_clock::now() - update_rate;
 
         // Just output a message for now
         gzdbg << "Attaching a NUbots world plugin to [" << _world->Name() << "]" << std::endl;
