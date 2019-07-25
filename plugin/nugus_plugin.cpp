@@ -1,3 +1,5 @@
+#include <google/protobuf/duration.pb.h>
+#include <google/protobuf/timestamp.pb.h>
 #include <array>
 #include <chrono>
 #include <gazebo/common/common.hh>
@@ -174,10 +176,22 @@ public:
                     std::lock_guard<std::mutex> lock(command_mutex);
                     for (const auto& c : msg.targets().targets()) {
                         // Convert ServoID to JointID
-                        // TODO use msg.time() to calculate velocities
                         message::motion::ServoTarget joint_target(c);
                         joint_target.set_id(servo_id_to_joint[c.id()]);
+
+                        // Apply offset to joint position
                         joint_target.set_position(c.position() - joint_offsets[c.id()]);
+
+                        // Convert command time to a duration from msg.time()
+                        ::google::protobuf::Duration offset;
+                        offset.set_seconds(msg.time().seconds() - c.time().seconds());
+                        offset.set_nanos(msg.time().nanos() - c.time().nanos());
+
+                        // Set joint command time to be based on the local time plus the duration we just calculated
+                        ::google::protobuf::Timestamp local_time(time_point_cast(std::chrono::steady_clock::now()));
+                        joint_target.mutable_time()->set_seconds(local_time.seconds() + offset.seconds());
+                        joint_target.mutable_time()->set_nanos(local_time.nanos() + offset.nanos());
+
                         command_queue.push_back(joint_target);
                     }
                 }

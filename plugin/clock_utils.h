@@ -1,6 +1,8 @@
 #ifndef GAZEBO_CLOCK_UTILS_H
 #define GAZEBO_CLOCK_UTILS_H
 
+#include <google/protobuf/duration.pb.h>
+#include <google/protobuf/timestamp.pb.h>
 #include <chrono>
 #include <cmath>
 
@@ -16,11 +18,8 @@ struct Per<std::chrono::duration<Unit, std::ratio<num, den>>> : public std::chro
               * (double(std::chrono::steady_clock::period::den) / double(std::chrono::steady_clock::period::num)))) {}
 };
 
-// Cast a timepoint (type T) to a std::chrono::steady_clock::time_point
-// T must have two member functions "int seconds()" and "int nanos()" which return the number of seconds and
-// nanoseconds in the time_point
-template <typename T>
-inline std::chrono::steady_clock::time_point time_point_cast(const T& time_point) {
+// Cast a google::protobuf::Timestamp to a std::chrono::steady_clock::time_point
+inline std::chrono::steady_clock::time_point time_point_cast(const ::google::protobuf::Timestamp& time_point) {
     // Get our seconds and nanos in c++ land
     auto seconds = std::chrono::seconds(time_point.seconds());
     auto nanos   = std::chrono::nanoseconds(time_point.nanos());
@@ -29,5 +28,20 @@ inline std::chrono::steady_clock::time_point time_point_cast(const T& time_point
     return std::chrono::steady_clock::time_point(seconds + nanos);
 }
 
+// Cast a std::chrono::steady_clock::time_point to a google::protobuf::Timestamp
+inline ::google::protobuf::Timestamp time_point_cast(const std::chrono::steady_clock::time_point& t) {
+    // Get the epoch timestamp
+    auto d = t.time_since_epoch();
+
+    // Get our seconds and the remainder nanoseconds
+    auto seconds = std::chrono::duration_cast<std::chrono::seconds>(d);
+    auto nanos   = std::chrono::duration_cast<std::chrono::nanoseconds>(d - seconds);
+
+    // Set our seconds and nanoseconds
+    ::google::protobuf::Timestamp proto;
+    proto.set_seconds(seconds.count());
+    proto.set_nanos(nanos.count());
+    return proto;
+}
 
 #endif  // GAZEBO_CLOCK_UTILS_H
