@@ -316,6 +316,24 @@ private:
             torso_msg->mutable_htw()->mutable_t()->set_z(translation.Z());
             torso_msg->mutable_htw()->mutable_t()->set_t(1.0);
 
+            // Get linear and angular velocties and accelerations and convert to protobuf message
+            ignition::math::Vector3d omegaTw(model->WorldAngularVel());
+            ignition::math::Vector3d alphaTw(model->WorldAngularAccel());
+            ignition::math::Vector3d vTw(model->WorldLinearVel());
+            ignition::math::Vector3d aTw(model->WorldLinearAccel());
+            torso_msg->mutable_omegatw()->set_x(omegaTw.X());
+            torso_msg->mutable_omegatw()->set_y(omegaTw.Y());
+            torso_msg->mutable_omegatw()->set_z(omegaTw.Z());
+            torso_msg->mutable_alphatw()->set_x(alphaTw.X());
+            torso_msg->mutable_alphatw()->set_y(alphaTw.Y());
+            torso_msg->mutable_alphatw()->set_z(alphaTw.Z());
+            torso_msg->mutable_vtw()->set_x(vTw.X());
+            torso_msg->mutable_vtw()->set_y(vTw.Y());
+            torso_msg->mutable_vtw()->set_z(vTw.Z());
+            torso_msg->mutable_atw()->set_x(aTw.X());
+            torso_msg->mutable_atw()->set_y(aTw.Y());
+            torso_msg->mutable_atw()->set_z(aTw.Z());
+
             get_reactor().emit<NUClear::dsl::word::emit::Network>(torso_msg);
         }
     }
