@@ -2,7 +2,7 @@
 <sdf version="1.5">
   <world name="nubots_world">
   <!-- Attach a plugin to this world -->
-  <plugin name="nubots_world" filename="libworld_plugin.so">
+  <plugin name="nubots_world" filename="libnubots_world_plugin.so">
     <nuclearnet_name>gazebo</nuclearnet_name>
     <nuclearnet_address>239.226.152.162</nuclearnet_address>
     <nuclearnet_port>7447</nuclearnet_port>
@@ -73,7 +73,7 @@
         <uri>model://teensize_ball</uri>
       </include>
       <pose>0 0 0.15 0 0 0</pose>
-      <plugin name="nubots_ball" filename="libball_plugin.so">
+      <plugin name="nubots_ball" filename="libnubots_ball_plugin.so">
         <update_rate>100</update_rate>
       </plugin>
     </model>
@@ -85,7 +85,7 @@
       </include>
       <pose>-0.15 0.125 0.6225 0 0.125 0</pose>
       <!-- Attach the plugin to this model -->
-      <plugin name="nubots_igus" filename="libigus_plugin.so">
+      <plugin name="nubots_igus" filename="libnubots_igus_plugin.so">
         <update_rate>100</update_rate>
       </plugin>
     </model>
