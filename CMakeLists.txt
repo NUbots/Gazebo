@@ -56,11 +56,6 @@ FOREACH(proto ${protobufs})
     )
 ENDFOREACH(proto)
 
-IF(NOT MSVC)
-    # Compilation must be done with c++14 for NUClear to work
-    ADD_COMPILE_OPTIONS(-std=c++14 -fPIC)
-ENDIF()
-
 # GNU Compiler
 IF(CMAKE_CXX_COMPILER_ID MATCHES GNU)
     # Enable colours on g++ 4.9 or greater
@@ -71,7 +66,7 @@ ENDIF()
 
 ADD_LIBRARY(message OBJECT ${msg_src})
 SET_PROPERTY(TARGET message PROPERTY POSITION_INDEPENDENT_CODE ON)
-TARGET_COMPILE_FEATURES(message PUBLIC cxx_std_11)
+TARGET_COMPILE_FEATURES(message PUBLIC cxx_std_14)
 TARGET_INCLUDE_DIRECTORIES(message PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/shared ${PROTOBUF_INCLUDE_DIRS})
 TARGET_LINK_LIBRARIES(message PUBLIC ${PROTOBUF_LIBRARIES})
 
@@ -100,7 +95,7 @@ FOREACH(plugin ${plugins})
     IF(UNIX AND APPLE)
         SET_TARGET_PROPERTIES(${plugin_name} PROPERTIES INSTALL_RPATH "@loader_path")
     ELSEIF(UNIX AND NOT APPLE)
-      SET_TARGET_PROPERTIES(${plugin_name} PROPERTIES INSTALL_RPATH "$ORIGIN")
+        SET_TARGET_PROPERTIES(${plugin_name} PROPERTIES INSTALL_RPATH "$ORIGIN")
     ENDIF()
 ENDFOREACH(plugin)
 
