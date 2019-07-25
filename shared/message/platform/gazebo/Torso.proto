@@ -18,11 +18,13 @@
  */
 syntax = "proto3";
 
-package message.input.gazebo;
+package message.platform.gazebo;
 
-import "Vector.proto";
+import "Matrix.proto";
 
-message Ball {
-    vec3 rBWw = 1;
-    vec3 vBWw = 2;
+message Torso {
+    // The name of the model in the simulation that this position is for
+    string model = 1;
+    // The transform from world space to torso space
+    mat4   Htw   = 2;
 }

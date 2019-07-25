@@ -2,8 +2,8 @@
 #include <gazebo/gazebo.hh>
 #include <gazebo/physics/physics.hh>
 
-#include "message/input/gazebo/Command.pb.h"
-#include "message/input/gazebo/Simulation.pb.h"
+#include "message/platform/gazebo/Command.pb.h"
+#include "message/platform/gazebo/Simulation.pb.h"
 #include "nuclear_network.h"
 
 namespace gazebo {
@@ -46,8 +46,8 @@ public:
         // When we get an update event, publish the ball position and velocity
         update_connection = event::Events::ConnectWorldUpdateBegin(std::bind(&NUbotsWorldPlugin::update_world, this));
 
-        handle = get_reactor().on<Network<message::input::gazebo::Command>>().then(
-            [this](const message::input::gazebo::Command& c) {
+        handle = get_reactor().on<Network<message::platform::gazebo::Command>>().then(
+            [this](const message::platform::gazebo::Command& c) {
                 // Store this command ready for the next update as we don't want to mess with gazebos threading
                 std::lock_guard<std::mutex> lock(command_mutex);
                 command_queue.push_back(c);
@@ -71,8 +71,8 @@ private:
         if (now - last_update > std::chrono::milliseconds(10)) {
             last_update += std::chrono::milliseconds(10);
             // Make our message
-            auto msg = std::make_unique<message::input::gazebo::Simulation>();
-            msg->set_sim_time(this->world->SimTime().Double());
+            auto msg = std::make_unique<message::platform::gazebo::Simulation>();
+            msg->set_simulation_time(this->world->SimTime().Double());
             msg->set_real_time(this->world->RealTime().Double());
 
             // Emit the message to everyone (broadcast) using the NUClear network as an unreliable packet
@@ -80,10 +80,10 @@ private:
         }
     }
 
-    void command(const message::input::gazebo::Command& cmd) {
+    void command(const message::platform::gazebo::Command& cmd) {
         switch (cmd.type()) {
-            case message::input::gazebo::Command::Type::Command_Type_RESET: world->Reset(); break;
-            case message::input::gazebo::Command::Type::Command_Type_RESET_TIME: world->ResetTime(); break;
+            case message::platform::gazebo::Command::Type::Command_Type_RESET: world->Reset(); break;
+            case message::platform::gazebo::Command::Type::Command_Type_RESET_TIME: world->ResetTime(); break;
             default: break;
         }
     }
@@ -102,7 +102,7 @@ private:
 
     // A queue of commands to be executed on the next simulation frame
     std::mutex command_mutex;
-    std::vector<message::input::gazebo::Command> command_queue;
+    std::vector<message::platform::gazebo::Command> command_queue;
 };
 
 // Register this plugin with the simulator

@@ -3,7 +3,7 @@
 #include <gazebo/physics/physics.hh>
 #include <gazebo/sensors/sensors.hh>
 
-#include "message/input/gazebo/Ball.pb.h"
+#include "message/platform/gazebo/Ball.pb.h"
 #include "nuclear_network.h"
 
 namespace gazebo {
@@ -40,16 +40,16 @@ private:
             last_update += std::chrono::milliseconds(10);
 
             // Make our message
-            auto msg = std::make_unique<message::input::gazebo::Ball>();
+            auto msg = std::make_unique<message::platform::gazebo::Ball>();
             auto p   = model->WorldPose().Pos();
             msg->mutable_rbww()->set_x(p.X());
             msg->mutable_rbww()->set_y(p.Y());
             msg->mutable_rbww()->set_z(p.Z());
 
             auto v = model->WorldLinearVel();
-            msg->mutable_vbww()->set_x(v.X());
-            msg->mutable_vbww()->set_y(v.Y());
-            msg->mutable_vbww()->set_z(v.Z());
+            msg->mutable_vbw()->set_x(v.X());
+            msg->mutable_vbw()->set_y(v.Y());
+            msg->mutable_vbw()->set_z(v.Z());
 
             // Emit the message using the NUClear network as an unreliable packet
             get_reactor().emit<NUClear::dsl::word::emit::Network>(msg);
