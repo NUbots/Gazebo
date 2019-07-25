@@ -2,7 +2,7 @@
 Gazebo code for interfacing with the NUbots system
 
 # Setup
-  1. Install [Gazebo](http://gazebosim.org/tutorials?cat=guided_b&tut=guided_b1) (tested with version 10).
+  1. Install [Gazebo](http://gazebosim.org/tutorials?cat=guided_b&tut=guided_b1) (tested with versions 9 and 10).
   2. Clone this repo:
 
     $ git clone git@github.com:NUbots/Gazebo.git
