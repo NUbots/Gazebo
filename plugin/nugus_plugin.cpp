@@ -19,6 +19,7 @@ private:
     const std::array<double, 20> initial_positions = {0.02924, 0.063,  -0.207, 0.25614, -0.24,    -0.07,  0.4,
                                                       0.123,   -2.443, 0.0,    0.0,     -0.02924, -0.063, -0.207,
                                                       0.25614, -0.24,  0.07,   0.4,     -0.123,   -2.443};
+    const double initial_gain                      = 40.0;
 
     const std::array<double, 20> joint_offsets = {0.0,
                                                   0.0,
@@ -197,16 +198,14 @@ public:
                 }
             }));
 
-        // Setup a P-controller, with a gain of 4.
-        pid = common::PID(40.0, 0.0, 0.0);
-
         // Apply the P-controller to the joint.
         for (int i = 0; i < joints.size(); i++) {
-            model->GetJointController()->SetPositionPID(joints[i]->GetScopedName(), pid);
+            // Set an initial p gain
+            model->GetJointController()->SetPositionPID(joints[i]->GetScopedName(),
+                                                        common::PID(initial_gain, 0.0, 0.0));
 
             // This will set the initial positions of the robot
             model->GetJointController()->SetPositionTarget(joints[i]->GetScopedName(), initial_positions[i]);
-
             joints[i]->SetPosition(0, initial_positions[i]);
 
             joints[i]->SetStopDissipation(0, 0.0);
@@ -225,14 +224,11 @@ private:
     void apply_joint_command(const message::motion::ServoTarget& target) {
         // Set the joint's gain by applying the
         // P-controller to the joints for positions.
-        if (target.id() == JointID::L_ANKLE_ROLL || target.id() == JointID::R_ANKLE_ROLL) {
-            model->GetJointController()->SetPositionPID(joints[target.id()]->GetScopedName(),
-                                                        common::PID(target.gain() * 0.7));
-        }
-        else {
-            model->GetJointController()->SetPositionPID(joints[target.id()]->GetScopedName(),
-                                                        common::PID(target.gain() * 4.0));
-        }
+        double gain =
+            target.gain() * (target.id() == JointID::R_ANKLE_ROLL || target.id() == JointID::L_ANKLE_ROLL ? 0.7 : 4.0);
+
+        // Only update the controller if the gain changed
+        model->GetJointController()->SetPositionPID(joints[target.id()]->GetScopedName(), common::PID(gain));
 
         auto duration = time_point_cast(target.time()) - std::chrono::steady_clock::now();
 
