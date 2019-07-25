@@ -142,11 +142,11 @@ public:
      */
     void Load(physics::ModelPtr model, sdf::ElementPtr sdf) {
 
-        // Last update is when we load
-        last_update = std::chrono::steady_clock::now();
-
         // Configure the update rate
-        update_rate = Per<std::chrono::seconds>(sdf->Get<uint32_t>("update_rate", 100).first);
+        update_rate = 1.0 / sdf->Get<double>("update_rate", 100).first;
+
+        // Last update is when we load minus an update
+        last_update = model->GetWorld()->SimTime().Double() - update_rate;
 
         // Safety check to see if the SDF file is attached correctly
         if (model->GetJointCount() == 0) {
@@ -266,8 +266,12 @@ private:
             command_queue.resize(0);
         }
 
-        auto now = std::chrono::steady_clock::now();
-        if (now - last_update > update_rate) {
+        // Get the current simulation time
+        double now = model->GetWorld()->SimTime().Double();
+
+        // If our last update was in the future then we reset our time so reset our last update
+        last_update = last_update > now ? now - update_rate : last_update;
+        if (now - last_update >= update_rate) {
             last_update += update_rate;
 
             auto msg = std::make_unique<message::platform::gazebo::RawSensors>();
@@ -358,10 +362,10 @@ private:
     event::ConnectionPtr update_connection;
 
     // The last time we sent a packet so we can rate limit
-    std::chrono::steady_clock::time_point last_update;
+    double last_update;
 
     // Rate at which to send update messages over the network
-    std::chrono::steady_clock::duration update_rate;
+    double update_rate;
 
     // Reaction handles we have made so we can unbind when we are destructed
     std::vector<NUClear::threading::ReactionHandle> handles;
