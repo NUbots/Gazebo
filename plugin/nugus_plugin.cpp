@@ -11,6 +11,7 @@
 #include "clock_utils.h"
 #include "message/platform/gazebo/RawSensors.pb.h"
 #include "message/platform/gazebo/ServoTargets.pb.h"
+#include "message/platform/gazebo/Torso.pb.h"
 #include "nuclear_network.h"
 
 namespace gazebo {
@@ -289,18 +290,33 @@ private:
             acc->set_y(accelerometer.Y());
             acc->set_z(accelerometer.Z());
 
-            // ignition::math::Pose3d pose          = model->WorldPose();
-            // ignition::math::Quaterniond rotation = pose.Rot();
-            // ignition::math::Vector3d translation = pose.Pos();
-
-            // Eigen::Matrx4d Htw = Eigen::Matrix4d::Identity();
-            // Htw.topLeftCorner<3, 3>() =
-            //     Eigen::Quaterniond(rotation.W(), rotation.X(), rotation.Y(), rotation.Z()).toRotationMatrix();
-            // Htw(0, 3) = translation.X();
-            // Htw(1, 3) = translation.Y();
-            // Htw(2, 3) = translation.Z();
-
             get_reactor().emit<NUClear::dsl::word::emit::Network>(msg);
+
+            auto torso_msg = std::make_unique<message::platform::gazebo::Torso>();
+            torso_msg->set_model(model->GetName());
+
+            // Get robot pose and convert to protobuf message
+            ignition::math::Pose3d pose(model->WorldPose());
+            ignition::math::Matrix3d rotation(pose.Rot());
+            ignition::math::Vector3d translation(pose.Pos());
+            torso_msg->mutable_htw()->mutable_x()->set_x(rotation(0, 0));
+            torso_msg->mutable_htw()->mutable_x()->set_y(rotation(1, 0));
+            torso_msg->mutable_htw()->mutable_x()->set_z(rotation(2, 0));
+            torso_msg->mutable_htw()->mutable_x()->set_t(0.0);
+            torso_msg->mutable_htw()->mutable_y()->set_x(rotation(0, 1));
+            torso_msg->mutable_htw()->mutable_y()->set_y(rotation(1, 1));
+            torso_msg->mutable_htw()->mutable_y()->set_z(rotation(2, 1));
+            torso_msg->mutable_htw()->mutable_y()->set_t(0.0);
+            torso_msg->mutable_htw()->mutable_z()->set_x(rotation(0, 2));
+            torso_msg->mutable_htw()->mutable_z()->set_y(rotation(1, 2));
+            torso_msg->mutable_htw()->mutable_z()->set_z(rotation(2, 2));
+            torso_msg->mutable_htw()->mutable_z()->set_t(0.0);
+            torso_msg->mutable_htw()->mutable_t()->set_x(translation.X());
+            torso_msg->mutable_htw()->mutable_t()->set_y(translation.Y());
+            torso_msg->mutable_htw()->mutable_t()->set_z(translation.Z());
+            torso_msg->mutable_htw()->mutable_t()->set_t(1.0);
+
+            get_reactor().emit<NUClear::dsl::word::emit::Network>(torso_msg);
         }
     }
 
