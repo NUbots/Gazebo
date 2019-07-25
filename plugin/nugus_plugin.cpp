@@ -20,9 +20,7 @@ private:
     const std::array<double, 20> initial_positions = {0.02924, 0.063,  -0.207, 0.25614, -0.24,    -0.07,  0.4,
                                                       0.123,   -2.443, 0.0,    0.0,     -0.02924, -0.063, -0.207,
                                                       0.25614, -0.24,  0.07,   0.4,     -0.123,   -2.443};
-    const double initial_gain                      = 40.0;
-
-    const std::array<double, 20> joint_offsets = {0.0,
+    const std::array<double, 20> joint_offsets     = {0.0,
                                                   0.0,
                                                   0.0,
                                                   0.0,
@@ -162,6 +160,7 @@ public:
         joint_velocity_limit        = sdf->Get<double>("joint_velocity_limit", 3.75).first;
         joint_pid_factor            = sdf->Get<double>("joint_pid_factor", 4.0).first;
         joint_ankle_roll_pid_factor = sdf->Get<double>("joint_ankle_roll_pid_factor", 0.7).first;
+        initial_gain                = sdf->Get<double>("initial_gain", 40.0).first;
 
         // Just output a message for now
         gzdbg << "Attaching an NUgus plugin to model [" << model->GetName() << "]" << std::endl;
@@ -370,6 +369,7 @@ private:
     double joint_velocity_limit;
     double joint_pid_factor;
     double joint_ankle_roll_pid_factor;
+    double initial_gain;
 
     // A command queue to store the incoming servo targets before applying them to the hardware
     std::mutex command_mutex;
