@@ -20,7 +20,8 @@ private:
     const std::array<double, 20> initial_positions = {0.02924, 0.063,  -0.207, 0.25614, -0.24,    -0.07,  0.4,
                                                       0.123,   -2.443, 0.0,    0.0,     -0.02924, -0.063, -0.207,
                                                       0.25614, -0.24,  0.07,   0.4,     -0.123,   -2.443};
-    const std::array<double, 20> joint_offsets     = {0.0,
+
+    const std::array<double, 20> joint_offsets = {0.0,
                                                   0.0,
                                                   0.0,
                                                   0.0,
