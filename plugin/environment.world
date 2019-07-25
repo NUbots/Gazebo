@@ -78,14 +78,14 @@
       </plugin>
     </model>
 
-    <!-- The NUbots' Igus -->
-    <model name="nubots_igus">
+    <!-- The NUbots' NUgus -->
+    <model name="nubots_nugus">
       <include>
-        <uri>model://nubots_igus_hull</uri>
+        <uri>model://nubots_nugus_hull</uri>
       </include>
       <pose>-0.15 0.125 0.6225 0 0.125 0</pose>
       <!-- Attach the plugin to this model -->
-      <plugin name="nubots_igus" filename="libnubots_igus_plugin.so">
+      <plugin name="nubots_nugus" filename="libnubots_nugus_plugin.so">
         <update_rate>100</update_rate>
       </plugin>
     </model>

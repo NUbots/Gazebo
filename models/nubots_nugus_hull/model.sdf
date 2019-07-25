@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <sdf version="1.6">
-  <model name='nubots_igus_hull'>
+  <model name='nubots_nugus_hull'>
     <link name='trunk_link'>
       <pose frame=''>0 0 0 0 -0 0</pose>
       <inertial>
@@ -20,7 +20,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/trunk_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/trunk_link.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -40,7 +40,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/trunk_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/trunk_link.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -120,7 +120,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/left_hip_yaw_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/left_hip_yaw_link.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -140,7 +140,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/left_hip_yaw_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/left_hip_yaw_link.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -191,7 +191,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/left_hip_roll_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/left_hip_roll_link.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -211,7 +211,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/left_hip_roll_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/left_hip_roll_link.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -262,7 +262,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/left_thigh_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/left_thigh_link.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -282,7 +282,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/left_thigh_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/left_thigh_link.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -333,7 +333,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/left_shank_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/left_shank_link.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -353,7 +353,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/left_shank_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/left_shank_link.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -404,7 +404,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/left_ankle_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/left_ankle_link.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -424,7 +424,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/left_ankle_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/left_ankle_link.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -475,7 +475,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/left_foot_link_studded.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/left_foot_link_studded.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -493,7 +493,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/left_foot_link_studded.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/left_foot_link_studded.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -544,7 +544,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/left_shoulder_pitch_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/left_shoulder_pitch_link.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -564,7 +564,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/left_shoulder_pitch_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/left_shoulder_pitch_link.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -615,7 +615,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/left_upper_arm_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/left_upper_arm_link.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -635,7 +635,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/left_upper_arm_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/left_upper_arm_link.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -686,7 +686,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/left_lower_arm_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/left_lower_arm_link.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -706,7 +706,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/left_lower_arm_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/left_lower_arm_link.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -757,7 +757,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/neck_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/neck_link.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -777,7 +777,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/neck_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/neck_link.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -828,7 +828,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/head_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/head_link.stl</uri>
           </mesh>
         </geometry>
       </collision>
@@ -837,7 +837,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/head_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/head_link.stl</uri>
           </mesh>
         </geometry>
       </visual>
@@ -879,7 +879,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/right_hip_yaw_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/right_hip_yaw_link.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -899,7 +899,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/right_hip_yaw_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/right_hip_yaw_link.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -950,7 +950,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/right_hip_roll_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/right_hip_roll_link.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -970,7 +970,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/right_hip_roll_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/right_hip_roll_link.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -1023,7 +1023,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/right_thigh_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/right_thigh_link.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -1043,7 +1043,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/right_thigh_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/right_thigh_link.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -1094,7 +1094,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/right_shank_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/right_shank_link.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -1114,7 +1114,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/right_shank_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/right_shank_link.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -1165,7 +1165,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/right_ankle_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/right_ankle_link.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -1185,7 +1185,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/right_ankle_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/right_ankle_link.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -1236,7 +1236,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/right_foot_link_studded.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/right_foot_link_studded.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -1254,7 +1254,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/right_foot_link_studded.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/right_foot_link_studded.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -1305,7 +1305,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/right_shoulder_pitch_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/right_shoulder_pitch_link.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -1325,7 +1325,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/right_shoulder_pitch_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/right_shoulder_pitch_link.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -1376,7 +1376,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/right_shoulder_arm_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/right_shoulder_arm_link.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -1396,7 +1396,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/right_shoulder_arm_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/right_shoulder_arm_link.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -1447,7 +1447,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/right_lower_arm_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/right_lower_arm_link.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -1467,7 +1467,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://nubots_igus_hull/mesh/right_lower_arm_link.stl</uri>
+            <uri>model://nubots_nugus_hull/mesh/right_lower_arm_link.stl</uri>
           </mesh>
         </geometry>
         <material>

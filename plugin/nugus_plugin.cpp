@@ -12,7 +12,7 @@
 #include "nuclear_network.h"
 
 namespace gazebo {
-class NUbotsIgusPlugin : public ModelPlugin {
+class NUbotsNUgusPlugin : public ModelPlugin {
 private:
     const std::array<double, 20> initial_positions = {0.02924, 0.063,  -0.207, 0.25614, -0.24,    -0.07,  0.4,
                                                       0.123,   -2.443, 0.0,    0.0,     -0.02924, -0.063, -0.207,
@@ -139,12 +139,12 @@ public:
 
         // Safety check to see if the SDF file is attached correctly
         if (model->GetJointCount() == 0) {
-            gzerr << "Invalid joint count, NUbots Igus plugin not loaded" << std::endl;
+            gzerr << "Invalid joint count, NUbots NUgus plugin not loaded" << std::endl;
             return;
         }
 
         // Just output a message for now
-        gzdbg << "Attaching an iGus plugin to model [" << model->GetName() << "]" << std::endl;
+        gzdbg << "Attaching an NUgus plugin to model [" << model->GetName() << "]" << std::endl;
 
         // Store the model pointer for convenience
         this->model = model;
@@ -157,7 +157,7 @@ public:
         joints = model->GetJoints();
 
         // Set up the update event
-        update_connection = event::Events::ConnectWorldUpdateBegin(std::bind(&NUbotsIgusPlugin::update_robot, this));
+        update_connection = event::Events::ConnectWorldUpdateBegin(std::bind(&NUbotsNUgusPlugin::update_robot, this));
 
         get_reactor().on<Network<message::platform::gazebo::ServoTargets>>().then(
             [this](const message::platform::gazebo::ServoTargets& msg) {
@@ -314,6 +314,6 @@ private:
 };
 
 // Tell Gazebo about this plugin, so that Gazebo can call Load on this plugin
-GZ_REGISTER_MODEL_PLUGIN(NUbotsIgusPlugin)
+GZ_REGISTER_MODEL_PLUGIN(NUbotsNUgusPlugin)
 
 }  // namespace gazebo
