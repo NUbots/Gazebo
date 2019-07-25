@@ -2,7 +2,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.10 FATAL_ERROR)
 
 # Set a default build type if none was specified
 IF(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
-    MESSAGE(STATUS "Setting build type to '${default_build_type}' as none was specified.")
+    MESSAGE(STATUS "Setting build type to 'Release' as none was specified.")
     SET(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build." FORCE)
     # Set the possible values of build type for cmake-gui
     SET_PROPERTY(
