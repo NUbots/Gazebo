@@ -10,10 +10,13 @@ Gazebo code for interfacing with the NUbots system
   3. Install Plugin:
 
     $ cd Gazebo
-    $ bash install_plugin.sh
+    $ mkdir build
+    $ cd build
+    $ cmake .. -GNinja
+    $ ninja install
 
   4. Run plugin with gazebo:
 
-    $ bash run_plugin.sh
+    $ gazebo --verbose plugins/environment.world
 
   You are now ready to simulate!
