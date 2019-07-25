@@ -208,7 +208,7 @@ public:
                 }
             }));
 
-        // Apply the P-controller to the joint.
+        // Apply the P-controller to the joint and set joint parameters and initial positions
         for (int i = 0; i < joints.size(); i++) {
             // Set an initial p gain
             model->GetJointController()->SetPositionPID(joints[i]->GetScopedName(),
