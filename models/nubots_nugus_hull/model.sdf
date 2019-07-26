@@ -54,10 +54,15 @@
       <velocity_decay/>
       <self_collide>0</self_collide>
       <sensor name='imu_sensor' type='imu'>
-        <pose>0 0 0 0 0 -0</pose>
+        <pose>0 0 0 0 -0 0</pose>
         <always_on>1</always_on>
+        <visualize>1</visualize>
         <update_rate>1000.0</update_rate>
           <imu>
+          <orientation_reference_frame>
+            <localisation>GRAV_UP</localisation>
+            <grav_dir_x>1 0 0</grav_dir_x>
+          </orientation_reference_frame>
           <angular_velocity>
             <x>
               <noise type='gaussian'>
