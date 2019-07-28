@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <sdf version="1.5">
-  <model name="teensize_ball"> <!-- The TeenSize ball is FIFA size 3, assumed to be diameter 19cm and weight 260 grams -->
+  <model name="teensize_ball">    <!-- The TeenSize ball is FIFA size 3, assumed to be diameter 19cm and weight 260 grams -->
     <pose>0 0 0.095 0 0 0</pose>
     <static>false</static>
     <link name="ball">
@@ -10,7 +10,7 @@
       </velocity_decay>
       <inertial>
         <mass>0.260</mass>
-        <inertia> <!-- For the origin of this inertia tensor refer to: https://en.wikipedia.org/wiki/List_of_moments_of_inertia#List_of_3D_inertia_tensors -->
+        <inertia>          <!-- For the origin of this inertia tensor refer to: https://en.wikipedia.org/wiki/List_of_moments_of_inertia#List_of_3D_inertia_tensors -->
           <ixx>0.00156</ixx>
           <iyy>0.00156</iyy>
           <izz>0.00156</izz>

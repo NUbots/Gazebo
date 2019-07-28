@@ -58,9 +58,9 @@
         <always_on>1</always_on>
         <visualize>1</visualize>
         <update_rate>1000.0</update_rate>
-          <imu>
+        <imu>
           <orientation_reference_frame>
-            <localisation>GRAV_UP</localisation>
+            <localization>GRAV_UP</localization>
             <grav_dir_x>1 0 0</grav_dir_x>
           </orientation_reference_frame>
           <angular_velocity>
@@ -166,11 +166,10 @@
         <xyz>0 0 1</xyz>
         <limit>
           <velocity>5.236</velocity>
-           
         </limit>
         <dynamics>
-            <friction>0.5</friction>
-            <damping>1</damping>
+          <friction>0.5</friction>
+          <damping>1</damping>
           <spring_reference>0</spring_reference>
           <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
@@ -237,11 +236,10 @@
         <xyz>1 0 0</xyz>
         <limit>
           <velocity>5.236</velocity>
-           
         </limit>
         <dynamics>
-            <friction>0.5</friction>
-            <damping>1</damping>
+          <friction>0.5</friction>
+          <damping>1</damping>
           <spring_reference>0</spring_reference>
           <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
@@ -308,11 +306,10 @@
         <xyz>0 1 0</xyz>
         <limit>
           <velocity>5.236</velocity>
-           
         </limit>
         <dynamics>
-            <friction>0.5</friction>
-            <damping>1</damping>
+          <friction>0.5</friction>
+          <damping>1</damping>
           <spring_reference>0</spring_reference>
           <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
@@ -379,11 +376,10 @@
         <xyz>0 1 0</xyz>
         <limit>
           <velocity>5.236</velocity>
-           
         </limit>
         <dynamics>
-            <friction>0.5</friction>
-            <damping>1</damping>
+          <friction>0.5</friction>
+          <damping>1</damping>
           <spring_reference>0</spring_reference>
           <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
@@ -450,11 +446,10 @@
         <xyz>0 1 0</xyz>
         <limit>
           <velocity>5.236</velocity>
-           
         </limit>
         <dynamics>
-            <friction>0.5</friction>
-            <damping>1</damping>
+          <friction>0.5</friction>
+          <damping>1</damping>
           <spring_reference>0</spring_reference>
           <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
@@ -519,11 +514,10 @@
         <xyz>1 0 0</xyz>
         <limit>
           <velocity>5.236</velocity>
-           
         </limit>
         <dynamics>
-            <friction>0.5</friction>
-            <damping>1</damping>
+          <friction>0.5</friction>
+          <damping>1</damping>
           <spring_reference>0</spring_reference>
           <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
@@ -590,11 +584,10 @@
         <xyz>-0 1 -0</xyz>
         <limit>
           <velocity>5.236</velocity>
-           
         </limit>
         <dynamics>
-            <friction>0.5</friction>
-            <damping>1</damping>
+          <friction>0.5</friction>
+          <damping>1</damping>
           <spring_reference>0</spring_reference>
           <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
@@ -661,11 +654,10 @@
         <xyz>1 0 0</xyz>
         <limit>
           <velocity>5.236</velocity>
-           
         </limit>
         <dynamics>
-            <friction>0.5</friction>
-            <damping>1</damping>
+          <friction>0.5</friction>
+          <damping>1</damping>
           <spring_reference>0</spring_reference>
           <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
@@ -732,11 +724,10 @@
         <xyz>-0 1 -0</xyz>
         <limit>
           <velocity>5.236</velocity>
-           
         </limit>
         <dynamics>
-            <friction>0.5</friction>
-            <damping>1</damping>
+          <friction>0.5</friction>
+          <damping>1</damping>
           <spring_reference>0</spring_reference>
           <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
@@ -803,7 +794,6 @@
         <xyz>0 0 1</xyz>
         <limit>
           <velocity>5.236</velocity>
-           
         </limit>
         <dynamics>
           <friction>0.5</friction>
@@ -854,11 +844,10 @@
         <xyz>0 1 -0</xyz>
         <limit>
           <velocity>5.236</velocity>
-           
         </limit>
         <dynamics>
-            <friction>0.5</friction>
-            <damping>1</damping>
+          <friction>0.5</friction>
+          <damping>1</damping>
           <spring_reference>0</spring_reference>
           <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
@@ -925,11 +914,10 @@
         <xyz>0 0 1</xyz>
         <limit>
           <velocity>5.236</velocity>
-           
         </limit>
         <dynamics>
-            <friction>0.5</friction>
-            <damping>1</damping>
+          <friction>0.5</friction>
+          <damping>1</damping>
           <spring_reference>0</spring_reference>
           <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
@@ -998,11 +986,10 @@
         <xyz>1 0 0</xyz>
         <limit>
           <velocity>5.236</velocity>
-           
         </limit>
         <dynamics>
-            <friction>0.5</friction>
-            <damping>1</damping>
+          <friction>0.5</friction>
+          <damping>1</damping>
           <spring_reference>0</spring_reference>
           <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
@@ -1069,11 +1056,10 @@
         <xyz>0 1 0</xyz>
         <limit>
           <velocity>5.236</velocity>
-           
         </limit>
         <dynamics>
-            <friction>0.5</friction>
-            <damping>1</damping>
+          <friction>0.5</friction>
+          <damping>1</damping>
           <spring_reference>0</spring_reference>
           <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
@@ -1140,11 +1126,10 @@
         <xyz>0 1 0</xyz>
         <limit>
           <velocity>5.236</velocity>
-           
         </limit>
         <dynamics>
-            <friction>0.5</friction>
-            <damping>1</damping>
+          <friction>0.5</friction>
+          <damping>1</damping>
           <spring_reference>0</spring_reference>
           <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
@@ -1211,11 +1196,10 @@
         <xyz>0 1 0</xyz>
         <limit>
           <velocity>5.236</velocity>
-           
         </limit>
         <dynamics>
-            <friction>0.5</friction>
-            <damping>1</damping>
+          <friction>0.5</friction>
+          <damping>1</damping>
           <spring_reference>0</spring_reference>
           <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
@@ -1280,11 +1264,10 @@
         <xyz>1 0 0</xyz>
         <limit>
           <velocity>5.236</velocity>
-           
         </limit>
         <dynamics>
-            <friction>0.5</friction>
-            <damping>1</damping>
+          <friction>0.5</friction>
+          <damping>1</damping>
           <spring_reference>0</spring_reference>
           <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
@@ -1351,11 +1334,10 @@
         <xyz>0 1 0</xyz>
         <limit>
           <velocity>5.236</velocity>
-           
         </limit>
         <dynamics>
-            <friction>0.5</friction>
-            <damping>1</damping>
+          <friction>0.5</friction>
+          <damping>1</damping>
           <spring_reference>0</spring_reference>
           <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
@@ -1422,11 +1404,10 @@
         <xyz>1 0 -0</xyz>
         <limit>
           <velocity>5.236</velocity>
-           
         </limit>
         <dynamics>
-            <friction>0.5</friction>
-            <damping>1</damping>
+          <friction>0.5</friction>
+          <damping>1</damping>
           <spring_reference>0</spring_reference>
           <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
@@ -1493,11 +1474,10 @@
         <xyz>-0 1 -0</xyz>
         <limit>
           <velocity>5.236</velocity>
-           
         </limit>
         <dynamics>
-            <friction>0.5</friction>
-            <damping>1</damping>
+          <friction>0.5</friction>
+          <damping>1</damping>
           <spring_reference>0</spring_reference>
           <spring_stiffness>1.5</spring_stiffness>
         </dynamics>
@@ -1505,8 +1485,5 @@
       </axis>
     </joint>
     <static>0</static>
-    <!--<plugin name='gazebo_ros_control' filename='libgazebo_ros_control.so'>-->
-      <!--<robotNamespace>/nimbro_op</robotNamespace>-->
-    <!--</plugin>-->
   </model>
 </sdf>
