@@ -242,11 +242,9 @@ def main():
             "Last updated: {}".format(strftime("%d %b %Y %H:%M:%S", localtime()))
         )
     )
+    # Construct model with initial pose of 0
     model = ET.SubElement(sdf_tree, "model", {"name": "nubots_nugus_hull"})
     pose = pose_sdf(model, [0, 0, 0, 0, 0, 0])
-
-    # MESH_PATH = "model://nubots_nugus_hull/mesh/"
-    # MAT_PATH = "file://media/materials/scripts/gazebo.material"
 
     for link in cfg["links"]:
         name = list(link.keys())[0]
@@ -299,33 +297,14 @@ def main():
         # Add joint to sdf
         joint_sdf(model, joint_data)
 
-    # static = ET.SubElement(model, "static")
-    # static.text = "0"
-
-    # joint = {
-    #     "name": "test_joint",
-    #     "child": "CHILD",
-    #     "parent": "PARENT",
-    #     "axis": {
-    #         "xyz": {"x": 0, "y": 0, "z": 0},
-    #         "limit": {"velocity": 0},
-    #         "dynamics": {
-    #             "friction": 0,
-    #             "damping": 0,
-    #             "spring_reference": 0,
-    #             "spring_stiffness": 0,
-    #         },
-    #     },
-    # }
-
-    print(ET.dump(sdf_tree))
-
     # Set output path of the result sdf
     sdf_path = sys.argv[1]
 
     # Write sdf to file
     with open(sdf_path, "w") as df:
         df.write(prettify(sdf_tree))
+
+    print("[INFO] sdf written to {}".format(sdf_path))
 
 
 if __name__ == "__main__":
