@@ -17,63 +17,7 @@
 namespace gazebo {
 class NUbotsNUgusPlugin : public ModelPlugin {
 private:
-    const std::array<double, 20> initial_positions = {0.02924, 0.063,  -0.207, 0.25614, -0.24,    -0.07,  0.4,
-                                                      0.123,   -2.443, 0.0,    0.0,     -0.02924, -0.063, -0.207,
-                                                      0.25614, -0.24,  0.07,   0.4,     -0.123,   -2.443};
-
-    const std::array<double, 20> joint_offsets = {0.0,
-                                                  0.0,
-                                                  0.0,
-                                                  0.0,
-                                                  0.0,
-                                                  0.0,
-                                                  // L_SHOULDER_PITCH 6
-                                                  1.5708,
-                                                  0.0,
-                                                  0.0,
-                                                  0.0,
-                                                  0.0,
-                                                  0.0,
-                                                  0.0,
-                                                  0.0,
-                                                  0.0,
-                                                  0.0,
-                                                  0.0,
-                                                  // R_SHOULDER_PITCH 17
-                                                  1.5708,
-                                                  0.0,
-                                                  0.0};
-
-
-    struct JointID {
-        enum Value : uint32_t {
-            R_SHOULDER_PITCH = 17,
-            L_SHOULDER_PITCH = 6,
-            R_SHOULDER_ROLL  = 18,
-            L_SHOULDER_ROLL  = 7,
-            R_ELBOW          = 19,
-            L_ELBOW          = 8,
-            R_HIP_YAW        = 11,
-            L_HIP_YAW        = 0,
-            R_HIP_ROLL       = 12,
-            L_HIP_ROLL       = 1,
-            R_HIP_PITCH      = 13,
-            L_HIP_PITCH      = 2,
-            R_KNEE           = 14,
-            L_KNEE           = 3,
-            R_ANKLE_PITCH    = 15,
-            L_ANKLE_PITCH    = 4,
-            R_ANKLE_ROLL     = 16,
-            L_ANKLE_ROLL     = 5,
-            HEAD_YAW         = 9,
-            HEAD_PITCH       = 10,
-        };
-        Value value;
-        JointID(const uint32_t& val) : value(static_cast<Value>(val)) {}
-        operator uint32_t() const {
-            return value;
-        }
-    };
+    const std::array<double, 20> initial_positions = {0};
 
     struct ServoID {
         enum Value : uint32_t {
@@ -103,21 +47,6 @@ private:
         operator uint32_t() const {
             return value;
         }
-    };
-
-    const std::array<ServoID, 20> joint_to_servo_id = {
-        ServoID::R_SHOULDER_PITCH, ServoID::L_SHOULDER_PITCH, ServoID::R_SHOULDER_ROLL, ServoID::L_SHOULDER_ROLL,
-        ServoID::R_ELBOW,          ServoID::L_ELBOW,          ServoID::R_HIP_YAW,       ServoID::L_HIP_YAW,
-        ServoID::R_HIP_ROLL,       ServoID::L_HIP_ROLL,       ServoID::R_HIP_PITCH,     ServoID::L_HIP_PITCH,
-        ServoID::R_KNEE,           ServoID::L_KNEE,           ServoID::R_ANKLE_PITCH,   ServoID::L_ANKLE_PITCH,
-        ServoID::R_ANKLE_ROLL,     ServoID::L_ANKLE_ROLL,     ServoID::HEAD_YAW,        ServoID::HEAD_PITCH,
-    };
-    const std::array<JointID, 20> servo_id_to_joint = {
-        JointID::R_SHOULDER_PITCH, JointID::L_SHOULDER_PITCH, JointID::R_SHOULDER_ROLL, JointID::L_SHOULDER_ROLL,
-        JointID::R_ELBOW,          JointID::L_ELBOW,          JointID::R_HIP_YAW,       JointID::L_HIP_YAW,
-        JointID::R_HIP_ROLL,       JointID::L_HIP_ROLL,       JointID::R_HIP_PITCH,     JointID::L_HIP_PITCH,
-        JointID::R_KNEE,           JointID::L_KNEE,           JointID::R_ANKLE_PITCH,   JointID::L_ANKLE_PITCH,
-        JointID::R_ANKLE_ROLL,     JointID::L_ANKLE_ROLL,     JointID::HEAD_YAW,        JointID::HEAD_PITCH,
     };
 
 public:
@@ -188,10 +117,10 @@ public:
                     for (const auto& c : msg.targets().targets()) {
                         // Convert ServoID to JointID
                         message::motion::ServoTarget joint_target(c);
-                        joint_target.set_id(servo_id_to_joint[c.id()]);
+                        joint_target.set_id(c.id());
 
                         // Apply offset to joint position
-                        joint_target.set_position(c.position() - joint_offsets[c.id()]);
+                        joint_target.set_position(c.position());
 
                         // Convert command time to a duration from msg.time()
                         ::google::protobuf::Duration offset;
@@ -231,7 +160,7 @@ private:
         // Set the joint's gain by applying the
         // P-controller to the joints for positions.
         double gain = target.gain()
-                      * (target.id() == JointID::R_ANKLE_ROLL || target.id() == JointID::L_ANKLE_ROLL
+                      * (target.id() == ServoID::R_ANKLE_ROLL || target.id() == ServoID::L_ANKLE_ROLL
                              ? joint_ankle_roll_pid_factor
                              : joint_pid_factor);
 
@@ -290,8 +219,8 @@ private:
             auto sensors = msg->mutable_sensors();
             for (uint32_t i = 0; i < 20; ++i) {
                 auto s = sensors->add_servos();
-                s->set_presentposition(joints[servo_id_to_joint[i]]->Position() + joint_offsets[servo_id_to_joint[i]]);
-                s->set_presentspeed(joints[servo_id_to_joint[i]]->GetVelocity(0));
+                s->set_presentposition(joints[i]->Position());
+                s->set_presentspeed(joints[i]->GetVelocity(0));
             }
 
             ignition::math::Vector3d gyroscope     = imu_sensor->AngularVelocity();
