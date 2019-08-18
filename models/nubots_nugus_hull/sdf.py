@@ -211,7 +211,9 @@ def main():
     assert len(sys.argv) == 2, "[ERR] Usage: {} <output sdf path>".format(sys.argv[0])
 
     # Read NUgus configuration from yaml
-    with open("NUgus.yaml", "r") as df:
+    with open(
+        os.path.join(os.path.dirname(os.path.realpath(__file__)), "NUgus.yaml"), "r"
+    ) as df:
         cfg = yaml.load(df, Loader=yaml.FullLoader)
 
     # Define both types of servo
