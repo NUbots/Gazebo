@@ -78,6 +78,14 @@ def collision_sdf(parent, collision_data):
     for mu in ["mu", "mu2"]:
         e = ET.SubElement(ode, mu)
         e.text = "{}".format(collision_data["friction"][mu])
+    # Torsional
+    torsional = ET.SubElement(friction, "torsional")
+    coeff = ET.SubElement(torsional, "coefficient")
+    coeff.text = "{}".format(collision_data["friction"]["torsional"]["coefficient"])
+    patch_radius = ET.SubElement(torsional, "patch_radius")
+    patch_radius.text = "{}".format(
+        collision_data["friction"]["torsional"]["patch_radius"]
+    )
 
 
 def visual_sdf(parent, visual_data):
@@ -202,6 +210,12 @@ def joint_sdf(parent, joint_data):
     spring_stiffness.text = "{}".format(
         joint_data["axis"]["dynamics"]["spring_stiffness"]
     )
+    # Physics
+    physics = ET.SubElement(joint, "physics")
+    ode = ET.SubElement(physics, "ode")
+    max_force = ET.SubElement(ode, "max_force")
+    max_force.text = "{}".format(joint_data["axis"]["limit"]["effort"])
+
     ## Parent model frame
     parent_model_frame = ET.SubElement(axis, "use_parent_model_frame")
     parent_model_frame.text = "1"
