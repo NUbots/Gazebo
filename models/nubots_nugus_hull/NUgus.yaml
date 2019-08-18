@@ -8,14 +8,14 @@ mat_path: "file://media/materials/scripts/gazebo.material"
 # Configuration for all joints between links
 joint:
   dynamics:
-    friction: 0.5
+    friction: 0.6
     damping: 1.0
     spring_reference: 0
-    spring_stiffness: 1.5
+    spring_stiffness: 3.25
   # Servo-specific config
   mx64:
     limit:
-      effort: 7.3         # stall torque (Nm)
+      effort: 10 #7.3         # stall torque (Nm)
       velocity: 8.16814   # max. radial velocity (rad/s)
   mx106:
     limit:
@@ -25,8 +25,11 @@ joint:
 # Configuration for all links
 link:
   friction:
-    mu: 0.98
-    mu2: 0.98
+    mu: 0.5 #0.98
+    mu2: 0.5 #0.98
+    torsional: # http://gazebosim.org/tutorials?tut=torsional_friction&cat=physics
+      coefficient: 0.5
+      patch_radius: 1.0
 
 #######################################
 # IMU Sensor

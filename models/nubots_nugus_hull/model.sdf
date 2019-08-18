@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <sdf version="1.6">
   <!--NUgus SDF Model-->
-  <!--Last updated: 16 Aug 2019 14:06:47-->
+  <!--Last updated: 18 Aug 2019 22:49:44-->
   <model name="nubots_nugus_hull">
     <pose frame="">0 0 0 0 0 0</pose>
     <!--LINK: torso-->
@@ -33,9 +33,13 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.98</mu>
-              <mu2>0.98</mu2>
+              <mu>0.5</mu>
+              <mu2>0.5</mu2>
             </ode>
+            <torsional>
+              <coefficient>0.5</coefficient>
+              <patch_radius>1.0</patch_radius>
+            </torsional>
           </friction>
         </surface>
       </collision>
@@ -133,9 +137,13 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.98</mu>
-              <mu2>0.98</mu2>
+              <mu>0.5</mu>
+              <mu2>0.5</mu2>
             </ode>
+            <torsional>
+              <coefficient>0.5</coefficient>
+              <patch_radius>1.0</patch_radius>
+            </torsional>
           </friction>
         </surface>
       </collision>
@@ -187,9 +195,13 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.98</mu>
-              <mu2>0.98</mu2>
+              <mu>0.5</mu>
+              <mu2>0.5</mu2>
             </ode>
+            <torsional>
+              <coefficient>0.5</coefficient>
+              <patch_radius>1.0</patch_radius>
+            </torsional>
           </friction>
         </surface>
       </collision>
@@ -241,9 +253,13 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.98</mu>
-              <mu2>0.98</mu2>
+              <mu>0.5</mu>
+              <mu2>0.5</mu2>
             </ode>
+            <torsional>
+              <coefficient>0.5</coefficient>
+              <patch_radius>1.0</patch_radius>
+            </torsional>
           </friction>
         </surface>
       </collision>
@@ -295,9 +311,13 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.98</mu>
-              <mu2>0.98</mu2>
+              <mu>0.5</mu>
+              <mu2>0.5</mu2>
             </ode>
+            <torsional>
+              <coefficient>0.5</coefficient>
+              <patch_radius>1.0</patch_radius>
+            </torsional>
           </friction>
         </surface>
       </collision>
@@ -349,9 +369,13 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.98</mu>
-              <mu2>0.98</mu2>
+              <mu>0.5</mu>
+              <mu2>0.5</mu2>
             </ode>
+            <torsional>
+              <coefficient>0.5</coefficient>
+              <patch_radius>1.0</patch_radius>
+            </torsional>
           </friction>
         </surface>
       </collision>
@@ -403,9 +427,13 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.98</mu>
-              <mu2>0.98</mu2>
+              <mu>0.5</mu>
+              <mu2>0.5</mu2>
             </ode>
+            <torsional>
+              <coefficient>0.5</coefficient>
+              <patch_radius>1.0</patch_radius>
+            </torsional>
           </friction>
         </surface>
       </collision>
@@ -457,9 +485,13 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.98</mu>
-              <mu2>0.98</mu2>
+              <mu>0.5</mu>
+              <mu2>0.5</mu2>
             </ode>
+            <torsional>
+              <coefficient>0.5</coefficient>
+              <patch_radius>1.0</patch_radius>
+            </torsional>
           </friction>
         </surface>
       </collision>
@@ -511,9 +543,13 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.98</mu>
-              <mu2>0.98</mu2>
+              <mu>0.5</mu>
+              <mu2>0.5</mu2>
             </ode>
+            <torsional>
+              <coefficient>0.5</coefficient>
+              <patch_radius>1.0</patch_radius>
+            </torsional>
           </friction>
         </surface>
       </collision>
@@ -565,9 +601,13 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.98</mu>
-              <mu2>0.98</mu2>
+              <mu>0.5</mu>
+              <mu2>0.5</mu2>
             </ode>
+            <torsional>
+              <coefficient>0.5</coefficient>
+              <patch_radius>1.0</patch_radius>
+            </torsional>
           </friction>
         </surface>
       </collision>
@@ -619,9 +659,13 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.98</mu>
-              <mu2>0.98</mu2>
+              <mu>0.5</mu>
+              <mu2>0.5</mu2>
             </ode>
+            <torsional>
+              <coefficient>0.5</coefficient>
+              <patch_radius>1.0</patch_radius>
+            </torsional>
           </friction>
         </surface>
       </collision>
@@ -673,9 +717,13 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.98</mu>
-              <mu2>0.98</mu2>
+              <mu>0.5</mu>
+              <mu2>0.5</mu2>
             </ode>
+            <torsional>
+              <coefficient>0.5</coefficient>
+              <patch_radius>1.0</patch_radius>
+            </torsional>
           </friction>
         </surface>
       </collision>
@@ -727,9 +775,13 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.98</mu>
-              <mu2>0.98</mu2>
+              <mu>0.5</mu>
+              <mu2>0.5</mu2>
             </ode>
+            <torsional>
+              <coefficient>0.5</coefficient>
+              <patch_radius>1.0</patch_radius>
+            </torsional>
           </friction>
         </surface>
       </collision>
@@ -781,9 +833,13 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.98</mu>
-              <mu2>0.98</mu2>
+              <mu>0.5</mu>
+              <mu2>0.5</mu2>
             </ode>
+            <torsional>
+              <coefficient>0.5</coefficient>
+              <patch_radius>1.0</patch_radius>
+            </torsional>
           </friction>
         </surface>
       </collision>
@@ -835,9 +891,13 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.98</mu>
-              <mu2>0.98</mu2>
+              <mu>0.5</mu>
+              <mu2>0.5</mu2>
             </ode>
+            <torsional>
+              <coefficient>0.5</coefficient>
+              <patch_radius>1.0</patch_radius>
+            </torsional>
           </friction>
         </surface>
       </collision>
@@ -889,9 +949,13 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.98</mu>
-              <mu2>0.98</mu2>
+              <mu>0.5</mu>
+              <mu2>0.5</mu2>
             </ode>
+            <torsional>
+              <coefficient>0.5</coefficient>
+              <patch_radius>1.0</patch_radius>
+            </torsional>
           </friction>
         </surface>
       </collision>
@@ -943,9 +1007,13 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.98</mu>
-              <mu2>0.98</mu2>
+              <mu>0.5</mu>
+              <mu2>0.5</mu2>
             </ode>
+            <torsional>
+              <coefficient>0.5</coefficient>
+              <patch_radius>1.0</patch_radius>
+            </torsional>
           </friction>
         </surface>
       </collision>
@@ -997,9 +1065,13 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.98</mu>
-              <mu2>0.98</mu2>
+              <mu>0.5</mu>
+              <mu2>0.5</mu2>
             </ode>
+            <torsional>
+              <coefficient>0.5</coefficient>
+              <patch_radius>1.0</patch_radius>
+            </torsional>
           </friction>
         </surface>
       </collision>
@@ -1051,9 +1123,13 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.98</mu>
-              <mu2>0.98</mu2>
+              <mu>0.5</mu>
+              <mu2>0.5</mu2>
             </ode>
+            <torsional>
+              <coefficient>0.5</coefficient>
+              <patch_radius>1.0</patch_radius>
+            </torsional>
           </friction>
         </surface>
       </collision>
@@ -1105,9 +1181,13 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.98</mu>
-              <mu2>0.98</mu2>
+              <mu>0.5</mu>
+              <mu2>0.5</mu2>
             </ode>
+            <torsional>
+              <coefficient>0.5</coefficient>
+              <patch_radius>1.0</patch_radius>
+            </torsional>
           </friction>
         </surface>
       </collision>
@@ -1159,9 +1239,13 @@
           </contact>
           <friction>
             <ode>
-              <mu>0.98</mu>
-              <mu2>0.98</mu2>
+              <mu>0.5</mu>
+              <mu2>0.5</mu2>
             </ode>
+            <torsional>
+              <coefficient>0.5</coefficient>
+              <patch_radius>1.0</patch_radius>
+            </torsional>
           </friction>
         </surface>
       </collision>
@@ -1194,16 +1278,21 @@
           <lower>-3.14159265359</lower>
           <upper>3.14159265359</upper>
           <velocity>8.16814</velocity>
-          <effort>7.3</effort>
+          <effort>10</effort>
         </limit>
         <dynamics>
-          <friction>0.5</friction>
+          <friction>0.6</friction>
           <damping>1.0</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>1.5</spring_stiffness>
+          <spring_stiffness>3.25</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
+      <physics>
+        <ode>
+          <max_force>10</max_force>
+        </ode>
+      </physics>
     </joint>
     <!--JOINT: left_shoulder_pitch-->
     <joint name="left_shoulder_pitch" type="revolute">
@@ -1215,37 +1304,47 @@
           <lower>-3.14159265359</lower>
           <upper>3.14159265359</upper>
           <velocity>8.16814</velocity>
-          <effort>7.3</effort>
+          <effort>10</effort>
         </limit>
         <dynamics>
-          <friction>0.5</friction>
+          <friction>0.6</friction>
           <damping>1.0</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>1.5</spring_stiffness>
+          <spring_stiffness>3.25</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
+      <physics>
+        <ode>
+          <max_force>10</max_force>
+        </ode>
+      </physics>
     </joint>
     <!--JOINT: right_shoulder_roll-->
     <joint name="right_shoulder_roll" type="revolute">
       <child>right_upper_arm</child>
       <parent>right_shoulder</parent>
       <axis>
-        <xyz>0 0 -1</xyz>
+        <xyz>0 0 1</xyz>
         <limit>
           <lower>-3.14159265359</lower>
           <upper>3.14159265359</upper>
           <velocity>8.16814</velocity>
-          <effort>7.3</effort>
+          <effort>10</effort>
         </limit>
         <dynamics>
-          <friction>0.5</friction>
+          <friction>0.6</friction>
           <damping>1.0</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>1.5</spring_stiffness>
+          <spring_stiffness>3.25</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
+      <physics>
+        <ode>
+          <max_force>10</max_force>
+        </ode>
+      </physics>
     </joint>
     <!--JOINT: left_shoulder_roll-->
     <joint name="left_shoulder_roll" type="revolute">
@@ -1257,58 +1356,73 @@
           <lower>-3.14159265359</lower>
           <upper>3.14159265359</upper>
           <velocity>8.16814</velocity>
-          <effort>7.3</effort>
+          <effort>10</effort>
         </limit>
         <dynamics>
-          <friction>0.5</friction>
+          <friction>0.6</friction>
           <damping>1.0</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>1.5</spring_stiffness>
+          <spring_stiffness>3.25</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
+      <physics>
+        <ode>
+          <max_force>10</max_force>
+        </ode>
+      </physics>
     </joint>
     <!--JOINT: right_elbow_pitch-->
     <joint name="right_elbow_pitch" type="revolute">
       <child>right_lower_arm</child>
       <parent>right_upper_arm</parent>
       <axis>
-        <xyz>0 -1 0</xyz>
+        <xyz>0 1 0</xyz>
         <limit>
           <lower>-3.14159265359</lower>
           <upper>3.14159265359</upper>
           <velocity>8.16814</velocity>
-          <effort>7.3</effort>
+          <effort>10</effort>
         </limit>
         <dynamics>
-          <friction>0.5</friction>
+          <friction>0.6</friction>
           <damping>1.0</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>1.5</spring_stiffness>
+          <spring_stiffness>3.25</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
+      <physics>
+        <ode>
+          <max_force>10</max_force>
+        </ode>
+      </physics>
     </joint>
     <!--JOINT: left_elbow_pitch-->
     <joint name="left_elbow_pitch" type="revolute">
       <child>left_lower_arm</child>
       <parent>left_upper_arm</parent>
       <axis>
-        <xyz>0 -1 0</xyz>
+        <xyz>0 1 0</xyz>
         <limit>
           <lower>-3.14159265359</lower>
           <upper>3.14159265359</upper>
           <velocity>8.16814</velocity>
-          <effort>7.3</effort>
+          <effort>10</effort>
         </limit>
         <dynamics>
-          <friction>0.5</friction>
+          <friction>0.6</friction>
           <damping>1.0</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>1.5</spring_stiffness>
+          <spring_stiffness>3.25</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
+      <physics>
+        <ode>
+          <max_force>10</max_force>
+        </ode>
+      </physics>
     </joint>
     <!--JOINT: right_hip_yaw-->
     <joint name="right_hip_yaw" type="revolute">
@@ -1323,13 +1437,18 @@
           <effort>10.0</effort>
         </limit>
         <dynamics>
-          <friction>0.5</friction>
+          <friction>0.6</friction>
           <damping>1.0</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>1.5</spring_stiffness>
+          <spring_stiffness>3.25</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
+      <physics>
+        <ode>
+          <max_force>10.0</max_force>
+        </ode>
+      </physics>
     </joint>
     <!--JOINT: left_hip_yaw-->
     <joint name="left_hip_yaw" type="revolute">
@@ -1344,13 +1463,18 @@
           <effort>10.0</effort>
         </limit>
         <dynamics>
-          <friction>0.5</friction>
+          <friction>0.6</friction>
           <damping>1.0</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>1.5</spring_stiffness>
+          <spring_stiffness>3.25</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
+      <physics>
+        <ode>
+          <max_force>10.0</max_force>
+        </ode>
+      </physics>
     </joint>
     <!--JOINT: right_hip_roll-->
     <joint name="right_hip_roll" type="revolute">
@@ -1365,13 +1489,18 @@
           <effort>10.0</effort>
         </limit>
         <dynamics>
-          <friction>0.5</friction>
+          <friction>0.6</friction>
           <damping>1.0</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>1.5</spring_stiffness>
+          <spring_stiffness>3.25</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
+      <physics>
+        <ode>
+          <max_force>10.0</max_force>
+        </ode>
+      </physics>
     </joint>
     <!--JOINT: left_hip_roll-->
     <joint name="left_hip_roll" type="revolute">
@@ -1386,13 +1515,18 @@
           <effort>10.0</effort>
         </limit>
         <dynamics>
-          <friction>0.5</friction>
+          <friction>0.6</friction>
           <damping>1.0</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>1.5</spring_stiffness>
+          <spring_stiffness>3.25</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
+      <physics>
+        <ode>
+          <max_force>10.0</max_force>
+        </ode>
+      </physics>
     </joint>
     <!--JOINT: right_hip_pitch-->
     <joint name="right_hip_pitch" type="revolute">
@@ -1407,13 +1541,18 @@
           <effort>10.0</effort>
         </limit>
         <dynamics>
-          <friction>0.5</friction>
+          <friction>0.6</friction>
           <damping>1.0</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>1.5</spring_stiffness>
+          <spring_stiffness>3.25</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
+      <physics>
+        <ode>
+          <max_force>10.0</max_force>
+        </ode>
+      </physics>
     </joint>
     <!--JOINT: left_hip_pitch-->
     <joint name="left_hip_pitch" type="revolute">
@@ -1428,13 +1567,18 @@
           <effort>10.0</effort>
         </limit>
         <dynamics>
-          <friction>0.5</friction>
+          <friction>0.6</friction>
           <damping>1.0</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>1.5</spring_stiffness>
+          <spring_stiffness>3.25</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
+      <physics>
+        <ode>
+          <max_force>10.0</max_force>
+        </ode>
+      </physics>
     </joint>
     <!--JOINT: right_knee_pitch-->
     <joint name="right_knee_pitch" type="revolute">
@@ -1449,13 +1593,18 @@
           <effort>10.0</effort>
         </limit>
         <dynamics>
-          <friction>0.5</friction>
+          <friction>0.6</friction>
           <damping>1.0</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>1.5</spring_stiffness>
+          <spring_stiffness>3.25</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
+      <physics>
+        <ode>
+          <max_force>10.0</max_force>
+        </ode>
+      </physics>
     </joint>
     <!--JOINT: left_knee_pitch-->
     <joint name="left_knee_pitch" type="revolute">
@@ -1470,13 +1619,18 @@
           <effort>10.0</effort>
         </limit>
         <dynamics>
-          <friction>0.5</friction>
+          <friction>0.6</friction>
           <damping>1.0</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>1.5</spring_stiffness>
+          <spring_stiffness>3.25</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
+      <physics>
+        <ode>
+          <max_force>10.0</max_force>
+        </ode>
+      </physics>
     </joint>
     <!--JOINT: right_ankle_pitch-->
     <joint name="right_ankle_pitch" type="revolute">
@@ -1491,13 +1645,18 @@
           <effort>10.0</effort>
         </limit>
         <dynamics>
-          <friction>0.5</friction>
+          <friction>0.6</friction>
           <damping>1.0</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>1.5</spring_stiffness>
+          <spring_stiffness>3.25</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
+      <physics>
+        <ode>
+          <max_force>10.0</max_force>
+        </ode>
+      </physics>
     </joint>
     <!--JOINT: left_ankle_pitch-->
     <joint name="left_ankle_pitch" type="revolute">
@@ -1512,13 +1671,18 @@
           <effort>10.0</effort>
         </limit>
         <dynamics>
-          <friction>0.5</friction>
+          <friction>0.6</friction>
           <damping>1.0</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>1.5</spring_stiffness>
+          <spring_stiffness>3.25</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
+      <physics>
+        <ode>
+          <max_force>10.0</max_force>
+        </ode>
+      </physics>
     </joint>
     <!--JOINT: right_ankle_roll-->
     <joint name="right_ankle_roll" type="revolute">
@@ -1533,13 +1697,18 @@
           <effort>10.0</effort>
         </limit>
         <dynamics>
-          <friction>0.5</friction>
+          <friction>0.6</friction>
           <damping>1.0</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>1.5</spring_stiffness>
+          <spring_stiffness>3.25</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
+      <physics>
+        <ode>
+          <max_force>10.0</max_force>
+        </ode>
+      </physics>
     </joint>
     <!--JOINT: left_ankle_roll-->
     <joint name="left_ankle_roll" type="revolute">
@@ -1554,13 +1723,18 @@
           <effort>10.0</effort>
         </limit>
         <dynamics>
-          <friction>0.5</friction>
+          <friction>0.6</friction>
           <damping>1.0</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>1.5</spring_stiffness>
+          <spring_stiffness>3.25</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
+      <physics>
+        <ode>
+          <max_force>10.0</max_force>
+        </ode>
+      </physics>
     </joint>
     <!--JOINT: neck_yaw-->
     <joint name="neck_yaw" type="revolute">
@@ -1572,16 +1746,21 @@
           <lower>-3.14159265359</lower>
           <upper>3.14159265359</upper>
           <velocity>8.16814</velocity>
-          <effort>7.3</effort>
+          <effort>10</effort>
         </limit>
         <dynamics>
-          <friction>0.5</friction>
+          <friction>0.6</friction>
           <damping>1.0</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>1.5</spring_stiffness>
+          <spring_stiffness>3.25</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
+      <physics>
+        <ode>
+          <max_force>10</max_force>
+        </ode>
+      </physics>
     </joint>
     <!--JOINT: head_pitch-->
     <joint name="head_pitch" type="revolute">
@@ -1593,16 +1772,21 @@
           <lower>-3.14159265359</lower>
           <upper>3.14159265359</upper>
           <velocity>8.16814</velocity>
-          <effort>7.3</effort>
+          <effort>10</effort>
         </limit>
         <dynamics>
-          <friction>0.5</friction>
+          <friction>0.6</friction>
           <damping>1.0</damping>
           <spring_reference>0</spring_reference>
-          <spring_stiffness>1.5</spring_stiffness>
+          <spring_stiffness>3.25</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
+      <physics>
+        <ode>
+          <max_force>10</max_force>
+        </ode>
+      </physics>
     </joint>
   </model>
 </sdf>
