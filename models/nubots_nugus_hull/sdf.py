@@ -280,13 +280,13 @@ def main():
             },
             "collision": {
                 "name": name + "_collision",
-                "pose": d["display_pose"],
+                "pose": [0, 0, 0, 0, 0, 0],
                 "geometry": {"scale": [1, 1, 1], "uri": cfg["mesh_path"] + d["mesh"]},
                 "friction": cfg["link"]["friction"],
             },
             "visual": {
                 "name": name + "_visual",
-                "pose": d["display_pose"],
+                "pose": [0, 0, 0, 0, 0, 0],
                 "geometry": {"scale": [1, 1, 1], "uri": cfg["mesh_path"] + d["mesh"]},
                 "material": {"name": d["colour"], "uri": cfg["mat_path"]},
             },
