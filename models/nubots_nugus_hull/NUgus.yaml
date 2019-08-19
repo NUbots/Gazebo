@@ -8,14 +8,14 @@ mat_path: "file://media/materials/scripts/gazebo.material"
 # Configuration for all joints between links
 joint:
   dynamics:
-    friction: 0.6
-    damping: 1.0
+    friction: 0.5
+    damping: 0.6
     spring_reference: 0
     spring_stiffness: 3.25
   # Servo-specific config
   mx64:
     limit:
-      effort: 10 #7.3         # stall torque (Nm)
+      effort: 7.3         # stall torque (Nm)
       velocity: 8.16814   # max. radial velocity (rad/s)
   mx106:
     limit:
@@ -25,10 +25,12 @@ joint:
 # Configuration for all links
 link:
   friction:
-    mu: 0.5 #0.98
-    mu2: 0.5 #0.98
+    mu: 0.98
+    mu2: 0.98
+    slip1: 0.001
+    slip2: 0.001
     torsional: # http://gazebosim.org/tutorials?tut=torsional_friction&cat=physics
-      coefficient: 0.5
+      coefficient: 0.8
       patch_radius: 1.0
 
 #######################################
@@ -193,7 +195,7 @@ links:
 
   # Right thigh
   - right_upper_leg:
-      link_pose: [0, -0.055, -0.06, 0, 0, 1.570796327] # xyz rpy (m,rad)
+      link_pose: [0.01, -0.055, -0.05, -0.05, 0, 1.570796327] # xyz rpy (m,rad)
       inertial_pose: [-0.0868239473635843, -0.0009904680702090176, -0.0032236573318317092, 0, 0, 0] # xyz rpy (m,rad)
       display_pose: [0, 0, 0, 0, 0] # xyz rpy (m,rad)
       mass: 0.387 # (kg)
@@ -205,7 +207,7 @@ links:
       colour: "Gazebo/Grey"
   # Left thigh
   - left_upper_leg:
-      link_pose: [0, 0.055, -0.06, 0, 0, 1.570796327] # xyz rpy (m,rad)
+      link_pose: [0.01, 0.055, -0.06, -0.05, 0, 1.570796327] # xyz rpy (m,rad)
       inertial_pose: [-0.0868239473635843, -0.0009904680702090176, -0.0032236573318317092, 0, 0, 0] # xyz rpy (m,rad)
       display_pose: [0, 0, 0, 0, 0] # xyz rpy (m,rad)
       mass: 0.387 # (kg)
@@ -218,8 +220,8 @@ links:
 
   # Right shank
   - right_lower_leg:
-      link_pose: [0, -0.055, -0.25, 0, 0, 1.570796327] # xyz rpy (m,rad)
       inertial_pose: [-0.10000847255111779, 0.0012849442073489777, -0.0070729066189781946, 0, 0, 0] # xyz rpy (m,rad)
+      link_pose: [0.01, -0.055, -0.25, 0, 0, 1.570796327] # xyz rpy (m,rad)
       display_pose: [0, 0, 0, 0, 0] # xyz rpy (m,rad)
       mass: 0.177 # (kg)
       inertia: # (Nm)
@@ -230,7 +232,7 @@ links:
       colour: "Gazebo/Grey"
   # Left shank
   - left_lower_leg:
-      link_pose: [0, 0.055, -0.25, 0, 0, 1.570796327] # xyz rpy (m,rad)
+      link_pose: [0.01, 0.055, -0.25, 0, 0, 1.570796327] # xyz rpy (m,rad)
       inertial_pose: [-0.10000847255111779, 0.0012849442073489777, -0.0070729066189781946, 0, 0, 0] # xyz rpy (m,rad)
       display_pose: [0, 0, 0, 0, 0] # xyz rpy (m,rad)
       mass: 0.177 # (kg)
@@ -268,7 +270,7 @@ links:
 
   # Right foot
   - right_foot:
-      link_pose: [-0.04, -0.055, -0.45, 0.0, 0.0, 1.570796327] # xyz rpy (m,rad)
+      link_pose: [-0.04, -0.055, -0.45, 0, 0.0, 1.570796327] # xyz rpy (m,rad)
       inertial_pose: [0.030807480494529724, 0.008771710644510001, 0.011298451871418577, 0, 0, 0] # xyz rpy (m,rad)
       display_pose: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0] # xyz rpy (m,rad)
       mass: 0.20500000000000002 # (kg)
@@ -280,7 +282,7 @@ links:
       colour: "Gazebo/Grey"
   # Left foot
   - left_foot:
-      link_pose: [-0.04, 0.055, -0.45, 0.0, 0, 1.570796327] # xyz rpy (m,rad)
+      link_pose: [-0.04, 0.055, -0.45, 0, 0, 1.570796327] # xyz rpy (m,rad)
       inertial_pose: [0.030807480494529724, 0.008771710644510001, 0.011298451871418577, 0, 0, 0] # xyz rpy (m,rad)
       display_pose: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0] # xyz rpy (m,rad)
       mass: 0.20500000000000002 # (kg)

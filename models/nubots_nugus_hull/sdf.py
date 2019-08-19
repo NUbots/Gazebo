@@ -70,14 +70,14 @@ def collision_sdf(parent, collision_data):
     geometry_sdf(collision, collision_data["geometry"])
     ## Surface
     surface = ET.SubElement(collision, "surface")
-    # Contact
-    ET.SubElement(ET.SubElement(surface, "contact"), "ode")
+    contact = ET.SubElement(surface, "contact")
+    contact_ode = ET.SubElement(contact, "ode")
     # Friction
     friction = ET.SubElement(surface, "friction")
-    ode = ET.SubElement(friction, "ode")
-    for mu in ["mu", "mu2"]:
-        e = ET.SubElement(ode, mu)
-        e.text = "{}".format(collision_data["friction"][mu])
+    friction_ode = ET.SubElement(friction, "ode")
+    for f in ["mu", "mu2", "slip1", "slip2"]:
+        e = ET.SubElement(friction_ode, f)
+        e.text = "{}".format(collision_data["friction"][f])
     # Torsional
     torsional = ET.SubElement(friction, "torsional")
     coeff = ET.SubElement(torsional, "coefficient")
@@ -159,9 +159,8 @@ def link_sdf(parent, link_data):
     visual_sdf(link, link_data["visual"])
     gravity = ET.SubElement(link, "gravity")
     gravity.text = "1"
-    ET.SubElement(link, "velocity_decay")
+    # self collision
     self_collide = ET.SubElement(link, "self_collide")
-    self_collide.text = "0"
     if "sensor" in link_data:
         sensor_sdf(link, link_data["sensor"])
 
@@ -210,11 +209,6 @@ def joint_sdf(parent, joint_data):
     spring_stiffness.text = "{}".format(
         joint_data["axis"]["dynamics"]["spring_stiffness"]
     )
-    # Physics
-    physics = ET.SubElement(joint, "physics")
-    ode = ET.SubElement(physics, "ode")
-    max_force = ET.SubElement(ode, "max_force")
-    max_force.text = "{}".format(joint_data["axis"]["limit"]["effort"])
 
     ## Parent model frame
     parent_model_frame = ET.SubElement(axis, "use_parent_model_frame")
@@ -228,7 +222,7 @@ def main():
     with open(
         os.path.join(os.path.dirname(os.path.realpath(__file__)), "NUgus.yaml"), "r"
     ) as df:
-        cfg = yaml.load(df, Loader=yaml.FullLoader)
+        cfg = yaml.load(df)
 
     # Define both types of servo
     mx64 = {
