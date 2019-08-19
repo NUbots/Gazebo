@@ -89,9 +89,9 @@
         <!-- Joint PID factor for all joints except ankle roll -->
         <joint_pid_factor>4.0</joint_pid_factor>
         <!-- Joint PID factor for ankle roll joints -->
-        <joint_ankle_roll_pid_factor>0.6</joint_ankle_roll_pid_factor>
+        <joint_ankle_roll_pid_factor>0.8</joint_ankle_roll_pid_factor>
         <!-- Initial P-gain for PID controller -->
-        <initial_gain>25.0</initial_gain>
+        <initial_gain>35.0</initial_gain>
       </plugin>
     </model>
   </world>
