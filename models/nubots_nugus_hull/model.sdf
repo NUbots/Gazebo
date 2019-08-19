@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <sdf version="1.6">
   <!--NUgus SDF Model-->
-  <!--Last updated: 19 Aug 2019 19:57:46-->
+  <!--Last updated: 19 Aug 2019 23:11:51-->
   <model name="nubots_nugus_hull">
     <pose frame="">0 0 0 0 0 0</pose>
     <!--LINK: torso-->
@@ -715,7 +715,7 @@
         </inertia>
       </inertial>
       <collision name="right_upper_leg_collision">
-        <pose frame="">0 0 0 0 0</pose>
+        <pose frame="">0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -741,7 +741,7 @@
         </surface>
       </collision>
       <visual name="right_upper_leg_visual">
-        <pose frame="">0 0 0 0 0</pose>
+        <pose frame="">0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -774,7 +774,7 @@
         </inertia>
       </inertial>
       <collision name="left_upper_leg_collision">
-        <pose frame="">0 0 0 0 0</pose>
+        <pose frame="">0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -800,7 +800,7 @@
         </surface>
       </collision>
       <visual name="left_upper_leg_visual">
-        <pose frame="">0 0 0 0 0</pose>
+        <pose frame="">0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -833,7 +833,7 @@
         </inertia>
       </inertial>
       <collision name="right_lower_leg_collision">
-        <pose frame="">0 0 0 0 0</pose>
+        <pose frame="">0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -859,7 +859,7 @@
         </surface>
       </collision>
       <visual name="right_lower_leg_visual">
-        <pose frame="">0 0 0 0 0</pose>
+        <pose frame="">0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -892,7 +892,7 @@
         </inertia>
       </inertial>
       <collision name="left_lower_leg_collision">
-        <pose frame="">0 0 0 0 0</pose>
+        <pose frame="">0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -918,7 +918,7 @@
         </surface>
       </collision>
       <visual name="left_lower_leg_visual">
-        <pose frame="">0 0 0 0 0</pose>
+        <pose frame="">0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -951,7 +951,7 @@
         </inertia>
       </inertial>
       <collision name="right_ankle_collision">
-        <pose frame="">0.0 0.0 0.0 0.0 0.0 0.0</pose>
+        <pose frame="">0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -977,7 +977,7 @@
         </surface>
       </collision>
       <visual name="right_ankle_visual">
-        <pose frame="">0.0 0.0 0.0 0.0 0.0 0.0</pose>
+        <pose frame="">0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -1010,7 +1010,7 @@
         </inertia>
       </inertial>
       <collision name="left_ankle_collision">
-        <pose frame="">0.0 0.0 0.0 0.0 0.0 0.0</pose>
+        <pose frame="">0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -1036,7 +1036,7 @@
         </surface>
       </collision>
       <visual name="left_ankle_visual">
-        <pose frame="">0.0 0.0 0.0 0.0 0.0 0.0</pose>
+        <pose frame="">0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -1069,7 +1069,7 @@
         </inertia>
       </inertial>
       <collision name="right_foot_collision">
-        <pose frame="">0.0 0.0 0.0 0.0 0.0 0.0</pose>
+        <pose frame="">0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -1095,7 +1095,7 @@
         </surface>
       </collision>
       <visual name="right_foot_visual">
-        <pose frame="">0.0 0.0 0.0 0.0 0.0 0.0</pose>
+        <pose frame="">0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -1128,7 +1128,7 @@
         </inertia>
       </inertial>
       <collision name="left_foot_collision">
-        <pose frame="">0.0 0.0 0.0 0.0 0.0 0.0</pose>
+        <pose frame="">0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -1154,7 +1154,7 @@
         </surface>
       </collision>
       <visual name="left_foot_visual">
-        <pose frame="">0.0 0.0 0.0 0.0 0.0 0.0</pose>
+        <pose frame="">0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
