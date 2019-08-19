@@ -222,7 +222,11 @@ def main():
     with open(
         os.path.join(os.path.dirname(os.path.realpath(__file__)), "NUgus.yaml"), "r"
     ) as df:
-        cfg = yaml.load(df)
+        # Specify loader type for python 2 to avoid warning
+        if sys.version_info[0] < 3:
+            cfg = yaml.load(df, Loader=yaml.FullLoader)
+        else:
+            cfg = yaml.load(df)
 
     # Define both types of servo
     mx64 = {
