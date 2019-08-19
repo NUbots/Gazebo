@@ -83,11 +83,6 @@ public:
         }
 
         // Configure joint parameters
-        joint_stiffness             = sdf->Get<double>("joint_stiffness", 0.0).first;
-        joint_damping               = sdf->Get<double>("joint_damping", 0.0).first;
-        joint_stop_dissipation      = sdf->Get<double>("joint_stop_dissipation", 0.0).first;
-        joint_effort_limit          = sdf->Get<double>("joint_effort_limit", 0.0).first;
-        joint_velocity_limit        = sdf->Get<double>("joint_velocity_limit", 3.75).first;
         joint_pid_factor            = sdf->Get<double>("joint_pid_factor", 4.0).first;
         joint_ankle_roll_pid_factor = sdf->Get<double>("joint_ankle_roll_pid_factor", 0.7).first;
         initial_gain                = sdf->Get<double>("initial_gain", 40.0).first;
@@ -146,12 +141,6 @@ public:
             // This will set the initial positions of the robot
             model->GetJointController()->SetPositionTarget(joints[i]->GetScopedName(), initial_positions[i]);
             joints[i]->SetPosition(0, initial_positions[i]);
-
-            // Set joint parameters
-            joints[i]->SetStopDissipation(0, joint_stop_dissipation);
-            joints[i]->SetEffortLimit(0, joint_effort_limit);
-            joints[i]->SetStiffnessDamping(0, joint_stiffness, joint_damping, joints[i]->Position());
-            joints[i]->SetVelocityLimit(0, joint_velocity_limit);
         }
     }
 
@@ -179,15 +168,6 @@ private:
 
         // Set the joint's target position.
         model->GetJointController()->SetPositionTarget(joints[target.id()]->GetScopedName(), target.position());
-
-        if (velocity > 0.0) {
-            joints[target.id()]->SetVelocityLimit(0, velocity);
-        }
-        else {
-            joints[target.id()]->SetVelocityLimit(0, joint_velocity_limit);
-        }
-
-        joints[target.id()]->SetStiffnessDamping(0, joint_stiffness, joint_damping, joints[target.id()]->Position());
     }
 
     void update_robot() {
@@ -292,11 +272,6 @@ private:
     std::vector<physics::JointPtr> joints;
 
     // Joint parameters
-    double joint_stiffness;
-    double joint_damping;
-    double joint_stop_dissipation;
-    double joint_effort_limit;
-    double joint_velocity_limit;
     double joint_pid_factor;
     double joint_ankle_roll_pid_factor;
     double initial_gain;
