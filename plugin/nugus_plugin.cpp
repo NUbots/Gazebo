@@ -196,17 +196,91 @@ private:
 
             auto msg = std::make_unique<message::platform::gazebo::RawSensors>();
             msg->set_model(model->GetName());
-            auto sensors = msg->mutable_sensors();
-            for (uint32_t i = 0; i < 20; ++i) {
-                auto s = sensors->add_servos();
-                s->set_presentposition(joints[i]->Position());
-                s->set_presentspeed(joints[i]->GetVelocity(0));
-            }
+            msg->mutable_sensors()->mutable_servo()->mutable_rshoulderpitch()->set_presentposition(
+                joints[ServoID::R_SHOULDER_PITCH]->Position());
+            msg->mutable_sensors()->mutable_servo()->mutable_rshoulderpitch()->set_presentspeed(
+                joints[ServoID::R_SHOULDER_PITCH]->GetVelocity(0));
+            msg->mutable_sensors()->mutable_servo()->mutable_lshoulderpitch()->set_presentposition(
+                joints[ServoID::L_SHOULDER_PITCH]->Position());
+            msg->mutable_sensors()->mutable_servo()->mutable_lshoulderpitch()->set_presentspeed(
+                joints[ServoID::L_SHOULDER_PITCH]->GetVelocity(0));
+            msg->mutable_sensors()->mutable_servo()->mutable_rshoulderroll()->set_presentposition(
+                joints[ServoID::R_SHOULDER_ROLL]->Position());
+            msg->mutable_sensors()->mutable_servo()->mutable_rshoulderroll()->set_presentspeed(
+                joints[ServoID::R_SHOULDER_ROLL]->GetVelocity(0));
+            msg->mutable_sensors()->mutable_servo()->mutable_lshoulderroll()->set_presentposition(
+                joints[ServoID::L_SHOULDER_ROLL]->Position());
+            msg->mutable_sensors()->mutable_servo()->mutable_lshoulderroll()->set_presentspeed(
+                joints[ServoID::L_SHOULDER_ROLL]->GetVelocity(0));
+            msg->mutable_sensors()->mutable_servo()->mutable_relbow()->set_presentposition(
+                joints[ServoID::R_ELBOW]->Position());
+            msg->mutable_sensors()->mutable_servo()->mutable_relbow()->set_presentspeed(
+                joints[ServoID::R_ELBOW]->GetVelocity(0));
+            msg->mutable_sensors()->mutable_servo()->mutable_lelbow()->set_presentposition(
+                joints[ServoID::L_ELBOW]->Position());
+            msg->mutable_sensors()->mutable_servo()->mutable_lelbow()->set_presentspeed(
+                joints[ServoID::L_ELBOW]->GetVelocity(0));
+            msg->mutable_sensors()->mutable_servo()->mutable_rhipyaw()->set_presentposition(
+                joints[ServoID::R_HIP_YAW]->Position());
+            msg->mutable_sensors()->mutable_servo()->mutable_rhipyaw()->set_presentspeed(
+                joints[ServoID::R_HIP_YAW]->GetVelocity(0));
+            msg->mutable_sensors()->mutable_servo()->mutable_lhipyaw()->set_presentposition(
+                joints[ServoID::L_HIP_YAW]->Position());
+            msg->mutable_sensors()->mutable_servo()->mutable_lhipyaw()->set_presentspeed(
+                joints[ServoID::L_HIP_YAW]->GetVelocity(0));
+            msg->mutable_sensors()->mutable_servo()->mutable_rhiproll()->set_presentposition(
+                joints[ServoID::R_HIP_ROLL]->Position());
+            msg->mutable_sensors()->mutable_servo()->mutable_rhiproll()->set_presentspeed(
+                joints[ServoID::R_HIP_ROLL]->GetVelocity(0));
+            msg->mutable_sensors()->mutable_servo()->mutable_lhiproll()->set_presentposition(
+                joints[ServoID::L_HIP_ROLL]->Position());
+            msg->mutable_sensors()->mutable_servo()->mutable_lhiproll()->set_presentspeed(
+                joints[ServoID::L_HIP_ROLL]->GetVelocity(0));
+            msg->mutable_sensors()->mutable_servo()->mutable_rhippitch()->set_presentposition(
+                joints[ServoID::R_HIP_PITCH]->Position());
+            msg->mutable_sensors()->mutable_servo()->mutable_rhippitch()->set_presentspeed(
+                joints[ServoID::R_HIP_PITCH]->GetVelocity(0));
+            msg->mutable_sensors()->mutable_servo()->mutable_lhippitch()->set_presentposition(
+                joints[ServoID::L_HIP_PITCH]->Position());
+            msg->mutable_sensors()->mutable_servo()->mutable_lhippitch()->set_presentspeed(
+                joints[ServoID::L_HIP_PITCH]->GetVelocity(0));
+            msg->mutable_sensors()->mutable_servo()->mutable_rknee()->set_presentposition(
+                joints[ServoID::R_KNEE]->Position());
+            msg->mutable_sensors()->mutable_servo()->mutable_rknee()->set_presentspeed(
+                joints[ServoID::R_KNEE]->GetVelocity(0));
+            msg->mutable_sensors()->mutable_servo()->mutable_lknee()->set_presentposition(
+                joints[ServoID::L_KNEE]->Position());
+            msg->mutable_sensors()->mutable_servo()->mutable_lknee()->set_presentspeed(
+                joints[ServoID::L_KNEE]->GetVelocity(0));
+            msg->mutable_sensors()->mutable_servo()->mutable_ranklepitch()->set_presentposition(
+                joints[ServoID::R_ANKLE_PITCH]->Position());
+            msg->mutable_sensors()->mutable_servo()->mutable_ranklepitch()->set_presentspeed(
+                joints[ServoID::R_ANKLE_PITCH]->GetVelocity(0));
+            msg->mutable_sensors()->mutable_servo()->mutable_lanklepitch()->set_presentposition(
+                joints[ServoID::L_ANKLE_PITCH]->Position());
+            msg->mutable_sensors()->mutable_servo()->mutable_lanklepitch()->set_presentspeed(
+                joints[ServoID::L_ANKLE_PITCH]->GetVelocity(0));
+            msg->mutable_sensors()->mutable_servo()->mutable_rankleroll()->set_presentposition(
+                joints[ServoID::R_ANKLE_ROLL]->Position());
+            msg->mutable_sensors()->mutable_servo()->mutable_rankleroll()->set_presentspeed(
+                joints[ServoID::R_ANKLE_ROLL]->GetVelocity(0));
+            msg->mutable_sensors()->mutable_servo()->mutable_lankleroll()->set_presentposition(
+                joints[ServoID::L_ANKLE_ROLL]->Position());
+            msg->mutable_sensors()->mutable_servo()->mutable_lankleroll()->set_presentspeed(
+                joints[ServoID::L_ANKLE_ROLL]->GetVelocity(0));
+            msg->mutable_sensors()->mutable_servo()->mutable_headpan()->set_presentposition(
+                joints[ServoID::HEAD_YAW]->Position());
+            msg->mutable_sensors()->mutable_servo()->mutable_headpan()->set_presentspeed(
+                joints[ServoID::HEAD_YAW]->GetVelocity(0));
+            msg->mutable_sensors()->mutable_servo()->mutable_headtilt()->set_presentposition(
+                joints[ServoID::HEAD_PITCH]->Position());
+            msg->mutable_sensors()->mutable_servo()->mutable_headtilt()->set_presentspeed(
+                joints[ServoID::HEAD_PITCH]->GetVelocity(0));
 
             ignition::math::Vector3d gyroscope     = imu_sensor->AngularVelocity();
             ignition::math::Vector3d accelerometer = imu_sensor->LinearAcceleration();
-            auto gyro                              = sensors->mutable_gyroscope();
-            auto acc                               = sensors->mutable_accelerometer();
+            auto gyro                              = msg->mutable_sensors()->mutable_gyroscope();
+            auto acc                               = msg->mutable_sensors()->mutable_accelerometer();
             gyro->set_x(gyroscope.X());
             gyro->set_y(gyroscope.Y());
             gyro->set_z(gyroscope.Z());
