@@ -288,7 +288,7 @@ links:
 
   # Head
   - head:
-      link_pose: [0, 0, 0.33, 0, 0, 1.570796327] # xyz rpy (m,rad)
+      link_pose: [0, 0, 0.26, 0, 0, 1.570796327] # xyz rpy (m,rad)
       inertial_pose: [-0.05482228998067195, -0.00010888238321339966, 0.0011712900228573724, 0, 0, 0] # xyz rpy (m,rad)
       mass: 0.41900000000000004 # (kg)
       inertia: # (Nm)
