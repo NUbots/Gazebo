@@ -1,26 +1,26 @@
 <?xml version="1.0" ?>
 <sdf version="1.6">
   <!--NUgus SDF Model-->
-  <!--Last updated: 19 Aug 2019 23:11:51-->
+  <!--Last updated: 21 Aug 2019 14:17:05-->
   <model name="nubots_nugus_hull">
-    <pose frame="">0 0 0 0 0 0</pose>
+    <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
     <!--LINK: torso-->
     <link name="torso">
-      <pose frame="">0.0 0.0 0.0 0.0 0.0 1.570796327</pose>
+      <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 1.570796327</pose>
       <inertial>
-        <pose frame="">0.0050079703254699804 0.008880921777563762 0.1021503146237477 0.0 0.0 0.0</pose>
-        <mass>2.5390000000000006</mass>
+        <pose frame="">0.005007970 0.008880922 0.102150315 0.000000000 0.000000000 0.000000000</pose>
+        <mass>2.539</mass>
         <inertia>
-          <ixx>0.01665728720713129</ixx>
-          <ixy>0.0015451858906936002</ixy>
-          <ixz>0.004938657742879685</ixz>
-          <iyy>0.004225235417508923</iyy>
-          <iyz>0.0012027533896274989</iyz>
-          <izz>0.05550778391062456</izz>
+          <ixx>0.0166572872071</ixx>
+          <ixy>0.00154518589069</ixy>
+          <ixz>0.00493865774288</ixz>
+          <iyy>0.00422523541751</iyy>
+          <iyz>0.00120275338963</iyz>
+          <izz>0.0555077839106</izz>
         </inertia>
       </inertial>
       <collision name="torso_collision">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -46,7 +46,7 @@
         </surface>
       </collision>
       <visual name="torso_visual">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -63,7 +63,7 @@
       <gravity>1</gravity>
       <self_collide/>
       <sensor name="imu_sensor" type="imu">
-        <pose frame="">0.0 0.0 0.0 0.0 0.0 0.0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <always_on>1</always_on>
         <visualize>1</visualize>
         <update_rate>100</update_rate>
@@ -111,9 +111,9 @@
     </link>
     <!--LINK: right_shoulder-->
     <link name="right_shoulder">
-      <pose frame="">0.005 -0.115 0.18 -1.570796327 0 1.570796327</pose>
+      <pose frame="">0.005000000 -0.115000000 0.180000000 -1.570796327 0.000000000 1.570796327</pose>
       <inertial>
-        <pose frame="">0.003491 -0.001684 0.003753 0 0 0</pose>
+        <pose frame="">0.003491000 -0.001684000 0.003753000 0.000000000 0.000000000 0.000000000</pose>
         <mass>0.025434</mass>
         <inertia>
           <ixx>0.000636</ixx>
@@ -125,7 +125,7 @@
         </inertia>
       </inertial>
       <collision name="right_shoulder_collision">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -151,7 +151,7 @@
         </surface>
       </collision>
       <visual name="right_shoulder_visual">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -170,9 +170,9 @@
     </link>
     <!--LINK: left_shoulder-->
     <link name="left_shoulder">
-      <pose frame="">0.005 0.115 0.18 -1.570796327 0 1.570796327</pose>
+      <pose frame="">0.005000000 0.115000000 0.180000000 -1.570796327 0.000000000 1.570796327</pose>
       <inertial>
-        <pose frame="">0.003491 -0.001684 0.003753 0 0 0</pose>
+        <pose frame="">0.003491000 -0.001684000 0.003753000 0.000000000 0.000000000 0.000000000</pose>
         <mass>0.025434</mass>
         <inertia>
           <ixx>0.000636</ixx>
@@ -184,7 +184,7 @@
         </inertia>
       </inertial>
       <collision name="left_shoulder_collision">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -210,7 +210,7 @@
         </surface>
       </collision>
       <visual name="left_shoulder_visual">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -229,21 +229,21 @@
     </link>
     <!--LINK: right_upper_arm-->
     <link name="right_upper_arm">
-      <pose frame="">0 -0.13 0.18 3.14159 3.14159 -1.570796327</pose>
+      <pose frame="">0.000000000 -0.130000000 0.180000000 3.141590000 3.141590000 -1.570796327</pose>
       <inertial>
-        <pose frame="">-0.0004754647829298364 -0.0004830631532648927 -0.047851449636613815 0 0 0</pose>
-        <mass>0.29700000000000004</mass>
+        <pose frame="">-0.000475465 -0.000483063 -0.047851450 0.000000000 0.000000000 0.000000000</pose>
+        <mass>0.297</mass>
         <inertia>
-          <ixx>0.002440902596230906</ixx>
-          <ixy>-3.6713691248137597e-06</ixy>
-          <ixz>-0.00013891452285131982</ixz>
-          <iyy>0.002283834053695376</iyy>
-          <iyz>-1.9795333785260962e-05</iyz>
-          <izz>0.0005366937214088004</izz>
+          <ixx>0.00244090259623</ixx>
+          <ixy>-3.67136912481e-06</ixy>
+          <ixz>-0.000138914522851</ixz>
+          <iyy>0.0022838340537</iyy>
+          <iyz>-1.97953337853e-05</iyz>
+          <izz>0.000536693721409</izz>
         </inertia>
       </inertial>
       <collision name="right_upper_arm_collision">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -269,7 +269,7 @@
         </surface>
       </collision>
       <visual name="right_upper_arm_visual">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -288,21 +288,21 @@
     </link>
     <!--LINK: left_upper_arm-->
     <link name="left_upper_arm">
-      <pose frame="">0 0.13 0.18 3.14159 3.14159 -1.570796327</pose>
+      <pose frame="">0.000000000 0.130000000 0.180000000 3.141590000 3.141590000 -1.570796327</pose>
       <inertial>
-        <pose frame="">-0.0004754647829298364 0.0004830631532648927 -0.047851449636613815 0 0 0</pose>
-        <mass>0.29700000000000004</mass>
+        <pose frame="">-0.000475465 0.000483063 -0.047851450 0.000000000 0.000000000 0.000000000</pose>
+        <mass>0.297</mass>
         <inertia>
-          <ixx>0.002440902596230906</ixx>
-          <ixy>-3.6713691248137597e-06</ixy>
-          <ixz>-0.00013891452285131982</ixz>
-          <iyy>0.002283834053695376</iyy>
-          <iyz>-1.9795333785260962e-05</iyz>
-          <izz>0.0005366937214088004</izz>
+          <ixx>0.00244090259623</ixx>
+          <ixy>-3.67136912481e-06</ixy>
+          <ixz>-0.000138914522851</ixz>
+          <iyy>0.0022838340537</iyy>
+          <iyz>-1.97953337853e-05</iyz>
+          <izz>0.000536693721409</izz>
         </inertia>
       </inertial>
       <collision name="left_upper_arm_collision">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -328,7 +328,7 @@
         </surface>
       </collision>
       <visual name="left_upper_arm_visual">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -347,21 +347,21 @@
     </link>
     <!--LINK: right_lower_arm-->
     <link name="right_lower_arm">
-      <pose frame="">0.19 -0.12 0.22 0 0 1.570796327</pose>
+      <pose frame="">0.190000000 -0.120000000 0.220000000 0.000000000 0.000000000 1.570796327</pose>
       <inertial>
-        <pose frame="">0.05336545685394963 -0.0008156196838209869 0.0006063260979097202 0 0 0</pose>
+        <pose frame="">0.053365457 -0.000815620 0.000606326 0.000000000 0.000000000 0.000000000</pose>
         <mass>0.26</mass>
         <inertia>
-          <ixx>0.0003407158555996035</ixx>
-          <ixy>0.00011823673412134757</ixy>
-          <ixz>-2.8830788618180246e-05</ixz>
-          <iyy>0.0017692134503461817</iyy>
-          <iyz>4.6856873014962955e-06</iyz>
-          <izz>0.0016180592541080458</izz>
+          <ixx>0.0003407158556</ixx>
+          <ixy>0.000118236734121</ixy>
+          <ixz>-2.88307886182e-05</ixz>
+          <iyy>0.00176921345035</iyy>
+          <iyz>4.6856873015e-06</iyz>
+          <izz>0.00161805925411</izz>
         </inertia>
       </inertial>
       <collision name="right_lower_arm_collision">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -387,7 +387,7 @@
         </surface>
       </collision>
       <visual name="right_lower_arm_visual">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -406,21 +406,21 @@
     </link>
     <!--LINK: left_lower_arm-->
     <link name="left_lower_arm">
-      <pose frame="">0.19 0.12 0.22 0 0 1.570796327</pose>
+      <pose frame="">0.190000000 0.120000000 0.220000000 0.000000000 0.000000000 1.570796327</pose>
       <inertial>
-        <pose frame="">0.05336545685394963 -0.0008156196838209869 0.0006063260979097202 0 0 0</pose>
+        <pose frame="">0.053365457 -0.000815620 0.000606326 0.000000000 0.000000000 0.000000000</pose>
         <mass>0.26</mass>
         <inertia>
-          <ixx>0.0003407158555996035</ixx>
-          <ixy>0.00011823673412134757</ixy>
-          <ixz>-2.8830788618180246e-05</ixz>
-          <iyy>0.0017692134503461817</iyy>
-          <iyz>4.6856873014962955e-06</iyz>
-          <izz>0.0016180592541080458</izz>
+          <ixx>0.0003407158556</ixx>
+          <ixy>0.000118236734121</ixy>
+          <ixz>-2.88307886182e-05</ixz>
+          <iyy>0.00176921345035</iyy>
+          <iyz>4.6856873015e-06</iyz>
+          <izz>0.00161805925411</izz>
         </inertia>
       </inertial>
       <collision name="left_lower_arm_collision">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -446,7 +446,7 @@
         </surface>
       </collision>
       <visual name="left_lower_arm_visual">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -465,21 +465,21 @@
     </link>
     <!--LINK: right_hip_yaw-->
     <link name="right_hip_yaw">
-      <pose frame="">0 -0.055 0 0 0 1.570796327</pose>
+      <pose frame="">0.000000000 -0.055000000 0.000000000 0.000000000 0.000000000 1.570796327</pose>
       <inertial>
-        <pose frame="">-0.002182239425416095 -0.04605195346010214 -0.024755435159914185</pose>
+        <pose frame="">-0.002182239 -0.046051953 -0.024755435 0.000000000 0.000000000 0.000000000</pose>
         <mass>0.067</mass>
         <inertia>
-          <ixx>0.0008822908208723853</ixx>
-          <ixy>1.6774497281140121e-06</ixy>
-          <ixz>-7.823405160594508e-06</ixz>
-          <iyy>0.0017446691851970998</iyy>
-          <iyz>-2.533160764801179e-05</iyz>
-          <izz>0.0019969672270540887</izz>
+          <ixx>0.000882290820872</ixx>
+          <ixy>1.67744972811e-06</ixy>
+          <ixz>-7.82340516059e-06</ixz>
+          <iyy>0.0017446691852</iyy>
+          <iyz>-2.5331607648e-05</iyz>
+          <izz>0.00199696722705</izz>
         </inertia>
       </inertial>
       <collision name="right_hip_yaw_collision">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -505,7 +505,7 @@
         </surface>
       </collision>
       <visual name="right_hip_yaw_visual">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -524,21 +524,21 @@
     </link>
     <!--LINK: left_hip_yaw-->
     <link name="left_hip_yaw">
-      <pose frame="">0 0.055 0 0 0 1.570796327</pose>
+      <pose frame="">0.000000000 0.055000000 0.000000000 0.000000000 0.000000000 1.570796327</pose>
       <inertial>
-        <pose frame="">-0.002182239425416095 0.04605195346010214 -0.024755435159914185</pose>
+        <pose frame="">-0.002182239 0.046051953 -0.024755435 0.000000000 0.000000000 0.000000000</pose>
         <mass>0.067</mass>
         <inertia>
-          <ixx>0.0008822260608090899</ixx>
-          <ixy>-1.7055231391090623e-06</ixy>
-          <ixz>-7.854427661648553e-06</ixz>
-          <iyy>0.0017446275715154703</iyy>
-          <iyz>2.5331794090224253e-05</iyz>
-          <izz>0.001996990306593893</izz>
+          <ixx>0.000882226060809</ixx>
+          <ixy>-1.70552313911e-06</ixy>
+          <ixz>-7.85442766165e-06</ixz>
+          <iyy>0.00174462757152</iyy>
+          <iyz>2.53317940902e-05</iyz>
+          <izz>0.00199699030659</izz>
         </inertia>
       </inertial>
       <collision name="left_hip_yaw_collision">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -564,7 +564,7 @@
         </surface>
       </collision>
       <visual name="left_hip_yaw_visual">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -583,21 +583,21 @@
     </link>
     <!--LINK: right_hip_roll-->
     <link name="right_hip_roll">
-      <pose frame="">0 -0.055 -0.06 0 0 1.570796327</pose>
+      <pose frame="">0.000000000 -0.055000000 -0.060000000 0.000000000 0.000000000 1.570796327</pose>
       <inertial>
-        <pose frame="">0.015732946879847644 -3.319144005479369e-05 -0.02071085319304939</pose>
+        <pose frame="">0.015732947 -0.000033191 -0.020710853 0.000000000 0.000000000 0.000000000</pose>
         <mass>0.306</mass>
         <inertia>
-          <ixx>0.0001179296979195992</ixx>
-          <ixy>3.750777661643139e-06</ixy>
-          <ixz>-3.7623939617341825e-06</ixz>
-          <iyy>0.00021675292165888234</iyy>
-          <iyz>-1.0471910235692515e-06</iyz>
-          <izz>0.000261935711080282</izz>
+          <ixx>0.00011792969792</ixx>
+          <ixy>3.75077766164e-06</ixy>
+          <ixz>-3.76239396173e-06</ixz>
+          <iyy>0.000216752921659</iyy>
+          <iyz>-1.04719102357e-06</iyz>
+          <izz>0.00026193571108</izz>
         </inertia>
       </inertial>
       <collision name="right_hip_roll_collision">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -623,7 +623,7 @@
         </surface>
       </collision>
       <visual name="right_hip_roll_visual">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -642,21 +642,21 @@
     </link>
     <!--LINK: left_hip_roll-->
     <link name="left_hip_roll">
-      <pose frame="">0 0.055 -0.06 0 0 1.570796327</pose>
+      <pose frame="">0.000000000 0.055000000 -0.060000000 0.000000000 0.000000000 1.570796327</pose>
       <inertial>
-        <pose frame="">0.015732946879847644 3.319144005479369e-05 -0.02071085319304939</pose>
+        <pose frame="">0.015732947 0.000033191 -0.020710853 0.000000000 0.000000000 0.000000000</pose>
         <mass>0.306</mass>
         <inertia>
-          <ixx>0.0001179296979195992</ixx>
-          <ixy>3.750777661643139e-06</ixy>
-          <ixz>-3.7623939617341825e-06</ixz>
-          <iyy>0.00021675292165888234</iyy>
-          <iyz>-1.0471910235692515e-06</iyz>
-          <izz>0.000261935711080282</izz>
+          <ixx>0.00011792969792</ixx>
+          <ixy>3.75077766164e-06</ixy>
+          <ixz>-3.76239396173e-06</ixz>
+          <iyy>0.000216752921659</iyy>
+          <iyz>-1.04719102357e-06</iyz>
+          <izz>0.00026193571108</izz>
         </inertia>
       </inertial>
       <collision name="left_hip_roll_collision">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -682,7 +682,7 @@
         </surface>
       </collision>
       <visual name="left_hip_roll_visual">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -701,21 +701,21 @@
     </link>
     <!--LINK: right_upper_leg-->
     <link name="right_upper_leg">
-      <pose frame="">0.01 -0.055 -0.05 -0.05 0 1.570796327</pose>
+      <pose frame="">0.010000000 -0.055000000 -0.050000000 -0.050000000 0.000000000 1.570796327</pose>
       <inertial>
-        <pose frame="">-0.0868239473635843 -0.0009904680702090176 -0.0032236573318317092 0 0 0</pose>
+        <pose frame="">-0.086823947 -0.000990468 -0.003223657 0.000000000 0.000000000 0.000000000</pose>
         <mass>0.387</mass>
         <inertia>
-          <ixx>0.0006967005196318071</ixx>
-          <ixy>-9.534768064209597e-06</ixy>
-          <ixz>-0.00047062464986191157</ixz>
-          <iyy>0.0023927878790607625</iyy>
-          <iyz>1.168766364373783e-07</iyz>
-          <izz>0.0020569215256885614</izz>
+          <ixx>0.000696700519632</ixx>
+          <ixy>-9.53476806421e-06</ixy>
+          <ixz>-0.000470624649862</ixz>
+          <iyy>0.00239278787906</iyy>
+          <iyz>1.16876636437e-07</iyz>
+          <izz>0.00205692152569</izz>
         </inertia>
       </inertial>
       <collision name="right_upper_leg_collision">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -741,7 +741,7 @@
         </surface>
       </collision>
       <visual name="right_upper_leg_visual">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -760,21 +760,21 @@
     </link>
     <!--LINK: left_upper_leg-->
     <link name="left_upper_leg">
-      <pose frame="">0.01 0.055 -0.06 -0.05 0 1.570796327</pose>
+      <pose frame="">0.010000000 0.055000000 -0.060000000 -0.050000000 0.000000000 1.570796327</pose>
       <inertial>
-        <pose frame="">-0.0868239473635843 -0.0009904680702090176 -0.0032236573318317092 0 0 0</pose>
+        <pose frame="">-0.086823947 -0.000990468 -0.003223657 0.000000000 0.000000000 0.000000000</pose>
         <mass>0.387</mass>
         <inertia>
-          <ixx>0.0006967005196318071</ixx>
-          <ixy>9.534768064209597e-06</ixy>
-          <ixz>-0.00047062464986191157</ixz>
-          <iyy>0.0023927878790607625</iyy>
-          <iyz>-1.168766364373783e-07</iyz>
-          <izz>0.0020569215256885614</izz>
+          <ixx>0.000696700519632</ixx>
+          <ixy>9.53476806421e-06</ixy>
+          <ixz>-0.000470624649862</ixz>
+          <iyy>0.00239278787906</iyy>
+          <iyz>-1.16876636437e-07</iyz>
+          <izz>0.00205692152569</izz>
         </inertia>
       </inertial>
       <collision name="left_upper_leg_collision">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -800,7 +800,7 @@
         </surface>
       </collision>
       <visual name="left_upper_leg_visual">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -819,21 +819,21 @@
     </link>
     <!--LINK: right_lower_leg-->
     <link name="right_lower_leg">
-      <pose frame="">0.01 -0.055 -0.25 0 0 1.570796327</pose>
+      <pose frame="">0.010000000 -0.055000000 -0.250000000 0.000000000 0.000000000 1.570796327</pose>
       <inertial>
-        <pose frame="">-0.10000847255111779 0.0012849442073489777 -0.0070729066189781946 0 0 0</pose>
+        <pose frame="">-0.100008473 0.001284944 -0.007072907 0.000000000 0.000000000 0.000000000</pose>
         <mass>0.177</mass>
         <inertia>
-          <ixx>0.00026298531488117623</ixx>
-          <ixy>-8.38322526058631e-06</ixy>
-          <ixz>0.0002634339989834785</ixz>
-          <iyy>0.001587091949550628</iyy>
-          <iyz>-6.909200774158671e-07</iyz>
-          <izz>0.001417720950622744</izz>
+          <ixx>0.000262985314881</ixx>
+          <ixy>-8.38322526059e-06</ixy>
+          <ixz>0.000263433998983</ixz>
+          <iyy>0.00158709194955</iyy>
+          <iyz>-6.90920077416e-07</iyz>
+          <izz>0.00141772095062</izz>
         </inertia>
       </inertial>
       <collision name="right_lower_leg_collision">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -859,7 +859,7 @@
         </surface>
       </collision>
       <visual name="right_lower_leg_visual">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -878,21 +878,21 @@
     </link>
     <!--LINK: left_lower_leg-->
     <link name="left_lower_leg">
-      <pose frame="">0.01 0.055 -0.25 0 0 1.570796327</pose>
+      <pose frame="">0.010000000 0.055000000 -0.250000000 0.000000000 0.000000000 1.570796327</pose>
       <inertial>
-        <pose frame="">-0.10000847255111779 0.0012849442073489777 -0.0070729066189781946 0 0 0</pose>
+        <pose frame="">-0.100008473 0.001284944 -0.007072907 0.000000000 0.000000000 0.000000000</pose>
         <mass>0.177</mass>
         <inertia>
-          <ixx>0.00026298531488117623</ixx>
-          <ixy>8.38322526058631e-06</ixy>
-          <ixz>0.0002634339989834785</ixz>
-          <iyy>0.001587091949550628</iyy>
-          <iyz>6.909200774158671e-07</iyz>
-          <izz>0.001417720950622744</izz>
+          <ixx>0.000262985314881</ixx>
+          <ixy>8.38322526059e-06</ixy>
+          <ixz>0.000263433998983</ixz>
+          <iyy>0.00158709194955</iyy>
+          <iyz>6.90920077416e-07</iyz>
+          <izz>0.00141772095062</izz>
         </inertia>
       </inertial>
       <collision name="left_lower_leg_collision">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -918,7 +918,7 @@
         </surface>
       </collision>
       <visual name="left_lower_leg_visual">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -937,21 +937,21 @@
     </link>
     <!--LINK: right_ankle-->
     <link name="right_ankle">
-      <pose frame="">0 -0.055 -0.45 0 3.14159 1.570796327</pose>
+      <pose frame="">0.000000000 -0.055000000 -0.450000000 0.000000000 3.141590000 1.570796327</pose>
       <inertial>
-        <pose frame="">-0.01573294687984541 0.0005126082201406932 -0.02197623716321553 0 0 0</pose>
+        <pose frame="">-0.015732947 0.000512608 -0.021976237 0.000000000 0.000000000 0.000000000</pose>
         <mass>0.306</mass>
         <inertia>
-          <ixx>0.00011792969791959952</ixx>
-          <ixy>3.7507776616440774e-06</ixy>
-          <ixz>3.762393961734002e-06</ixz>
-          <iyy>0.00021675292165888193</iyy>
-          <iyz>1.0471910235692212e-06</iyz>
-          <izz>0.0002619357110802831</izz>
+          <ixx>0.00011792969792</ixx>
+          <ixy>3.75077766164e-06</ixy>
+          <ixz>3.76239396173e-06</ixz>
+          <iyy>0.000216752921659</iyy>
+          <iyz>1.04719102357e-06</iyz>
+          <izz>0.00026193571108</izz>
         </inertia>
       </inertial>
       <collision name="right_ankle_collision">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -977,7 +977,7 @@
         </surface>
       </collision>
       <visual name="right_ankle_visual">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -996,21 +996,21 @@
     </link>
     <!--LINK: left_ankle-->
     <link name="left_ankle">
-      <pose frame="">0 0.055 -0.45 0 3.14159 1.570796327</pose>
+      <pose frame="">0.000000000 0.055000000 -0.450000000 0.000000000 3.141590000 1.570796327</pose>
       <inertial>
-        <pose frame="">-0.01573294687984541 0.0005126082201406932 -0.02197623716321553 0 0 0</pose>
+        <pose frame="">-0.015732947 0.000512608 -0.021976237 0.000000000 0.000000000 0.000000000</pose>
         <mass>0.306</mass>
         <inertia>
-          <ixx>0.00011792969791959952</ixx>
-          <ixy>-3.7507776616440774e-06</ixy>
-          <ixz>3.762393961734002e-06</ixz>
-          <iyy>0.00021675292165888193</iyy>
-          <iyz>-1.0471910235692212e-06</iyz>
-          <izz>0.0002619357110802831</izz>
+          <ixx>0.00011792969792</ixx>
+          <ixy>-3.75077766164e-06</ixy>
+          <ixz>3.76239396173e-06</ixz>
+          <iyy>0.000216752921659</iyy>
+          <iyz>-1.04719102357e-06</iyz>
+          <izz>0.00026193571108</izz>
         </inertia>
       </inertial>
       <collision name="left_ankle_collision">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -1036,7 +1036,7 @@
         </surface>
       </collision>
       <visual name="left_ankle_visual">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -1055,21 +1055,21 @@
     </link>
     <!--LINK: right_foot-->
     <link name="right_foot">
-      <pose frame="">-0.04 -0.055 -0.45 0 0.0 1.570796327</pose>
+      <pose frame="">-0.040000000 -0.055000000 -0.450000000 0.000000000 0.000000000 1.570796327</pose>
       <inertial>
-        <pose frame="">0.030807480494529724 0.008771710644510001 0.011298451871418577 0 0 0</pose>
-        <mass>0.20500000000000002</mass>
+        <pose frame="">0.030807480 0.008771711 0.011298452 0.000000000 0.000000000 0.000000000</pose>
+        <mass>0.205</mass>
         <inertia>
-          <ixx>0.00046922761556703155</ixx>
-          <ixy>1.237289853891243e-05</ixy>
-          <ixz>5.165617444725389e-06</ixz>
-          <iyy>0.0010836186025044235</iyy>
-          <iyz>-1.7594150186636352e-06</iyz>
-          <izz>0.0013901177557110861</izz>
+          <ixx>0.000469227615567</ixx>
+          <ixy>1.23728985389e-05</ixy>
+          <ixz>5.16561744473e-06</ixz>
+          <iyy>0.0010836186025</iyy>
+          <iyz>-1.75941501866e-06</iyz>
+          <izz>0.00139011775571</izz>
         </inertia>
       </inertial>
       <collision name="right_foot_collision">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -1095,7 +1095,7 @@
         </surface>
       </collision>
       <visual name="right_foot_visual">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -1114,21 +1114,21 @@
     </link>
     <!--LINK: left_foot-->
     <link name="left_foot">
-      <pose frame="">-0.04 0.055 -0.45 0 0 1.570796327</pose>
+      <pose frame="">-0.040000000 0.055000000 -0.450000000 0.000000000 0.000000000 1.570796327</pose>
       <inertial>
-        <pose frame="">0.030807480494529724 0.008771710644510001 0.011298451871418577 0 0 0</pose>
-        <mass>0.20500000000000002</mass>
+        <pose frame="">0.030807480 0.008771711 0.011298452 0.000000000 0.000000000 0.000000000</pose>
+        <mass>0.205</mass>
         <inertia>
-          <ixx>0.00046922761556703155</ixx>
-          <ixy>-1.237289853891243e-05</ixy>
-          <ixz>5.165617444725389e-06</ixz>
-          <iyy>0.0010836186025044235</iyy>
-          <iyz>1.7594150186636352e-06</iyz>
-          <izz>0.0013901177557110861</izz>
+          <ixx>0.000469227615567</ixx>
+          <ixy>-1.23728985389e-05</ixy>
+          <ixz>5.16561744473e-06</ixz>
+          <iyy>0.0010836186025</iyy>
+          <iyz>1.75941501866e-06</iyz>
+          <izz>0.00139011775571</izz>
         </inertia>
       </inertial>
       <collision name="left_foot_collision">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -1154,7 +1154,7 @@
         </surface>
       </collision>
       <visual name="left_foot_visual">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -1173,21 +1173,21 @@
     </link>
     <!--LINK: neck-->
     <link name="neck">
-      <pose frame="">0 0 0.26 0 0 1.570796327</pose>
+      <pose frame="">0.000000000 0.000000000 0.260000000 0.000000000 0.000000000 1.570796327</pose>
       <inertial>
-        <pose frame="">-0.006037340172290435 -0.0015998434503701033 0.2411591619288128 0 0 0</pose>
+        <pose frame="">-0.006037340 -0.001599843 0.241159162 0.000000000 0.000000000 0.000000000</pose>
         <mass>0.135</mass>
         <inertia>
-          <ixx>0.0004111124111540318</ixx>
-          <ixy>1.3444829354587089e-10</ixy>
-          <ixz>-3.6469345836421835e-10</ixz>
-          <iyy>0.00034317494217641443</iyy>
-          <iyz>-1.2460217686668395e-05</iyz>
-          <izz>0.00023338989035478087</izz>
+          <ixx>0.000411112411154</ixx>
+          <ixy>1.34448293546e-10</ixy>
+          <ixz>-3.64693458364e-10</ixz>
+          <iyy>0.000343174942176</iyy>
+          <iyz>-1.24602176867e-05</iyz>
+          <izz>0.000233389890355</izz>
         </inertia>
       </inertial>
       <collision name="neck_collision">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -1213,7 +1213,7 @@
         </surface>
       </collision>
       <visual name="neck_visual">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -1232,21 +1232,21 @@
     </link>
     <!--LINK: head-->
     <link name="head">
-      <pose frame="">0 0 0.33 0 0 1.570796327</pose>
+      <pose frame="">0.000000000 0.000000000 0.260000000 0.000000000 0.000000000 1.570796327</pose>
       <inertial>
-        <pose frame="">-0.05482228998067195 -0.00010888238321339966 0.0011712900228573724 0 0 0</pose>
-        <mass>0.41900000000000004</mass>
+        <pose frame="">-0.054822290 -0.000108882 0.001171290 0.000000000 0.000000000 0.000000000</pose>
+        <mass>0.419</mass>
         <inertia>
-          <ixx>0.005229542632240126</ixx>
-          <ixy>8.068689130285243e-07</ixy>
-          <ixz>-7.854193775142716e-05</ixz>
-          <iyy>0.004273822060223504</iyy>
-          <iyz>2.2633217085057325e-07</iyz>
-          <izz>0.0033336320526664368</izz>
+          <ixx>0.00522954263224</ixx>
+          <ixy>8.06868913029e-07</ixy>
+          <ixz>-7.85419377514e-05</ixz>
+          <iyy>0.00427382206022</iyy>
+          <iyz>2.26332170851e-07</iyz>
+          <izz>0.00333363205267</izz>
         </inertia>
       </inertial>
       <collision name="head_collision">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -1272,7 +1272,7 @@
         </surface>
       </collision>
       <visual name="head_visual">
-        <pose frame="">0 0 0 0 0 0</pose>
+        <pose frame="">0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -1296,8 +1296,8 @@
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
-          <lower>-3.141592653589793</lower>
-          <upper>3.141592653589793</upper>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
           <velocity>8.16814</velocity>
           <effort>7.3</effort>
         </limit>
@@ -1317,8 +1317,8 @@
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
-          <lower>-3.141592653589793</lower>
-          <upper>3.141592653589793</upper>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
           <velocity>8.16814</velocity>
           <effort>7.3</effort>
         </limit>
@@ -1338,8 +1338,8 @@
       <axis>
         <xyz>0 0 1</xyz>
         <limit>
-          <lower>-3.141592653589793</lower>
-          <upper>3.141592653589793</upper>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
           <velocity>8.16814</velocity>
           <effort>7.3</effort>
         </limit>
@@ -1359,8 +1359,8 @@
       <axis>
         <xyz>0 0 1</xyz>
         <limit>
-          <lower>-3.141592653589793</lower>
-          <upper>3.141592653589793</upper>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
           <velocity>8.16814</velocity>
           <effort>7.3</effort>
         </limit>
@@ -1380,8 +1380,8 @@
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
-          <lower>-3.141592653589793</lower>
-          <upper>3.141592653589793</upper>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
           <velocity>8.16814</velocity>
           <effort>7.3</effort>
         </limit>
@@ -1401,8 +1401,8 @@
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
-          <lower>-3.141592653589793</lower>
-          <upper>3.141592653589793</upper>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
           <velocity>8.16814</velocity>
           <effort>7.3</effort>
         </limit>
@@ -1422,8 +1422,8 @@
       <axis>
         <xyz>0 0 1</xyz>
         <limit>
-          <lower>-3.141592653589793</lower>
-          <upper>3.141592653589793</upper>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
           <velocity>5.75959</velocity>
           <effort>10.0</effort>
         </limit>
@@ -1443,8 +1443,8 @@
       <axis>
         <xyz>0 0 1</xyz>
         <limit>
-          <lower>-3.141592653589793</lower>
-          <upper>3.141592653589793</upper>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
           <velocity>5.75959</velocity>
           <effort>10.0</effort>
         </limit>
@@ -1464,8 +1464,8 @@
       <axis>
         <xyz>1 0 0</xyz>
         <limit>
-          <lower>-3.141592653589793</lower>
-          <upper>3.141592653589793</upper>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
           <velocity>5.75959</velocity>
           <effort>10.0</effort>
         </limit>
@@ -1485,8 +1485,8 @@
       <axis>
         <xyz>1 0 0</xyz>
         <limit>
-          <lower>-3.141592653589793</lower>
-          <upper>3.141592653589793</upper>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
           <velocity>5.75959</velocity>
           <effort>10.0</effort>
         </limit>
@@ -1506,8 +1506,8 @@
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
-          <lower>-3.141592653589793</lower>
-          <upper>3.141592653589793</upper>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
           <velocity>5.75959</velocity>
           <effort>10.0</effort>
         </limit>
@@ -1527,8 +1527,8 @@
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
-          <lower>-3.141592653589793</lower>
-          <upper>3.141592653589793</upper>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
           <velocity>5.75959</velocity>
           <effort>10.0</effort>
         </limit>
@@ -1548,8 +1548,8 @@
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
-          <lower>-3.141592653589793</lower>
-          <upper>3.141592653589793</upper>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
           <velocity>5.75959</velocity>
           <effort>10.0</effort>
         </limit>
@@ -1569,8 +1569,8 @@
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
-          <lower>-3.141592653589793</lower>
-          <upper>3.141592653589793</upper>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
           <velocity>5.75959</velocity>
           <effort>10.0</effort>
         </limit>
@@ -1590,8 +1590,8 @@
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
-          <lower>-3.141592653589793</lower>
-          <upper>3.141592653589793</upper>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
           <velocity>5.75959</velocity>
           <effort>10.0</effort>
         </limit>
@@ -1611,8 +1611,8 @@
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
-          <lower>-3.141592653589793</lower>
-          <upper>3.141592653589793</upper>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
           <velocity>5.75959</velocity>
           <effort>10.0</effort>
         </limit>
@@ -1632,8 +1632,8 @@
       <axis>
         <xyz>1 0 0</xyz>
         <limit>
-          <lower>-3.141592653589793</lower>
-          <upper>3.141592653589793</upper>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
           <velocity>5.75959</velocity>
           <effort>10.0</effort>
         </limit>
@@ -1653,8 +1653,8 @@
       <axis>
         <xyz>1 0 0</xyz>
         <limit>
-          <lower>-3.141592653589793</lower>
-          <upper>3.141592653589793</upper>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
           <velocity>5.75959</velocity>
           <effort>10.0</effort>
         </limit>
@@ -1674,8 +1674,8 @@
       <axis>
         <xyz>0 0 1</xyz>
         <limit>
-          <lower>-3.141592653589793</lower>
-          <upper>3.141592653589793</upper>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
           <velocity>8.16814</velocity>
           <effort>7.3</effort>
         </limit>
@@ -1695,8 +1695,8 @@
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
-          <lower>-3.141592653589793</lower>
-          <upper>3.141592653589793</upper>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
           <velocity>8.16814</velocity>
           <effort>7.3</effort>
         </limit>
