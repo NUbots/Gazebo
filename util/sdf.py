@@ -30,7 +30,7 @@ def get_xyz(d):
 def pose_sdf(parent, pose_data):
     """ Creates pose sdf element, as a child of the parent param """
     pose = ET.SubElement(parent, "pose", {"frame": ""})
-    pose.text = " ".join(["{}".format(x) for x in pose_data])
+    pose.text = " ".join(["{:.9f}".format(float(x)) for x in pose_data])
 
 
 def inertial_sdf(parent, link_data):
