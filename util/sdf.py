@@ -29,6 +29,9 @@ def get_xyz(d):
 
 def pose_sdf(parent, pose_data):
     """ Creates pose sdf element, as a child of the parent param """
+    assert (
+        len(pose_data) == 6
+    ), "[ERR] Invalid pose. Expected: [x y z r p y], Found: {}".format(pose_data)
     pose = ET.SubElement(parent, "pose", {"frame": ""})
     pose.text = " ".join(["{:.9f}".format(float(x)) for x in pose_data])
 
