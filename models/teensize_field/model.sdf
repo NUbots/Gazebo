@@ -5,30 +5,26 @@
 
     <link name="field">
       <pose>0 0 0 0 0 0</pose>
-      <collision name='grass'>
-        <pose>0 0 0 0 0 0</pose>
+      <collision name="collision">
         <geometry>
           <plane>
             <normal>0 0 1</normal>
-            <size>10.40 7.40</size>
+            <size>100 100</size>
           </plane>
         </geometry>
         <surface>
-          <contact>
-            <ode>
-              <kp>600</kp>
-              <kd>40</kd>
-              <max_vel>0.5</max_vel>
-              <min_depth>0.0175</min_depth>
-            </ode>
-          </contact>
           <friction>
             <ode>
-              <mu>2</mu>
-              <mu2>2</mu2>
-              <fdir1>1 0 0</fdir1>
+              <mu>50</mu>
+              <mu2>50</mu2>
             </ode>
           </friction>
+          <contact>
+            <ode>
+              <soft_cfm>0.0</soft_cfm>
+              <soft_erp>0.2</soft_erp>
+            </ode>
+          </contact>
         </surface>
       </collision>
       <visual name="carpet">

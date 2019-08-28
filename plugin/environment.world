@@ -1,32 +1,41 @@
 <?xml version="1.0" ?>
 <sdf version="1.5">
   <world name="nubots_world">
-  <!-- Attach a plugin to this world -->
-  <plugin name="nubots_world" filename="libnubotsworld_plugin.so"/>
-  <gui>
-    <camera name="user_camera">
-      <pose>-2.5 -1 0.75 0 0.1 0.3</pose>
-    </camera>
-  </gui>
-  <physics type="ode">
-			<gravity>0 0 -9.81</gravity>
+    <scene>
+      <shadows>true</shadows>
+    </scene>
+    <!-- Attach a plugin to this world -->
+    <plugin name="nubots_world" filename="libnubots_world_plugin.so">
+      <nuclearnet_name>gazebo</nuclearnet_name>
+      <nuclearnet_address>10.211.55.4</nuclearnet_address>
+      <nuclearnet_port>7447</nuclearnet_port>
+      <update_rate>100</update_rate>
+    </plugin>
+    <gui>
+      <camera name="user_camera">
+        <pose>-2.5 -1 0.75 0 0.1 0.3</pose>
+      </camera>
+    </gui>
+    <physics type="ode">
+      <gravity>0 0 -9.81</gravity>
       <!--<real_time_factor>0.86</real_time_factor>-->
-			<real_time_update_rate>2000</real_time_update_rate>
-			<max_step_size>0.0005</max_step_size>
-			<ode>
-				<solver>
-					<type>quick</type>
-					<iters>50</iters>
-					<sor>1.4</sor>
-				</solver>
-				<constraints>
- 					<cfm>0.0</cfm>
-					<erp>0.2</erp>
-					<contact_max_correcting_vel>100.0</contact_max_correcting_vel>
-					<contact_surface_layer>0.0</contact_surface_layer>
-				</constraints>
-			</ode>
-		</physics>
+      <real_time_update_rate>2000</real_time_update_rate>
+      <max_step_size>0.0005</max_step_size>
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>50</iters>
+          <sor>1.4</sor>
+        </solver>
+        <constraints>
+          <cfm>0.0</cfm>
+          <erp>0.2</erp>
+          <contact_max_correcting_vel>100.0</contact_max_correcting_vel>
+          <contact_surface_layer>0.0</contact_surface_layer>
+        </constraints>
+      </ode>
+    </physics>
+
     <!-- A global light source -->
     <include>
       <uri>model://sun</uri>
@@ -59,25 +68,34 @@
         <uri>model://teensize_goal</uri>
       </include>
       <pose>4.525 0 0 0 0 0</pose>
-    </model> 
+    </model>
 
     <!-- The ball -->
     <model name="nubots_ball">
       <include>
         <uri>model://teensize_ball</uri>
       </include>
-      <pose>0 0 0.15 0 0 0</pose>
-      <plugin name="nubots_ball" filename="libnubotsball_plugin.so"/>
-    </model> 
+      <pose>0.1 0 0.065 0 0 0</pose>
+      <plugin name="nubots_ball" filename="libnubots_ball_plugin.so">
+        <update_rate>100</update_rate>
+      </plugin>
+    </model>
 
-    <!-- The NUbots' Igus -->
-    <model name="nubots_igus">
+    <!-- The NUbots' NUgus -->
+    <model name="nugus1">
       <include>
-        <uri>model://nubots_igus_hull</uri>
+        <uri>model://nubots_nugus_hull</uri>
       </include>
-      <pose>-0.15 0.125 0.6225 0 0.125 0</pose>
+      <pose>-0.15 0.125 0.56 0 0 0</pose>
       <!-- Attach the plugin to this model -->
-      <plugin name="nubots_igus" filename="libnubotsigus_plugin.so"/>
+      <plugin name="nugus1" filename="libnubots_nugus_plugin.so">
+        <!-- Joint PID factor for all joints except ankle roll -->
+        <joint_pid_factor>40.0</joint_pid_factor>
+        <!-- Joint PID factor for ankle roll joints -->
+        <joint_ankle_roll_pid_factor>35.0</joint_ankle_roll_pid_factor>
+        <!-- Initial P-gain for PID controller -->
+        <initial_gain>40.0</initial_gain>
+      </plugin>
     </model>
   </world>
 </sdf>
